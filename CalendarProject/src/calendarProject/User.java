@@ -1,5 +1,5 @@
 package calendarProject;
 
-public class Calendar {
-	
+public class User {
+
 }
