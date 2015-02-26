@@ -2,7 +2,6 @@ package calendarProject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-//ørjan jobber her fra 11.30
 public class Event {
 
 	private int eventID;
@@ -35,7 +34,8 @@ public class Event {
 		
 	}
 
-	public void notify() {
+	public void notify(String string) {
+		//denne metoden må endres totalt sannsynligvis
 		int n = invited.size();
 		for (int i = 0; i < n; i++) {
 			invited.get(i).
