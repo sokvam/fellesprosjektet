@@ -1,6 +1,7 @@
 package calendarProject;
 
-public class Calendar {
-	
+import java.util.ArrayList;
 
+public class Calendar {
+	ArrayList<Event> events;
 }
