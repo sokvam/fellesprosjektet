@@ -7,9 +7,7 @@ public class Event {
 
 	private int ID;
 
-	private String name;
-
-	private String info;
+	private String name, info;
 
 	private Date date;
 
@@ -21,23 +19,13 @@ public class Event {
 		this.setName(name);
 		this.setDate(date);
 	}
-
-	public Event getEvent() {
-		return this;
-	}
-
-	public void notify(int userID, Event event) {
-		// denne metoden må endres totalt sannsynligvis
-		/*
-		 * int n = invited.size(); for (int i = 0; i < n; i++) { invited.get(i);
-		 * }
-		 */
-	}
-
+	
 	public void inviteUser(int userID) {
 		// finn riktig bruker ved å søke opp i databasen
 		// og legg til personen i lista
 		// deretter må personen blir notified.
+		User user = new User();
+		invited.add(user);
 	}
 
 	public void inviteUsers(ArrayList<Integer> userIDs) {
