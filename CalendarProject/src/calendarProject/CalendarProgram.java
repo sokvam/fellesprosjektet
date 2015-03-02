@@ -4,6 +4,7 @@ import java.util.*;
 
 public class CalendarProgram {
 
+
 	//Database instansering
 	
 	private void init() {
@@ -20,4 +21,5 @@ public class CalendarProgram {
 		program.run();
 		
 	}
+
 }

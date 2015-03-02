@@ -1,13 +1,65 @@
 package calendarProject;
 
-public class User {
+import java.util.ArrayList;
 
+public class User {
+	
 	private String email;
 
 	private String name;
 
 	private int phoneNumber;
 
-	private PersonalCalendar personalCal;
+	private PersonalCalendar personalCalendar;
 	
+	private ArrayList<GroupCalendar> groupCalendars;
+	
+	public void addGroupCalendar(GroupCalendar GC, int count){
+		//Telleren count er til for at funksjonene i User-klassen og GroupCalendar-klassen
+		//ikke skal kalle hverandre i evig løkke.
+		//Count fungerer som følger: I selve programmet skal funksjonen alltid kalles med verdien 0.
+		//Når GroupCalendar.addMember kalles (se linje ***), øker den med 1.
+		//På samme måte øker telleren med én når GroupCalendar kaller User.addGroupCalendar.
+		//For å hindre at funksjonene kaller hverandre i sirkel, skal funksjonen kun kalles
+		//hvis verdien "count" er mindre enn 2. Den har da både lagret brukeren som en
+		//del av kalenderen, og kalenderen i listen over brukerens kalendere. Trololo
+		
+		if(count < 2 && count >= 0){
+			groupCalendars.add(GC);
+			GC.addMember(this, count + 1); // ***
+		}
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(int phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public PersonalCalendar getPersonalCal() {
+		return personalCalendar;
+	}
+
+	public void setPersonalCal(PersonalCalendar personalCal) {
+		this.personalCalendar = personalCal;
+		personalCal.setOwner(this);
+	}	
 }

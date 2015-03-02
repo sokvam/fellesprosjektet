@@ -1,44 +1,76 @@
 package calendarProject;
+
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 public class Event {
 
-	private int eventID;
+	private int ID;
 
-	private String eventName;
+	private String name, info;
 
-	private String eventInfo;
-	
 	private Date date;
-
-	private int timeOfDay;
 
 	private Room room;
 
 	private ArrayList<User> invited;
+
+	public Event(String name, Date date) {
+		this.setName(name);
+		this.setDate(date);
+	}
 	
-	public Event getEvent(){
-		return this;
-	}
-	
-	Set<Date, timeOfDay>(Type arg) {
-		
-	}
-
-	removeInvite(User person) {
-		
+	public void inviteUser(int userID) {
+		// finn riktig bruker ved å søke opp i databasen
+		// og legg til personen i lista
+		// deretter må personen blir notified.
+		User user = new User();
+		invited.add(user);
 	}
 
-	invite(User person) {
-		
-	}
-
-	public void notify(String string) {
-		//denne metoden må endres totalt sannsynligvis
-		int n = invited.size();
-		for (int i = 0; i < n; i++) {
-			invited.get(i).
+	public void inviteUsers(ArrayList<Integer> userIDs) {
+		for (int userID : userIDs) {
+			inviteUser(userID);
 		}
+	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 }
