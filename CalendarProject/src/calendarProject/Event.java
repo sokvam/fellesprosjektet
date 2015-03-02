@@ -9,17 +9,18 @@ public class Event {
 
 	private String name, info;
 
-	private Date date;
+	private Date startDate, endDate;
 
-	private Room room;
+	private int roomID;
 
 	private ArrayList<User> invited;
 
-	public Event(String name, Date date) {
+	public Event(String name, Date startDate, Date endDate) {
 		this.setName(name);
-		this.setDate(date);
+		this.setStartDate(startDate);
+		this.setEndDate(endDate);
 	}
-	
+
 	public void inviteUser(int userID) {
 		// finn riktig bruker ved å søke opp i databasen
 		// og legg til personen i lista
@@ -58,19 +59,39 @@ public class Event {
 		this.info = info;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setStartDate(Date date) {
+		this.startDate = date;
 	}
 
-	public Room getRoom() {
-		return room;
+	public int getRoom() {
+		return roomID;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setRoomID() {
+		// Velg det minste rommet som oppfyller følgende krav:
+		int minSeats = invited.size();
+		// Må ha minst minSeats antall plasser
+		// Velg deretter alle rom, og trekk fra de som er opptatte:
+		/*
+		 * SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT
+		 * roomID FROM Events WHERE endDate > this.startDate AND
+		 * startDate < this.endDate GROUP BY roomID)
+		 * ORDER BY Kapasitet Asc
+		 */
+		//Også finne det minste
+		int roomID = 0;
+		this.roomID = roomID;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 }
