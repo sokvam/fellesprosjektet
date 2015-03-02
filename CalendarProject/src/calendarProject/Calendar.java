@@ -3,7 +3,7 @@ package calendarProject;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Calendar {
+public abstract class Calendar {
 
 	ArrayList<Event> events;
 
