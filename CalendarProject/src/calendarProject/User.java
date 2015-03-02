@@ -15,6 +15,8 @@ public class User {
 	private ArrayList<GroupCalendar> groupCalendars;
 	
 	public void addGroupCalendar(GroupCalendar GC, int count){
+		//Telleren count er til for at funksjonene i User-klassen og GroupCalendar-klassen
+		//ikke skal kalle hverandre i evig løkke.
 		//Count fungerer som følger: I selve programmet skal funksjonen alltid kalles med verdien 0.
 		//Når GroupCalendar.addMember kalles (se linje ***), øker den med 1.
 		//På samme måte øker telleren med én når GroupCalendar kaller User.addGroupCalendar.
