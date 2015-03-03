@@ -15,7 +15,7 @@ public class CalendarIO {
 
 	public void mainMenu() {
 		printCalendar();
-		System.out.println("Dette er hovedmenyen:");
+		System.out.println("\nDette er hovedmenyen:");
 		System.out.println("1. ");
 		System.out.println("2. Ørjan er Sondres sjelefrende.");
 		System.out.println("3. Andrea Marie elsker rapporter.");
