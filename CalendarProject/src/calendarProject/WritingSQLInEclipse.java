@@ -4,6 +4,13 @@ package calendarProject;
 import java.sql.*;
 
 public class WritingSQLInEclipse {
+	
+	//alternativ constructør, avhengig av om vi vil ha databasene på flere eller kun en pc
+	//public void constructer(String DB_URL, String USER, String PASS){
+		//this.USER = USER;
+		//this.PASS = PASS;
+		//this.DB_URL = "jdbc:mysql://" + DB_URL;
+	//}
 
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	   static final String DB_URL = "jdbc:mysql://127.0.0.1:3306"; //127.0.0.1:3306 er lokaladressen til min connection og vil derfor variere, den finner man i workbench
