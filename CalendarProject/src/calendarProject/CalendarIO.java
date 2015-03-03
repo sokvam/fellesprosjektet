@@ -59,25 +59,38 @@ public class CalendarIO {
 	}
 
 	public void printCalendar() {
-		GregorianCalendar cal = new GregorianCalendar();
+		GregorianCalendar cal = new GregorianCalendar(2015,8,2);
+		int year = cal.get(GregorianCalendar.YEAR);
 		int daysInMonth = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH); // antall dager i måneden
 		String monthString = new SimpleDateFormat("MMMMMMMMM").format(cal.getTime()); // måneden som en string
 		int dayNumberInMonth = cal.get(GregorianCalendar.DAY_OF_MONTH); //1-indeksert
-		int dayNumberInWeek = cal.get(GregorianCalendar.DAY_OF_WEEK); //1-indeksert, starter søndag
-		int firstDayOfMonth = ((((dayNumberInMonth % 7) - dayNumberInWeek - 1) + 7) % 7) + 1; //gir ukedagnummer, 1-indeksert, start mandag
-		System.out.println("              " + monthString);
-		System.out.println(" man  tir  ons  tor  fre  lør  søn ");
+		int dayNumberInWeek = (cal.get(GregorianCalendar.DAY_OF_WEEK) + 6) % 7; //0-indeksert, starter mandag
+		int firstDayOfMonth = ((7 - (dayNumberInMonth % 7)) + dayNumberInWeek) % 7;//første ukedagen i måneden,
+		//nullindeksert (0 er mandag, 1 er tirsdag, ..., 6 er søndag
+		System.out.println();
+		System.out.println("\t\t\t" + monthString + " " +  year);
+		System.out.println();
+		System.out.println("\tman\ttir\tons\ttor\tfre\tlør\tsøn");
 		int dayCount = 1;
-		int i = 1;
-		while(true){
-			if(i < firstDayOfMonth){
-				System.out.print("     ");
+		int i = 0;
+		int currentWeekday = firstDayOfMonth;
+		boolean run = true;
+		while(run){
+			if(i < firstDayOfMonth){  //Hvis ikke måneden har begynt enda, print tomme felter
+				System.out.print("\t");
 				i++;
 			} else if (dayCount <= daysInMonth){
-				System.out.print("  " + dayCount + "  ");
-				dayCount += 1;
+				System.out.print("\t" + dayCount);
+				if(dayCount % 32 == 0){ //						FYLL INN: Hvis dagen har en avtale
+					System.out.print("*");
+				}
+				dayCount++;
+				if(currentWeekday == 6){ //Hvis søndag: Linjeskift
+					System.out.println("");
+				}
+				currentWeekday = (currentWeekday + 1) % 7; //Oppdater ukedag
 			} else {
-				break;
+				run = false;
 			}
 		}
 		
