@@ -60,16 +60,32 @@ public class CalendarIO {
 
 	public void printCalendar() {
 		GregorianCalendar cal = new GregorianCalendar();
-		int monthNumber = cal.get(GregorianCalendar.MONTH); // månedsnummer
-		int year = cal.get(GregorianCalendar.YEAR); // det aktuelle året
-		cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH); // antall dager i måneden
-		String monthString = new SimpleDateFormat("MMMMMMMMM").format(cal
-				.getTime()); // måneden som en string
+		int daysInMonth = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH); // antall dager i måneden
+		String monthString = new SimpleDateFormat("MMMMMMMMM").format(cal.getTime()); // måneden som en string
+		int dayNumberInMonth = cal.get(GregorianCalendar.DAY_OF_MONTH); //1-indeksert
+		int dayNumberInWeek = cal.get(GregorianCalendar.DAY_OF_WEEK); //1-indeksert, starter søndag
+		int firstDayOfMonth = ((((dayNumberInMonth % 7) - dayNumberInWeek - 1) + 7) % 7) + 1; //gir ukedagnummer, 1-indeksert, start mandag
 		System.out.println("              " + monthString);
-		System.out.println("man  tir  ons  tor  fre  lør  søn");
+		System.out.println(" man  tir  ons  tor  fre  lør  søn ");
+		int dayCount = 1;
+		int i = 1;
+		while(true){
+			if(i < firstDayOfMonth){
+				System.out.print("     ");
+				i++;
+			} else if (dayCount <= daysInMonth){
+				System.out.print("  " + dayCount + "  ");
+				dayCount += 1;
+			} else {
+				break;
+			}
+		}
+		
 	}
 
 	public static void main(String[] args) {
+		GregorianCalendar cal = new GregorianCalendar();
+		//System.out.println(cal.get(GregorianCalendar.DAY_OF_MONTH));
 		CalendarIO io = new CalendarIO();
 		io.printCalendar();
 	}
