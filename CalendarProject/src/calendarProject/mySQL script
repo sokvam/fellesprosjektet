@@ -1,0 +1,99 @@
+CREATE DATABASE calendardb;
+
+USE calendardb;
+
+CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, passord VARCHAR(100), navn VARCHAR(100), tlfnr INT, calendarID INT , email VARCHAR(255)); 
+
+CREATE TABLE calendars (calendarID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, );
+
+CREATE TABLE Calendar (CalendarID INT NOT NULL PRIMARY KEY);
+
+CREATE TABLE UserCalendar (email);
+
+CREATE TABLE GroupCalendar (GroupID INT NOT NULL PRIMARY KEY);
+
+CREATE TABLE Gruppe (GruppeID INT NOT NULL PRIMARY KEY);
+
+CREATE TABLE CalendarEvent (EventID INT NOT NULL PRIMARY KEY, dato, start_tidspunkt, slutt_tidspunkt, beskrivelse, email);
+
+CREATE TABLE Room (roomNr INT NOT NULL PRIMARY KEY, antall_plasser);
+
+Insert into calendardb.user values(702, ‘ørjan123’, ‘Ørjan’, 92374859, 802, ‘orjan123@hotmail.com’);
+
+Insert into calendardb.user values(703, ‘jarl123’, ‘Jarl’, 93286856, 803, ‘jarl123@hotmail.com’);
+
+Insert into calendardb.user values(704, ‘tobias123’, ‘Tobias’, 98763873, 804, ‘tobias123@hotmail.com’);
+
+Insert into calendardb.user values(705, ‘sondre123’, ‘Sondre’, 35678293, 805, ‘sondre123@hotmail.com’);
+
+Insert into calendardb.calendars values(802, 702, null, 0);
+
+Insert into calendardb.calendars values(803, 703, null, 0);
+
+Insert into calendardb.calendars values(804, 704, null, 0);
+
+Insert into calendardb.calendars values(805, 705, null, 0);
+
+Insert into calendardb.calendars values(806, 706, null, 0);
+
+Insert into calendardb.calendars values(807, 707, null, 0);
+
+Insert into calendardb.calendars values(808, 708, null, 0);
+
+Insert into calendardb.calendars values(809, 709, null, 0);
+
+Insert into calendardb.calendars values(810, 710, null, 0);
+
+Insert into calendarbd.calendars values(811, 711, null, 0);
+
+Insert into calendardb.calendars values(812, null, 901, 1);
+
+Insert into calendardb.calendars values(812, null, 902, 1);
+
+Insert into calendardb.gruppe values(901, 702, ‘Blåtur komiteen’);
+
+Insert into calendardb.gruppe values(901, 703, ‘Blåtur komiteen’);
+
+Insert into calendardb.gruppe values(901, 704, ‘Blåtur komiteen’);
+
+Insert into calendardb.gruppe values(901, 705, ‘Blåtur komiteen’);
+
+Insert into calendardb.gruppe values(902, 706, ‘Prosjekt for Firma X’);
+
+Insert into calendardb.gruppe values(902, 707, ‘Prosjekt for Firma X’);
+
+Insert into calendardb.gruppe values(902, 708, ‘Prosjekt for Firma X’);
+
+Insert into calendardb.rooms values(null, 10);
+
+Insert into calendardb.rooms values(null, 20);
+
+Insert into calendardb.rooms values(null, 30);
+
+Insert into calendardb.rooms values(null, 40);
+
+Insert into calendardb.rooms values(null, 50);
+
+Insert into calendardb.rooms values(null, 60);
+
+Insert into calendardb.rooms values(null, 70),
+
+Insert into calendardb.rooms values(null, 10);
+
+Insert into calendardb.rooms values(null, 10);
+
+Insert into calendardb.rooms values(null, 20);
+
+Insert into calendardb.rooms values(null, 20);
+
+Insert into calendardb.rooms values(null, 20);
+
+Insert into calendardb.rooms values(null, 5);
+
+Insert into calendardb.rooms values(null, 5);
+
+Insert into calendardb.rooms values(null, 5);
+
+Insert into calendardb.rooms values(null, 5);
+
+Insert into calendardb.rooms values(null, 5);
