@@ -6,6 +6,7 @@ import java.util.*;
 import sun.util.calendar.Gregorian;
 
 public class CalendarIO {
+	Scanner scanner = new Scanner(System.in);
 
 	// Denne klassen er i praksis nÃ¥ brukt som en printer og ikke en komplett
 	// IO. Dette er for Ã¥ teste muligheten for Ã¥ lagre div. menyer pÃ¥ ett
@@ -13,8 +14,17 @@ public class CalendarIO {
 
 	int dybde = 0;
 
+	public void loggin() {
+		System.out.println( "Skriv inn brukernavn: ");
+		String userName = scanner.next();
+		System.out.println("Skriv inn passord: ");
+		String password = scanner.next();
+		
+		//noe for å sjekke om passord og username stemmer.
+		//hvis det stemmer kjør mainmenu(); hvis ikke print feil passord eller brukernavn og kjør loggin();
+	}
+	
 	public void mainMenu() {
-		printCalendar();
 		System.out.println("\nDette er hovedmenyen:");
 		System.out.println("1. ");
 		System.out.println("2. Ã˜rjan er Sondres sjelefrende.");
