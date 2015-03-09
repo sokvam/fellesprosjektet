@@ -5,6 +5,14 @@ import java.util.ArrayList;
 
 public class SQLMethods {
 
+	public void newUser(String email, String password, String name, int tlf){
+		DBConnection conn = new DBConnection();
+		String sql = "insert into calendardb.users values(null, '" + password + "', '" + name + "', '" + email + "', " + tlf + ", null";
+		conn.executeUpdate(sql);
+		conn.close();
+	}
+	
+	
 	public User getUser(String email, String password) {
 		User user = new User(email, password);
 		
@@ -29,6 +37,7 @@ public class SQLMethods {
 			e.printStackTrace();
 		}
 		conn.close();
+		return user;
 	}
 
 	public ArrayList<Integer> findUsersInGroup(int groupID) {
