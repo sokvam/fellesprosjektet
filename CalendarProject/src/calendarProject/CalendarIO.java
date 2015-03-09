@@ -48,6 +48,7 @@ public class CalendarIO {
 				System.out.print("Skriv inn ditt telefonnummer: ");
 				int tlf = scanner.nextInt();
 				sql.newUser(email, password, name, tlf);
+				System.out.println("Takk, " + name + "! Du har nå opprettet en ny kalenderbruker.");
 				dybde += 1;
 				break;
 			case 2:
