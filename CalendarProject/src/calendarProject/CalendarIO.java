@@ -8,26 +8,58 @@ public class CalendarIO {
 	// Denne klassen er i praksis nå brukt som en printer og ikke en komplett
 	// IO. Dette er for å teste muligheten for å lagre div. menyer på ett
 	// sted.
-	
-	
-	
-	
-	
-	//Tobias koder, stay out! 9. mars 13:45
-	
-	
-	
-	
+
+	// Tobias koder, stay out! 9. mars 13:45
 
 	int dybde = 0;
 
 	SQLMethods sql = new SQLMethods();
 	Scanner scanner = new Scanner(System.in);
+	String email, password;
+	int userID;
 
-	public void mainMenu() {
-		System.out.println("Dette er hovedmenyen:");
+	public void start() {
 		System.out.println("1. Opprett ny bruker");
 		System.out.println("2. Logg inn");
+		int choice = scanner.nextInt();
+		if (choice == 1) {
+			createUser();
+		} else if (choice == 2) {
+			logIn();
+		} else {
+			System.out.println("Skjønte ikke input.");
+			start();
+		}
+
+	}
+
+	public void createUser(){
+		System.out.print("Skriv inn din epost: ");
+		email = scanner.nextLine();
+		System.out.print("Skriv inn ønsket passord: ");
+		password = scanner.nextLine();
+		System.out.print("Skriv inn ditt fulle navn: ");
+		String name = scanner.nextLine();
+		System.out.print("Skriv inn ditt telefonnummer: ");
+		int tlf = scanner.nextInt();
+		sql.newUser(email, password, name, tlf);
+		System.out.println("Takk, " + name
+				+ "! Du har nå opprettet en ny kalenderbruker.");
+		logIn();
+	}
+
+	public void logIn() {
+		System.out.print("Skriv inn brukernavn: ");
+		email = scanner.nextLine();
+		System.out.print("Skriv inn passord: ");
+		password = scanner.nextLine();
+		User user = sql.getUser(email, password);
+		// må fikse innlogging. Hvis riktig, kjør mainMenu
+	}
+
+	public void mainMenu() {
+		sql.getID(email);
+		System.out.println("Dette er hovedmenyen:");
 		System.out.println("3. Kommer snart!");
 		System.out.println("4. Kommer snart!");
 		System.out.print("Enter input: ");
@@ -41,16 +73,6 @@ public class CalendarIO {
 					dybde -= 1;
 				break;
 			case 1:
-				System.out.print("Skriv inn din epost: ");
-				String email = scanner.nextLine();
-				System.out.print("Skriv inn ønsket passord: ");
-				String password = scanner.nextLine();
-				System.out.print("Skriv inn ditt fulle navn: ");
-				String name = scanner.nextLine();
-				System.out.print("Skriv inn ditt telefonnummer: ");
-				int tlf = scanner.nextInt();
-				sql.newUser(email, password, name, tlf);
-				System.out.println("Takk, " + name + "! Du har nå opprettet en ny kalenderbruker.");
 				dybde += 1;
 				break;
 			case 2:

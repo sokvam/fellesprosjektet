@@ -6,20 +6,15 @@ public class CalendarProgram {
 
 	//Database instansering
 	Scanner scanner;
-	CalendarIO printer;
+	CalendarIO io;
 	
 	private void init() {
-		printer = new CalendarIO();
+		io = new CalendarIO();
 		scanner = new Scanner(System.in);
 	}
 	
 	private void run() {
-		printer.mainMenu();
-		int input;
-		while (scanner.hasNext()) {
-			input = scanner.nextInt();
-			printer.subMenu(input);
-		}
+		io.logIn();
 	}
 	
 	
