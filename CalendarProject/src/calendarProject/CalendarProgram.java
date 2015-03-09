@@ -23,7 +23,6 @@ public class CalendarProgram {
 		CalendarProgram program = new CalendarProgram();
 		program.init();
 		program.run();
-		
 	}
 
 }

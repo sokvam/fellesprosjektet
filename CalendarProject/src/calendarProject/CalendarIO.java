@@ -2,6 +2,7 @@ package calendarProject;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Calendar;
 
 public class CalendarIO {
 
@@ -11,7 +12,7 @@ public class CalendarIO {
 
 	// Tobias koder, stay out! 9. mars 13:45
 
-	int dybde = 0;
+	private String tempDate;
 
 	SQLMethods sql = new SQLMethods();
 	Scanner scanner = new Scanner(System.in);
@@ -30,7 +31,6 @@ public class CalendarIO {
 			System.out.println("Skjønte ikke input.");
 			start();
 		}
-
 	}
 
 	public void createUser(){
@@ -58,40 +58,86 @@ public class CalendarIO {
 	}
 
 	public void mainMenu() {
-		sql.getID(email);
+		userID = sql.getID(email);
 		System.out.println("Dette er hovedmenyen:");
-		System.out.println("3. Kommer snart!");
-		System.out.println("4. Kommer snart!");
+		System.out.println("1. Vis dagens eventer");
+		System.out.println("2. Vis en bestemt dato");
+		System.out.println("3. Vis en bestemt måned");
+		System.out.println("4. Opprett event");
 		System.out.print("Enter input: ");
-	}
-
-	public void subMenu(int subMenu) {
-		if (dybde == 0) {
-			switch (subMenu) {
+		int choice = scanner.nextInt();
+		switch (choice) {
 			case 0:
-				if (dybde > 0)
-					dybde -= 1;
-				break;
+				System.out.println("Takk for idag!");
+				return;
 			case 1:
-				dybde += 1;
-				break;
+				GregorianCalendar date = new GregorianCalendar();
+				String datestring = convertDateToSQL(date);
+				eventListMenu(datestring);				
 			case 2:
-				System.out.println("Svaret er ja, men hvor ja?");
-				System.out.println("1. Uendelig ja.");
-				System.out.println("2. Særs ja.");
-				System.out.println("3. Ja, for alltid.");
-				dybde += 1;
-				break;
+				System.out.println("Skriv inn dato på formen 'YYYY-MM-DD'");
+				String inputdate = scanner.next();
+				eventListMenu(inputdate);
 			case 3:
+				printMonth();
+				showEvents(dato);
+				
 				System.out.println("Men hva slags rapporter liker hun best?");
 				System.out.println("Lange rapporter.");
 				System.out.println("Korte rapporter.");
 				System.out.println("Tykke rapporter.");
 				System.out.println("Tynne rapporter.");
-				dybde += 1;
 				break;
-			}
 		}
+	}
+
+	public void eventListMenu(String date) {
+		sql.showEvents(date);
+		System.out.println("1. Velg event");
+		System.out.println("2. Opprett event");
+		System.out.print("Enter input: ");
+		int choice = scanner.nextInt();
+		switch(choice){
+		case 1:
+			System.out.print("Skriv inn IDen på eventet du vil se: ");
+			int eventID = scanner.nextInt();
+			showEvent(eventID);
+		case 2:
+			sql.newEvent(date);
+		}
+	}
+	
+	public void showEvent(int eventID){
+		sql.getEventInfo(eventID);
+		System.out.println("1. Endre event");
+		System.out.println("2. Slette event");
+		System.out.println("3. Tilbake");
+		int choice = scanner.nextInt();
+		switch(choice) {
+		case 1:
+			
+		case 2:
+			sql.deleteEvent(eventID);
+			eventListMenu();
+		case 3:
+			eventListMenu()
+		}
+	}
+	
+	public String convertDateToSQL(GregorianCalendar date){
+		
+		String SQLString;
+		
+		int year = date.get(Calendar.YEAR);
+		int month = date.get(Calendar.MONTH);
+		int day = date.get(Calendar.DATE);
+		int hour = date.get(Calendar.HOUR);
+		int min = date.get(Calendar.MINUTE);
+		int sec = date.get(Calendar.SECOND);
+		
+		SQLString = "'" + year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec + "'";
+		
+		return SQLString;
 	}
 
 	public void printCalendar() {
