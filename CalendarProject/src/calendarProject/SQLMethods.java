@@ -39,7 +39,7 @@ public class SQLMethods {
 			System.out.println("db problems");
 			e.printStackTrace();
 		}
-		String sql2 = "Update calendardb.users set userID = " + userID + "where email = '" + email + "'";
+		String sql2 = "insert into calendardb.calendars set userID = " + userID + "where email = '" + email + "'";
 		String sql3 = "Update calendard"
 		// lage bruker --> hente brukerID --> lage kalender --> hente kalenderID og sende til bruker
 		
@@ -96,6 +96,10 @@ public class SQLMethods {
 		}
 		conn.close();
 		return ID_list;
+	}
+	
+	public ArrayList<Integer> getEventsFromCalendar() {
+		
 	}
 
 }
