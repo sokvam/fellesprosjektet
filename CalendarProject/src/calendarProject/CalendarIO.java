@@ -20,7 +20,7 @@ public class CalendarIO {
 	int dybde = 0;
 
 	SQLMethods sql = new SQLMethods();
-	Scanner scanner = new Scanner();
+	Scanner scanner = new Scanner(System.in);
 
 	public void mainMenu() {
 		System.out.println("Dette er hovedmenyen:");
@@ -39,7 +39,15 @@ public class CalendarIO {
 					dybde -= 1;
 				break;
 			case 1:
-				
+				System.out.print("Skriv inn din epost: ");
+				String email = scanner.nextLine();
+				System.out.print("Skriv inn ønsket passord: ");
+				String password = scanner.nextLine();
+				System.out.print("Skriv inn ditt fulle navn: ");
+				String name = scanner.nextLine();
+				System.out.print("Skriv inn ditt telefonnummer: ");
+				int tlf = scanner.nextInt();
+				sql.newUser(email, password, name, tlf);
 				dybde += 1;
 				break;
 			case 2:
