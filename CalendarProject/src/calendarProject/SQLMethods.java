@@ -24,6 +24,40 @@ public class SQLMethods {
 	}
 
 
+	public void newGroup(String groupName, ArrayList<Integer> members, ){
+		DBConnection conn = new DBConnection();
+		String sql = "insert into calendardb.users values(null, '" + password + "', '" + name + "', '" + email + "', " + tlf + ", null)";
+		conn.executeUpdate(sql);
+		String query = "select userID from calendarDB.users where email = '" + email + "'";
+		ResultSet rs = conn.executeQuery(query);
+		int userID = 0;
+		try {
+			while(rs.next()){
+				userID = rs.getInt("userID");
+			}
+		} catch (SQLException e) {
+			System.out.println("db problems");
+			e.printStackTrace();
+		}
+		String sql2 = "insert into calendardb.calendars values(null, " + userID + ", null, 0)";
+		String query2 = "select calendarID from calendard.calendars where userID = " + userID;
+		conn.executeUpdate(sql2);
+		ResultSet rs2 = conn.executeQuery(query2);
+		int calendarID = 0; 
+		try {
+			while(rs2.next()){
+				calendarID = rs.getInt("calendarID");
+			}
+		} catch (SQLException e) {
+			System.out.println("db problems");
+			e.printStackTrace();
+		}
+		String sql3 = "update dbcalendars.users set calendarID = " + calendarID + " where userID = " + userID;
+		conn.executeUpdate(sql3);
+		// lage bruker --> hente brukerID --> lage kalender --> hente kalenderID og sende til bruker
+		conn.close();
+	}
+	
 	public void newUser(String email, String password, String name, int tlf){
 		DBConnection conn = new DBConnection();
 		String sql = "insert into calendardb.users values(null, '" + password + "', '" + name + "', '" + email + "', " + tlf + ", null)";
@@ -39,10 +73,22 @@ public class SQLMethods {
 			System.out.println("db problems");
 			e.printStackTrace();
 		}
-		String sql2 = "insert into calendardb.calendars set userID = " + userID + "where email = '" + email + "'";
-		String sql3 = "Update calendard"
+		String sql2 = "insert into calendardb.calendars values(null, " + userID + ", null, 0)";
+		String query2 = "select calendarID from calendard.calendars where userID = " + userID;
+		conn.executeUpdate(sql2);
+		ResultSet rs2 = conn.executeQuery(query2);
+		int calendarID = 0; 
+		try {
+			while(rs2.next()){
+				calendarID = rs.getInt("calendarID");
+			}
+		} catch (SQLException e) {
+			System.out.println("db problems");
+			e.printStackTrace();
+		}
+		String sql3 = "update dbcalendars.users set calendarID = " + calendarID + " where userID = " + userID;
+		conn.executeUpdate(sql3);
 		// lage bruker --> hente brukerID --> lage kalender --> hente kalenderID og sende til bruker
-		
 		conn.close();
 	}
 	
@@ -102,4 +148,8 @@ public class SQLMethods {
 		
 	}
 
+	public int getID(String email){
+		
+		
+	}
 }
