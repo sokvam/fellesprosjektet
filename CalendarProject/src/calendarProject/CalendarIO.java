@@ -7,12 +7,12 @@ import sun.util.calendar.Gregorian;
 
 public class CalendarIO {
 	Scanner scanner = new Scanner(System.in);
-
+	Date tdate = new Date();
+	
 	// Denne klassen er i praksis nÃ¥ brukt som en printer og ikke en komplett
 	// IO. Dette er for Ã¥ teste muligheten for Ã¥ lagre div. menyer pÃ¥ ett
 	// sted.
 
-	int dybde = 0;
 
 	public void loggin() {
 		System.out.println( "Skriv inn brukernavn: ");
@@ -26,47 +26,53 @@ public class CalendarIO {
 	
 	public void mainMenu() {
 		System.out.println("\nDette er hovedmenyen:");
-		System.out.println("1. ");
-		System.out.println("2. Ã˜rjan er Sondres sjelefrende.");
-		System.out.println("3. Andrea Marie elsker rapporter.");
-		System.out.println("4. Jarl har nice skjegg.");
-		System.out.print("Enter input: ");
-	}
-
-	public void subMenu(int subMenu) {
-		if (dybde == 0) {
-			switch (subMenu) {
-			case 0:
-				if (dybde > 0)
-					dybde -= 1;
-				break;
-			case 1:
-				System.out.println("Hvor mye/hva slags pikk elsker Tobias?");
-				System.out.println("1. All pikk.");
-				System.out.println("2. Kun hvit.");
-				System.out.println("3. Kun varm.");
-				System.out.println("4. Korte peniser.");
-				System.out.println("5. Lange peniser.");
-				dybde += 1;
-				break;
-			case 2:
-				System.out.println("Svaret er ja, men hvor ja?");
-				System.out.println("1. Uendelig ja.");
-				System.out.println("2. SÃ¦rs ja.");
-				System.out.println("3. Ja, for alltid.");
-				dybde += 1;
-				break;
-			case 3:
-				System.out.println("Men hva slags rapporter liker hun best?");
-				System.out.println("Lange rapporter.");
-				System.out.println("Korte rapporter.");
-				System.out.println("Tykke rapporter.");
-				System.out.println("Tynne rapporter.");
-				dybde += 1;
-				break;
-			}
+		System.out.println("1. Vis dagens eventer");
+		System.out.println("2. Vis en bestemt dato");
+		System.out.println("3. Vis en bestemt måned");
+		System.out.println("4. Opprett event");
+		System.out.print("Skriv inn nret på det du ønsker å utføre.");
+		System.out.println("P.s du kan til alltid returnere hit ved å trykke hm");
+		int input = scanner.nextInt();
+		switch (input) {
+		case 1:
+			showEvent(tdate);
+		case 2:
+			System.out.println("Skriv inn dato på formen ????:");
+			String inputdate = scanner.next();
+			//noe for å konvertere string til dato
+			Date date = inputdate.to;
+			showEvent(date);
+		case 3:
+		case 4:
 		}
 	}
+
+	public void showEvents(Date tdate) {
+		//viser en liste over dagens eventer
+		//må hentes ut av database
+		
+		System.out.println("Velg et event ved å skrive inn nr:");
+		int input = scanner.nextInt();
+		//viser all informasjon om den valgte eventen
+		//man er nå inne i en event
+		System.out.println("Hva ønsker du å gjøre?");
+		System.out.println("1. Endre event");
+		System.out.println("2. Slett event");
+		System.out.println("3. Tilbake");
+		
+		int input2 = scanner.nextInt();
+		switch (input2) {
+		case 1:
+			//noe for å endre
+		
+		case 2:
+			//slette event
+		case 3:
+			showEvents(tdate)
+		}	
+	}
+	
+	
 
 	public void printCalendar() {
 		GregorianCalendar cal = new GregorianCalendar(2015,8,2);
