@@ -1,8 +1,14 @@
 package calendarProject;
 
 public class PersonalCalendar extends Calendar {
+	
+	private int userID;
+	
+	public PersonalCalendar(int userID){
+		this.userID = userID;
+	}
 
-	private User owner;
+
 	
 	/*
 	public void setOwner(User owner, int count) {
