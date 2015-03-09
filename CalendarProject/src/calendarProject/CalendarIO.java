@@ -16,10 +16,10 @@ public class CalendarIO {
 	public void mainMenu() {
 		printCalendar();
 		System.out.println("Dette er hovedmenyen:");
-		System.out.println("1. ");
-		System.out.println("2. Ørjan er Sondres sjelefrende.");
-		System.out.println("3. Andrea Marie elsker rapporter.");
-		System.out.println("4. Jarl har nice skjegg.");
+		System.out.println("1. Fiks denne menyen Sondre!");
+		System.out.println("2. Fiks denne menyen Sondre!");
+		System.out.println("3. Fiks denne menyen Sondre!");
+		System.out.println("4. Fiks denne menyen Sondre!");
 		System.out.print("Enter input: ");
 	}
 
