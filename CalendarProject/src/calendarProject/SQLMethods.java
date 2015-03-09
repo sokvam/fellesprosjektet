@@ -4,6 +4,25 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class SQLMethods {
+	
+	public void setRoomID(ArrayList<User> invited) {
+		// Velg det minste rommet som oppfyller følgende krav:
+		int minSeats = invited.size();
+		DBConnection conn = new DBConnection();
+		String query = "SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT roomID FROM Events WHERE endDate > this.startDate AND startDate < this.endDate GROUP BY roomID) ORDER BY size Asc";
+		// Må ha minst minSeats antall plasser
+		// Velg deretter alle rom, og trekk fra de som er opptatte:
+		/*
+		 * SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT
+		 * roomID FROM Events WHERE endDate > this.startDate AND
+		 * startDate < this.endDate GROUP BY roomID)
+		 * ORDER BY Kapasitet Asc
+		 */
+		//Også finne det minste
+		int roomID = 0;
+		this.roomID = roomID;
+	}
+
 
 	public void newUser(String email, String password, String name, int tlf){
 		DBConnection conn = new DBConnection();
