@@ -6,18 +6,16 @@ public class User {
 
 	private String email, password, name;
 
-	private int phoneNumber;
+	private int phoneNumber, userID, calendarID;
 
-	private PersonalCalendar personalCalendar;
-
-	private ArrayList<GroupCalendar> groupCalendars;
+	private ArrayList<Integer> groupCalendars;
 	
 	public User(String email, String password){
 		this.email = email;
 		this.password = password;
 	}
 
-	public void addGroupCalendar(GroupCalendar groupCal, int count) {
+	public void addGroupCalendar(int calendarID) {
 		// Telleren count er til for at funksjonene i User-klassen og
 		// GroupCalendar-klassen
 		// ikke skal kalle hverandre i evig løkke.
@@ -33,10 +31,10 @@ public class User {
 		// del av kalenderen, og kalenderen i listen over brukerens kalendere.
 		// Trololo
 
-		if (count < 2 && count >= 0) {
-			groupCalendars.add(groupCal);
-			groupCal.addMember(this, count + 1); // ***
-		}
+		//if (count < 2 && count >= 0) {
+		groupCalendars.add(calendarID);
+			//groupCal.addMember(this, count + 1); // ***
+		//}
 	}
 
 	public String getEmail() {
@@ -63,15 +61,20 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public PersonalCalendar getPersonalCal() {
-		return personalCalendar;
+	public int getCalendarID() {
+		return calendarID;
+	}
+	
+	public void setUserID(int userID){
+		this.userID = userID;
+	}
+	
+	public int getUserID(){
+		return userID;
 	}
 
-	public void setPersonalCalendar(PersonalCalendar personalCal, int count) {
+	public void setPersonalCalendar(int calendarID) {
 		//Telleren count fungerer som i funksjonen addGroupCalendar
-		if (count < 2 && count >= 0) {
-			this.personalCalendar = personalCal;
-			personalCal.setOwner(this, count + 1);
-		}
+		this.calendarID = calendarID;
 	}
 }
