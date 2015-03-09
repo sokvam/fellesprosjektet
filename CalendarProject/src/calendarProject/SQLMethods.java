@@ -6,11 +6,11 @@ import java.util.ArrayList;
 public class SQLMethods {
 	
 	public int setRoomID(Event event) {
-		// Velg det minste rommet som oppfyller følgende krav:
+		// Velg det minste rommet som oppfyller fï¿½lgende krav:
 		int minSeats = invited.size();
 		DBConnection conn = new DBConnection();
 		String query = "SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT roomID FROM Events WHERE endDate > " + event.getStartDate() + "AND startDate < " + event.getEndDate() + " GROUP BY roomID) ORDER BY size Asc";
-		// Må ha minst minSeats antall plasser
+		// Mï¿½ ha minst minSeats antall plasser
 		// Velg deretter alle rom, og trekk fra de som er opptatte:
 		/*
 		 * SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT
@@ -18,7 +18,7 @@ public class SQLMethods {
 		 * startDate < this.endDate GROUP BY roomID)
 		 * ORDER BY Kapasitet Asc
 		 */
-		//Også finne det minste
+		//Ogsï¿½ finne det minste
 		int roomID = 0;
 		this.roomID = roomID;
 	}
@@ -149,7 +149,20 @@ public class SQLMethods {
 	}
 
 	public int getID(String email){
-		
-		
+		int userID;
+		DBConnection conn = new DBConnection();
+		String query = "Select userID from calandardb.users where email = '" + email + "'";
+		ResultSet rs = conn.executeQuery(query);
+		try {
+			while (rs.next()) {
+				userID = rs.getInt("userID");
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("SQLException");
+			e.printStackTrace();
+		}
+		conn.close();
+		return userID;	
 	}
 }
