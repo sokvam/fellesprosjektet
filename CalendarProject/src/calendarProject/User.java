@@ -4,15 +4,18 @@ import java.util.ArrayList;
 
 public class User {
 
-	private String email;
-
-	private String name;
+	private String email, password, name;
 
 	private int phoneNumber;
 
 	private PersonalCalendar personalCalendar;
 
 	private ArrayList<GroupCalendar> groupCalendars;
+	
+	public User(String email, String password){
+		this.email = email;
+		this.password = password;
+	}
 
 	public void addGroupCalendar(GroupCalendar groupCal, int count) {
 		// Telleren count er til for at funksjonene i User-klassen og
@@ -20,7 +23,7 @@ public class User {
 		// ikke skal kalle hverandre i evig løkke.
 		// Count fungerer som følger: I selve programmet skal funksjonen alltid
 		// kalles med verdien 0.
-		// Når GroupCalendar.addMember kalles (se linje ***), øker den med 1.
+		// Når groupCal.addMember kalles (se linje ***), øker den med 1.
 		// På samme måte øker telleren med én når GroupCalendar kaller
 		// User.addGroupCalendar.
 		// For å hindre at funksjonene kaller hverandre i sirkel, skal

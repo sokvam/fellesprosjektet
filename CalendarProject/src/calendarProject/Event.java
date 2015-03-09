@@ -25,8 +25,6 @@ public class Event {
 		// finn riktig bruker ved å søke opp i databasen
 		// og legg til personen i lista
 		// deretter må personen blir notified.
-		User user = new User();
-		invited.add(user);
 	}
 
 	public void inviteUsers(ArrayList<Integer> userIDs) {
