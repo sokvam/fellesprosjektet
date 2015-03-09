@@ -20,5 +20,4 @@ public abstract class Calendar {
 		Event event = new Event(name, startDate, endDate);
 		events.add(event);
 	}
-
 }
