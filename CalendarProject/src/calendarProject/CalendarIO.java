@@ -58,7 +58,7 @@ public class CalendarIO {
 	}
 
 	public void printCalendar() {
-		GregorianCalendar cal = new GregorianCalendar(2015,8,2);
+		GregorianCalendar cal = new GregorianCalendar();
 		int year = cal.get(GregorianCalendar.YEAR);
 		int daysInMonth = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH); // antall dager i måneden
 		String monthString = new SimpleDateFormat("MMMMMMMMM").format(cal.getTime()); // måneden som en string
