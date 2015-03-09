@@ -4,15 +4,9 @@ USE calendardb;
 
 CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, passord VARCHAR(100), navn VARCHAR(100), tlfnr INT, calendarID INT , email VARCHAR(255)); 
 
-CREATE TABLE calendars (calendarID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, );
+CREATE TABLE calendar (calendarID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, groupID INT, isGroup BOOLEAN);
 
-CREATE TABLE Calendar (CalendarID INT NOT NULL PRIMARY KEY);
-
-CREATE TABLE UserCalendar (email);
-
-CREATE TABLE GroupCalendar (GroupID INT NOT NULL PRIMARY KEY);
-
-CREATE TABLE Gruppe (GruppeID INT NOT NULL PRIMARY KEY);
+CREATE TABLE group (groupID INT NOT NULL PRIMARY KEY);
 
 CREATE TABLE CalendarEvent (EventID INT NOT NULL PRIMARY KEY, dato, start_tidspunkt, slutt_tidspunkt, beskrivelse, email);
 
