@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 public class SQLMethods {
 	
-	public void setRoomID(ArrayList<User> invited) {
+	public int setRoomID(Event event) {
 		// Velg det minste rommet som oppfyller følgende krav:
 		int minSeats = invited.size();
 		DBConnection conn = new DBConnection();
-		String query = "SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT roomID FROM Events WHERE endDate > this.startDate AND startDate < this.endDate GROUP BY roomID) ORDER BY size Asc";
+		String query = "SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT roomID FROM Events WHERE endDate > " + event.getStartDate() + "AND startDate < " + event.getEndDate() + " GROUP BY roomID) ORDER BY size Asc";
 		// Må ha minst minSeats antall plasser
 		// Velg deretter alle rom, og trekk fra de som er opptatte:
 		/*
@@ -26,9 +26,29 @@ public class SQLMethods {
 
 	public void newUser(String email, String password, String name, int tlf){
 		DBConnection conn = new DBConnection();
-		String sql = "insert into calendardb.users values(null, '" + password + "', '" + name + "', '" + email + "', " + tlf + ", null";
+		String sql = "insert into calendardb.users values(null, '" + password + "', '" + name + "', '" + email + "', " + tlf + ", null)";
 		conn.executeUpdate(sql);
+		String query = "select userID from calendarDB.users where email = '" + email + "'";
+		ResultSet rs = conn.executeQuery(query);
+		int userID = 0;
+		try {
+			while(rs.next()){
+				userID = rs.getInt("userID");
+			}
+		} catch (SQLException e) {
+			System.out.println("db problems");
+			e.printStackTrace();
+		}
+		String sql2 = "Update calendardb.users set userID = " + userID + "where email = '" + email + "'";
+		String sql3 = "Update calendard"
+		// lage bruker --> hente brukerID --> lage kalender --> hente kalenderID og sende til bruker
+		
 		conn.close();
+	}
+	
+	public void newCalendar() {
+		DBConnection conn = new DBConnection();
+		String sql = "insert into calendardb.calendars values(null,	"
 	}
 	
 	

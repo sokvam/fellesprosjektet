@@ -9,7 +9,9 @@ public class Event {
 
 	private String name, info;
 
-	private Date startDate, endDate;
+	private Date startDate;
+
+	private Date endDate;
 
 	private int roomID;
 
@@ -70,17 +72,8 @@ public class Event {
 	}
 
 	public void setRoomID() {
-		// Velg det minste rommet som oppfyller følgende krav:
-		int minSeats = invited.size();
-		// Må ha minst minSeats antall plasser
-		// Velg deretter alle rom, og trekk fra de som er opptatte:
-		/*
-		 * SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT
-		 * roomID FROM Events WHERE endDate > this.startDate AND
-		 * startDate < this.endDate GROUP BY roomID)
-		 * ORDER BY Kapasitet Asc
-		 */
-		//Også finne det minste
+		SQLMethods sqlm = new SQLMethods();
+		this.roomID = sqlm.setRoomID(this);
 		int roomID = 0;
 		this.roomID = roomID;
 	}
