@@ -19,7 +19,9 @@ public class CalendarIO {
 		String userName = scanner.next();
 		System.out.println("Skriv inn passord: ");
 		String password = scanner.next();
-		
+		if (){
+			
+		}
 		//noe for å sjekke om passord og username stemmer.
 		//hvis det stemmer kjør mainmenu(); hvis ikke print feil passord eller brukernavn og kjør loggin();
 	}

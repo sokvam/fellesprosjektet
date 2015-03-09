@@ -13,9 +13,9 @@ public class WritingSQLInEclipse {
 	//}
 
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	   static final String DB_URL = "jdbc:mysql://127.0.0.1:3306"; //127.0.0.1:3306 er lokaladressen til min connection og vil derfor variere, den finner man i workbench
+	   static final String DB_URL = "jdbc:mysql://localhost:3306"; //127.0.0.1:3306 er lokaladressen til min connection og vil derfor variere, den finner man i workbench
 	   static final String USER = "root"; //min bruker
-	   static final String PASS = "qwertyuiop"; //mitt passord
+	   static final String PASS = "root"; //mitt passord
 	   
 	   public static void main(String[] args) {
 	   Connection conn = null;
