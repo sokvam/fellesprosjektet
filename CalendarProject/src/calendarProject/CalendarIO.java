@@ -16,17 +16,18 @@ public class CalendarIO {
 	SQLMethods sql = new SQLMethods();
 	Scanner scanner = new Scanner(System.in);
 	String email, password;
-	User userID;
+	int userID;
 
 
 	public void loggin() {
 		System.out.println( "Skriv inn email: ");
-		String userName = scanner.next();
+		String email = scanner.next();
 		System.out.println("Skriv inn passord: ");
 		String password = scanner.next();
 		mainMenu();
 
 		if (sql.checkPassword(email, password)) {	
+			userID = sql.getUserID(email);
 			mainMenu();
 		} else {
 			System.out.println("Brukernavn og passord stemte ikke, prøv på nytt");
@@ -34,8 +35,6 @@ public class CalendarIO {
 
 	}
 		
-		
-
 	public void start() {
 		System.out.println("1. Opprett ny bruker");
 		System.out.println("2. Logg inn");
@@ -247,22 +246,26 @@ public class CalendarIO {
 		String name = scanner.next();
 		System.out.println("Skriv inn tidspunkt for eventen på formen yyyy-mm-dd hh:mm:ss:");
 		String starttime = scanner.next();
-		System.out.println("Skriv inn varighet på eventen i antall timer: ");
-		int duration = scanner.nextInt();
+		System.out.println("Skriv inn sluttid: ");
+		String endtime = scanner.next();
 		System.out.println("Skriv inn informasjon om eventen, maks 150tegn: "); 
 		String info = scanner.next();
+		System.out.println("Skriv inn minimum romstørelse: ");
+		int size = scanner.nextInt();
 		System.out.println("Ønsker du å innvitere brukere? Ja/Nei");
 		String answer = scanner.next().toLowerCase();
+		ArrayList<Integer> invites = new ArrayList<Integer>();
 		if (answer == "ja") {
 			System.out.println("Skriv inn email til brukere skriv ferdig når du ikke vil invitere fler: ");
-			ArrayList<String> invites = new ArrayList<String>();
-			invites.add(scanner.next());
+			int inviteID = sql.getUserID(scanner.next());
+			invites.add(inviteID);
 			while (scanner.next() != "ferdig") {
-				invites.add(scanner.next());
+				inviteID = sql.getUserID(scanner.next());
+				invites.add(inviteID);
 			}
 			
 		}
-		sql.createEvent();
+		sql.createEvent(invites, starttime, endtime, info, size, userID, name);
 		System.out.println("Eventet er nå opprettet");
 		dayMenu(date);
 	}
