@@ -24,8 +24,8 @@ public class CalendarIO {
 		String userName = scanner.next();
 		System.out.println("Skriv inn passord: ");
 		String password = scanner.next();
-		if (sql.checkPassword(String email, String password) {
-			
+		mainMenu();
+		if (sql.checkPassword(String email, String password) {	
 			mainMenu();
 		} else {
 			System.out.println("Brukernavn og passord stemte ikke, prøv på nytt");
@@ -101,7 +101,7 @@ public class CalendarIO {
 	}
 
 	public void dayMenu(String date) {
-		sql.showEvents(date);
+		//sql.showEvents(date);
 		System.out.println("Hent eventer fra SQL og vis på fin måte...");
 		System.out.println("1. Velg event");
 		System.out.println("2. Opprett event");
@@ -195,12 +195,19 @@ public class CalendarIO {
 		System.out.println("Ønsker du å innvitere brukere? Ja/Nei");
 		String answer = scanner.next().toLowerCase();
 		if (answer == "ja") {
-			System.out.println("Skriv inn ");
-		} else {
-			sql.createEvent();
-			System.out.println("Eventet er nå opprettet");
+			System.out.println("Skriv inn email til brukere skriv ferdig når du ikke vil invitere fler: ");
+			ArrayList<String> invites = new ArrayList<String>();
+			invites.add(scanner.next());
+			while (scanner.next() != "ferdig") {
+				invites.add(scanner.next());
+			}
+			
 		}
+		sql.createEvent();
+		System.out.println("Eventet er nå opprettet");
+		dayMenu(date);
 	}
+	
 
 	public void printMonth(GregorianCalendar cal) {
 
