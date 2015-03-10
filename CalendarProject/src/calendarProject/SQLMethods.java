@@ -12,8 +12,23 @@ public class SQLMethods {
 		//skal ogs� vise event id
 	}
 	
-	public void getEventInfo(int eventID) {
-		//skal vise all info om en event
+	public Event getEventInfo(int eventID) {
+		Event event = new Event("Foo", "Faa", "Bar");
+		DBConnection conn = new DBConnection();
+		String query = "SELECT * FROM events WHERE eventID = " + eventID;
+		ResultSet rs = conn.executeQuery(query);
+		try {
+			while (rs.next()) {
+				String name = rs.getString("eventName");
+				String start_time = rs.getString("start_time");
+				String end_time = rs.getString("end_time");
+				event = new Event(name, start_time, end_time);
+			}
+		} catch (SQLException e) {
+			System.out.println("db problems");
+			e.printStackTrace();
+		}
+		return event;
 	}
 	
 	public void deleteEvent(int eventID) {
@@ -103,7 +118,7 @@ public class SQLMethods {
 		String dBPassword = "";
 		
 		DBConnection conn = new DBConnection();
-		String query = "Select password from calandardb.users where email = " + email;
+		String query = "Select password from calandardb.users where email = '" + email + "'";
 		ResultSet rs = conn.executeQuery(query);
 		try {
 			while (rs.next()) {
