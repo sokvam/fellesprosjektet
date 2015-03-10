@@ -6,10 +6,11 @@ import java.util.ArrayList;
 public class SQLMethods {
 	
 	
-	public void getEventsForDate(String date) {
+	public ArrayList<Event> getEventsForDate(String date, User user) {
 		//skal vise alle eventer for en dato i en liste
 		//skal bare vise navn og tid
 		//skal ogs� vise event id
+		
 	}
 	
 	public void getEventInfo(int eventID) {

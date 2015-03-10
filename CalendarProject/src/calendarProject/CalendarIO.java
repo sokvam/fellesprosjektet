@@ -24,9 +24,7 @@ public class CalendarIO {
 		String userName = scanner.next();
 		System.out.println("Skriv inn passord: ");
 		String password = scanner.next();
-		if (){
-//			DBConnection.executeQuery
-		}
+		mainMenu();
 	}
 		//noe for å sjekke om passord og username stemmer.
 		//hvis det stemmer kjør mainmenu(); hvis ikke print feil passord eller brukernavn og kjør loggin();
@@ -98,7 +96,7 @@ public class CalendarIO {
 	}
 
 	public void dayMenu(String date) {
-		sql.showEvents(date);
+		//sql.showEvents(date);
 		System.out.println("Hent eventer fra SQL og vis på fin måte...");
 		System.out.println("1. Velg event");
 		System.out.println("2. Opprett event");
