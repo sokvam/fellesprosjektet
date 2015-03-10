@@ -34,6 +34,28 @@ CREATE TABLE Rooms (
 roomID INT NOT NULL PRIMARY KEY, 
 size INT NOT NULL);
 
+CREATE TABLE Reserved_in (
+roomID int REFERENCES rooms (roomID),
+eventID int REFERENCES events (eventID));
+
 CREATE TABLE CalendarEvent (
 calendarID INT NOT NULL, 
-eventID INT NOT NULL);
+eventID INT NOT NULL REFERENCES events (eventID));
+
+CREATE TABLE Participation (
+eventID INT REFERENCES events (eventID),
+userID int REFERENCES users (userID),
+responce int);
+
+CREATE TABLE Event_owner (
+userID int REFERENCES users (userID),
+eventID INT REFERENCES events (eventID));
+
+CREATE TABLE PartOfGroup (
+groupID int REFERENCES groups (groupID),
+userID int REFERENCES user (userID));
+
+CREATE TABLE Alarm (
+userID int REFERENCES user (userID),
+eventID int REFERENCES events (eventID),
+minutesInAdvance int);
