@@ -25,11 +25,16 @@ public class CalendarIO {
 		System.out.println("Skriv inn passord: ");
 		String password = scanner.next();
 		mainMenu();
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 		if (sql.checkPassword(email, password)) {	
 			mainMenu();
 		} else {
 			System.out.println("Brukernavn og passord stemte ikke, prøv på nytt");
 		}
+
 	}
 		
 		
