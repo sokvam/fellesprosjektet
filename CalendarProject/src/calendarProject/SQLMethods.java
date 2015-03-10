@@ -1,16 +1,28 @@
-package calendarProject;
+fpackage calendarProject;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SQLMethods {
 	
 	
-	public ArrayList<Event> getEventsForDate(String date, User user) {
-		//skal vise alle eventer for en dato i en liste
-		//skal bare vise navn og tid
-		//skal ogs� vise event id
-		
+	public ArrayList<Integer> getEventsForDate(String date, User user) {
+		ArrayList<Integer> events = new ArrayList<Integer>();
+		DBConnection conn = new DBConnection();
+		String query = "SELECT * events WHERE date = '" + date + "' AND userID = " + user.getUserID();
+		ResultSet rs = conn.executeQuery(query);
+		try {
+			while (rs.next()) {
+				int eventID = rs.getInt("eventID");
+				events.add(eventID);
+			}
+		} catch (SQLException e) {
+			System.out.println("DB problems");
+			e.printStackTrace();
+		}
+		conn.close();
+		return events;
 	}
 	
 	public Event getEventInfo(int eventID) {
@@ -29,6 +41,7 @@ public class SQLMethods {
 			System.out.println("db problems");
 			e.printStackTrace();
 		}
+		conn.close();
 		return event;
 	}
 	
