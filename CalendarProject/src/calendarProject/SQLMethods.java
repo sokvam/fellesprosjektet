@@ -81,7 +81,20 @@ public class SQLMethods {
 		conn.executeUpdate(sql3);
 		conn.close();
 	}
+<<<<<<< Updated upstream
 		
+=======
+	
+<<<<<<< Updated upstream
+=======
+	public void newCalendar() {
+		DBConnection conn = new DBConnection();
+		String sql = "insert into calendardb.calendars values(null,	"
+	}
+
+>>>>>>> Stashed changes
+	
+>>>>>>> Stashed changes
 	public User getUser(String email, String password) {
 		User user = new User(email, password);
 		
