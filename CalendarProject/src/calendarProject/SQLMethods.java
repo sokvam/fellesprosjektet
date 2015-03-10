@@ -33,9 +33,9 @@ public class SQLMethods {
 		try {
 			while (rs.next()) {
 				String name = rs.getString("eventName");
-				String start_time = rs.getString("start_time");
-				String end_time = rs.getString("end_time");
-				event = new Event(name, start_time, end_time);
+				String start_datetime = rs.getString("start_datetime");
+				String end_datetime = rs.getString("end_datetime");
+				event = new Event(name, start_datetime, end_datetime);
 			}
 		} catch (SQLException e) {
 			System.out.println("db problems");

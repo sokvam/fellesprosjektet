@@ -7,11 +7,7 @@ public class Event {
 
 	private int ID;
 
-	private String name, info;
-
-	private String startDate;
-
-	private String endDate;
+	private String name, info, startDateTime, endDateTime;
 
 	private int roomID;
 
@@ -60,11 +56,11 @@ public class Event {
 	}
 
 	public String getStartDate() {
-		return startDate;
+		return startDateTime;
 	}
 
 	public void setStartDate(String date) {
-		this.startDate = date;
+		this.startDateTime = date;
 	}
 
 	public int getRoom() {
@@ -79,11 +75,11 @@ public class Event {
 	}
 
 	public String getEndDate() {
-		return endDate;
+		return endDateTime;
 	}
 
 	public void setEndDate(String endDate) {
-		this.endDate = endDate;
+		this.endDateTime = endDate;
 	}
 	
 	public int getInvNumb(){
