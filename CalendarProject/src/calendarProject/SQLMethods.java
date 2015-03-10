@@ -5,22 +5,24 @@ import java.util.ArrayList;
 
 public class SQLMethods {
 	
-	public int setRoomID(Event event) {
+	public int findRoom(Event event) {
 		// Velg det minste rommet som oppfyller f�lgende krav:
-		int minSeats = invited.size();
+		int minSeats = event.getInvNumb();
 		DBConnection conn = new DBConnection();
-		String query = "SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT roomID FROM Events WHERE endDate > " + event.getStartDate() + "AND startDate < " + event.getEndDate() + " GROUP BY roomID) ORDER BY size Asc";
-		// M� ha minst minSeats antall plasser
-		// Velg deretter alle rom, og trekk fra de som er opptatte:
-		/*
-		 * SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT
-		 * roomID FROM Events WHERE endDate > this.startDate AND
-		 * startDate < this.endDate GROUP BY roomID)
-		 * ORDER BY Kapasitet Asc
-		 */
-		//Ogs� finne det minste
-		int roomID = 0;
-		this.roomID = roomID;
+		String query = "SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT roomID FROM Events WHERE endDate > " + event.getStartDate() + "AND startDate < " + event.getEndDate() + "AND size < " + minSeats + " GROUP BY roomID) ORDER BY size Asc";
+		ResultSet rs = conn.executeQuery(query);
+		int roomID = -1;
+		try {
+			while(rs.next()){
+				roomID = rs.getInt("roomID");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		conn.close();
+		return roomID;
 	}
 
 
@@ -46,7 +48,7 @@ public class SQLMethods {
 		conn.executeUpdate(sql);
 		conn.close();
 	}
-W	
+	
 	public void newUser(String email, String password, String name, int tlf){
 		DBConnection conn = new DBConnection();
 		String sql = "insert into calendardb.users values(null, '" + password + "', '" + name + "', '" + email + "', " + tlf + ", null)";
@@ -132,8 +134,8 @@ W
 		
 	}
 
-	public int getID(String email){
-		int userID;
+	public int getUserID(String email){
+		int userID = -1;
 		DBConnection conn = new DBConnection();
 		String query = "Select userID from calandardb.users where email = '" + email + "'";
 		ResultSet rs = conn.executeQuery(query);

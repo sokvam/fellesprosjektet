@@ -85,4 +85,8 @@ public class Event {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	
+	public int getInvNumb(){
+		return invited.size();
+	}
 }
