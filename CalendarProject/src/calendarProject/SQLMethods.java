@@ -6,6 +6,24 @@ import java.util.ArrayList;
 public class SQLMethods {
 	
 	
+	public void showEvents(String date) {
+		//skal vise alle eventer for en dato i en liste
+		//skal bare vise navn og tid
+		//skal også vise event id
+	}
+	
+	public void getEventInfo(int eventID) {
+		//skal vise all info om en event
+	}
+	
+	public void deleteEvent(int eventID) {
+		//skal slette en event
+	}
+	
+	public void createEvent() {
+		// en metode for å opprette event. 
+		//du velger hvilke parametre som trengs så lager vi io for det
+	}
 
 	public int findRoom(Event event) {
 		int minSeats = event.getInvNumb();

@@ -12,14 +12,13 @@ public class CalendarIO {
 
 	// Tobias koder, stay out! 9. mars 13:45
 
-	private String tempDate;
 
-	//SQLMethods sql = new SQLMethods();
+	SQLMethods sql = new SQLMethods();
 	Scanner scanner = new Scanner(System.in);
 	String email, password;
-	int userID;
+	User userID;
 
-<<<<<<< HEAD
+
 	public void loggin() {
 		System.out.println( "Skriv inn brukernavn: ");
 		String userName = scanner.next();
@@ -31,7 +30,7 @@ public class CalendarIO {
 	}
 		//noe for å sjekke om passord og username stemmer.
 		//hvis det stemmer kjør mainmenu(); hvis ikke print feil passord eller brukernavn og kjør loggin();
-=======
+
 	public void start() {
 		System.out.println("1. Opprett ny bruker");
 		System.out.println("2. Logg inn");
@@ -39,7 +38,7 @@ public class CalendarIO {
 		if (choice == 1) {
 			createUser();
 		} else if (choice == 2) {
-			logIn();
+			loggin();
 		} else {
 			System.out.println("Skjønte ikke input.");
 			start();
@@ -55,24 +54,14 @@ public class CalendarIO {
 		String name = scanner.nextLine();
 		System.out.print("Skriv inn ditt telefonnummer: ");
 		int tlf = scanner.nextInt();
-		//sql.newUser(email, password, name, tlf);
+		sql.newUser(email, password, name, tlf);
 		System.out.println("Lager SQL-bruker...");
 		System.out.println("Takk, " + name
 				+ "! Du har nå opprettet en ny kalenderbruker.");
-		logIn();
->>>>>>> origin/master
+		loggin();
+
 	}
 
-	public void logIn() {
-		System.out.print("Skriv inn brukernavn: ");
-		email = scanner.nextLine();
-		System.out.print("Skriv inn passord: ");
-		password = scanner.nextLine();
-		//User user = sql.getUser(email, password);
-		System.out.println("Henter SQL-bruker...");
-		// må fikse innlogging. Hvis riktig, kjør mainMenu
-		mainMenu();
-	}
 
 	public void mainMenu() {
 		//userID = sql.getID(email);
@@ -109,7 +98,7 @@ public class CalendarIO {
 	}
 
 	public void dayMenu(String date) {
-		//sql.showEvents(date);
+		sql.showEvents(date);
 		System.out.println("Hent eventer fra SQL og vis på fin måte...");
 		System.out.println("1. Velg event");
 		System.out.println("2. Opprett event");
@@ -128,7 +117,7 @@ public class CalendarIO {
 	}
 
 	public void showEvent(int eventID, String date) {
-		//sql.getEventInfo(eventID);
+		sql.getEventInfo(eventID);
 		System.out.println("Skriver noe fint om eventet...");
 		System.out.println("1. Endre event");
 		System.out.println("2. Slette event");
@@ -139,7 +128,7 @@ public class CalendarIO {
 			System.out.println("Endre event...");
 			mainMenu(); //inntil videre
 		case 2:
-			//sql.deleteEvent(eventID);
+			sql.deleteEvent(eventID);
 			mainMenu();
 		case 3:
 			dayMenu(date);
