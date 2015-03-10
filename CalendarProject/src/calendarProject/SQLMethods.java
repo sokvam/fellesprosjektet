@@ -1,4 +1,4 @@
-fpackage calendarProject;
+package calendarProject;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -54,8 +54,10 @@ public class SQLMethods {
 		conn.close();
 	}
 	
-	public void createEvent(ArrayList<Integer> invited_userIDs, String start_datetime, String end_datetime, String description, int roomID, int owner_userID, String event_name) {
+	public void createEvent(ArrayList<Integer> invited_userIDs, String start_datetime, String end_datetime, String description, int size, int owner_userID, String event_name) {
+		int roomID = findRoom(size, start_datetime, end_datetime);
 		DBConnection conn = new DBConnection();
+		
 		String sql1 = "Insert into calendardb.events values('null, '" + start_datetime + "', '" + end_datetime + "', '" + description + "', "+ roomID + ", " + owner_userID + ", '" + event_name + "')";
 		conn.executeUpdate(sql1);
 		
@@ -78,10 +80,9 @@ public class SQLMethods {
 		conn.close();
 	}
 
-	public int findRoom(Event event) {
-		int minSeats = event.getInvNumb();
+	public int findRoom(int size, String start_datetime, String end_datetime) {
 		DBConnection conn = new DBConnection();
-		String query = "SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT roomID FROM Events WHERE endDate > " + event.getStartDate() + "AND startDate < " + event.getEndDate() + "AND size < " + minSeats + " GROUP BY roomID) ORDER BY size Asc";
+		String query = "SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT roomID FROM Events WHERE end_datetime > " + start_datetime + "AND start_datetime < " + end_datetime + "AND size < " + size + " GROUP BY roomID) ORDER BY size Asc";
 		ResultSet rs = conn.executeQuery(query);
 		int roomID = -1;
 		try {
@@ -121,6 +122,7 @@ public class SQLMethods {
 	}
 	
 	public void newUser(String email, String password, String name, int tlf){
+
 		DBConnection conn = new DBConnection();
 		String sql = "insert into calendardb.users values(null, '" + password + "', '" + name + "', '" + email + "', " + tlf + ", null)";
 		conn.executeUpdate(sql);
@@ -152,6 +154,7 @@ public class SQLMethods {
 		conn.executeUpdate(sql3);
 		conn.close();
 	}
+	
 	public boolean checkPassword(String email, String password) {
 		String dBPassword = "";
 		
@@ -170,6 +173,7 @@ public class SQLMethods {
 		return dBPassword.equals(password);
 		
 	}
+	
 	public User getUser(String email, String password) {
 		User user = new User(email, password);
 		
@@ -260,12 +264,17 @@ public class SQLMethods {
 		String email = "" ;
 		int tlf = -1; 
 		int calendarID = -1;
-		while(rs.next()){
-			password = rs.getString("password");
-			name = rs.getString("name");
-			email = rs.getString("email");
-			tlf = rs.getInt("tlf");
-			calendarID = rs.getInt("calendarID");
+		try {
+			while(rs.next()){
+				password = rs.getString("password");
+				name = rs.getString("name");
+				email = rs.getString("email");
+				tlf = rs.getInt("tlf");
+				calendarID = rs.getInt("calendarID");
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
 		}
 		User user = new User(userID, password, name, email, tlf, calendarID);
 		conn.close();
