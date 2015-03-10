@@ -143,14 +143,15 @@ public class CalendarIO {
 		System.out.println(event.getInfo());
 		System.out.println(event.getInvitedString());
 		System.out.println("Total invites " + event.getInvNumb());
+		
+		//menyvalg
 		System.out.println("1. Endre event");
 		System.out.println("2. Slette event");
 		System.out.println("3. Tilbake");
 		int choice = scanner.nextInt();
 		switch (choice) {
 		case 1:
-			System.out.println("Endre event...");
-			mainMenu(); //inntil videre
+			editEvent(eventID);
 		case 2:
 			sql.deleteEvent(eventID);
 			mainMenu();
@@ -158,6 +159,43 @@ public class CalendarIO {
 			dayMenu(date);
 		case 123:
 			mainMenu();
+		}
+	}
+	
+	public void editEvent(int eventID) {
+		System.out.println("1. Endre navn");
+		System.out.println("2. Endre starttid");
+		System.out.println("3. Endre slutttid");
+		System.out.println("4. Endre deltakere");
+		System.out.println("5. Endre Info");
+		System.out.println("6. Endre rom");
+		int input = scanner.nextInt();
+		switch(input) {
+		case 1:
+			System.out.print("Skriv inn nytt navn: ");
+			String newname = scanner.next();
+			sql.updateEvent(eventID, "name", newname);
+			editEvent(eventID);
+		case 2:
+			System.out.print("Skriv inn nytt starttidspunkt: ");
+			String newstarttime = scanner.next();
+			sql.updateEvent(eventID, "starttime", newstarttime);
+			editEvent(eventID);
+		case 3:
+			System.out.print("Skriv inn nytt sluttidspunkt: ");
+			String newendtime = scanner.next();
+			sql.updateEvent(eventID, "endtime", newendtime);
+			editEvent(eventID);
+		case 4:
+			System.out.println("Skriv inn nytt");
+		case 5:
+			System.out.println(sql.getEventInfo(eventID).getInfo());
+			System.out.print("Skriv inn ny info: ");
+			String newinfo = scanner.next();
+			sql.updateEvent(eventID, "info", newinfo);
+			editEvent(eventID);
+		case 6:
+			System.out.println();
 		}
 	}
 
