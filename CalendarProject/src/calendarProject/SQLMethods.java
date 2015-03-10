@@ -5,8 +5,9 @@ import java.util.ArrayList;
 
 public class SQLMethods {
 	
+	
+
 	public int findRoom(Event event) {
-		// Velg det minste rommet som oppfyller f�lgende krav:
 		int minSeats = event.getInvNumb();
 		DBConnection conn = new DBConnection();
 		String query = "SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT roomID FROM Events WHERE endDate > " + event.getStartDate() + "AND startDate < " + event.getEndDate() + "AND size < " + minSeats + " GROUP BY roomID) ORDER BY size Asc";
@@ -17,14 +18,13 @@ public class SQLMethods {
 				roomID = rs.getInt("roomID");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("SQL error");
 			e.printStackTrace();
 		}
 		
 		conn.close();
 		return roomID;
 	}
-
 
 	public void newGroup(String groupName, ArrayList<Integer> users){
 		
@@ -79,11 +79,9 @@ public class SQLMethods {
 		}
 		String sql3 = "update dbcalendars.users set calendarID = " + calendarID + " where userID = " + userID;
 		conn.executeUpdate(sql3);
-		// lage bruker --> hente brukerID --> lage kalender --> hente kalenderID og sende til bruker
 		conn.close();
 	}
-	
-	
+		
 	public User getUser(String email, String password) {
 		User user = new User(email, password);
 		
@@ -130,8 +128,21 @@ public class SQLMethods {
 		return ID_list;
 	}
 	
-	public ArrayList<Integer> getEventsFromCalendar() {
-		
+	public ArrayList<Integer> getEventsFromCalendar(int calendarID) {
+		ArrayList<Integer> eventID_list = new ArrayList<Integer>();
+		DBConnection conn = new DBConnection();
+		String query = "Select eventID from calendars.calendarevent where calendarID = " + calendarID;
+		ResultSet rs = conn.executeQuery(query);
+		try {
+			while(rs.next()){
+				int eventID = rs.getInt("eventID");
+				eventID_list.add(eventID);
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+		}
+		return eventID_list;
 	}
 
 	public int getUserID(String email){
