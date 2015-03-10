@@ -26,8 +26,9 @@ public class CalendarIO {
 		System.out.println("Skriv inn passord: ");
 		String password = scanner.next();
 		if (){
-			
+//			DBConnection.executeQuery
 		}
+	}
 		//noe for å sjekke om passord og username stemmer.
 		//hvis det stemmer kjør mainmenu(); hvis ikke print feil passord eller brukernavn og kjør loggin();
 =======

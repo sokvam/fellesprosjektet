@@ -13,9 +13,9 @@ public class DBConnection {
 
 	public DBConnection() {
 		JDBC_DRIVER = "com.mysql.jdbc.Driver";
-		DB_URL = "jdbc:mysql://127.0.0.1:3306";
+		DB_URL = "localhost3306";
 		USER = "root";
-		PASS = "qwertyuiop";
+		PASS = "root";
 		initialize();
 	}
 
