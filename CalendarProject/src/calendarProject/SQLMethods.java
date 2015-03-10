@@ -99,7 +99,24 @@ public class SQLMethods {
 		conn.executeUpdate(sql3);
 		conn.close();
 	}
-
+	public boolean checkPassword(String email, String password) {
+		String dBPassword = "";
+		
+		DBConnection conn = new DBConnection();
+		String query = "Select password from calandardb.users where email = " + email;
+		ResultSet rs = conn.executeQuery(query);
+		try {
+			while (rs.next()) {
+				dBPassword = rs.getString("password");
+			}
+		} catch (SQLException e) {
+			System.out.println("db problems");
+			e.printStackTrace();
+		}
+		conn.close();
+		return dBPassword.equals(password);
+		
+	}
 	public User getUser(String email, String password) {
 		User user = new User(email, password);
 		
