@@ -46,12 +46,36 @@ public class SQLMethods {
 	}
 	
 	public void deleteEvent(int eventID) {
-		//skal slette en event
+		DBConnection conn = new DBConnection();
+		String sql1 = "DELETE FROM calendardb.events WHERE eventID = " + eventID;
+		String sql2 = "DELETE FROM calendardb.calendarEvent WHERE eventID = " + eventID;
+		conn.executeUpdate(sql1);
+		conn.executeUpdate(sql2);
+		conn.close();
 	}
 	
-	public void createEvent() {
-		// en metode for � opprette event. 
-		//du velger hvilke parametre som trengs s� lager vi io for det
+	public void createEvent(ArrayList<Integer> invited_userIDs, String start_datetime, String end_datetime, String description, int roomID, int owner_userID, String event_name) {
+		DBConnection conn = new DBConnection();
+		String sql1 = "Insert into calendardb.events values('null, '" + start_datetime + "', '" + end_datetime + "', '" + description + "', "+ roomID + ", " + owner_userID + ", '" + event_name + "')";
+		conn.executeUpdate(sql1);
+		
+		int eventID = -1;
+		String query = "Select eventID from calendardb.events where start_datetime = " + start_datetime + " AND event_name = " + event_name + " AND userID = " + owner_userID + " And roomID = " + roomID;
+		ResultSet rs = conn.executeQuery(query);
+		try {
+			while(rs.next()){
+				eventID = rs.getInt("eventID");
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+		}
+				
+		for (int id : invited_userIDs){
+			String sql2 = "Insert into calendardb.calendarEvent values(" + id + ", " + eventID + ")";
+			conn.executeUpdate(sql2);
+		}
+		conn.close();
 	}
 
 	public int findRoom(Event event) {
