@@ -9,24 +9,24 @@ public class Event {
 
 	private String name, info;
 
-	private Date startDate;
+	private String startDate;
 
-	private Date endDate;
+	private String endDate;
 
 	private int roomID;
 
 	private ArrayList<User> invited;
 
-	public Event(String name, Date startDate, Date endDate) {
+	public Event(String name, String startDate, String endDate) {
 		this.setName(name);
 		this.setStartDate(startDate);
 		this.setEndDate(endDate);
 	}
 
 	public void inviteUser(int userID) {
-		// finn riktig bruker ved å søke opp i databasen
+		// finn riktig bruker ved ï¿½ sï¿½ke opp i databasen
 		// og legg til personen i lista
-		// deretter må personen blir notified.
+		// deretter mï¿½ personen blir notified.
 	}
 
 	public void inviteUsers(ArrayList<Integer> userIDs) {
@@ -59,11 +59,11 @@ public class Event {
 		this.info = info;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date date) {
+	public void setStartDate(String date) {
 		this.startDate = date;
 	}
 
@@ -78,11 +78,11 @@ public class Event {
 		this.roomID = roomID;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 	
