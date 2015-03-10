@@ -20,16 +20,19 @@ public class CalendarIO {
 
 
 	public void loggin() {
-		System.out.println( "Skriv inn brukernavn: ");
+		System.out.println( "Skriv inn email: ");
 		String userName = scanner.next();
 		System.out.println("Skriv inn passord: ");
 		String password = scanner.next();
-		if (){
-//			DBConnection.executeQuery
+		if (sql.checkPassword(String email, String password) {
+			
+			mainMenu();
+		} else {
+			System.out.println("Brukernavn og passord stemte ikke, prøv på nytt");
 		}
 	}
-		//noe for å sjekke om passord og username stemmer.
-		//hvis det stemmer kjør mainmenu(); hvis ikke print feil passord eller brukernavn og kjør loggin();
+		
+		
 
 	public void start() {
 		System.out.println("1. Opprett ny bruker");
@@ -181,7 +184,22 @@ public class CalendarIO {
 	}
 
 	public void createEvent(String date) {
-		// dette må vi fikse og synke med SQL
+		System.out.println("Skriv inn navn på eventen:");
+		String name = scanner.next();
+		System.out.println("Skriv inn tidspunkt for eventen på formen yyyy-mm-dd hh:mm:ss:");
+		String starttime = scanner.next();
+		System.out.println("Skriv inn varighet på eventen i antall timer: ");
+		int duration = scanner.nextInt();
+		System.out.println("Skriv inn informasjon om eventen, maks 150tegn: "); 
+		String info = scanner.next();
+		System.out.println("Ønsker du å innvitere brukere? Ja/Nei");
+		String answer = scanner.next().toLowerCase();
+		if (answer == "ja") {
+			System.out.println("Skriv inn ");
+		} else {
+			sql.createEvent();
+			System.out.println("Eventet er nå opprettet");
+		}
 	}
 
 	public void printMonth(GregorianCalendar cal) {
