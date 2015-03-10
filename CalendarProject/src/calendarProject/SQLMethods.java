@@ -6,10 +6,10 @@ import java.util.ArrayList;
 public class SQLMethods {
 	
 	
-	public void showEvents(String date) {
+	public void getEventsForDate(String date) {
 		//skal vise alle eventer for en dato i en liste
 		//skal bare vise navn og tid
-		//skal også vise event id
+		//skal ogsï¿½ vise event id
 	}
 	
 	public void getEventInfo(int eventID) {
@@ -21,8 +21,8 @@ public class SQLMethods {
 	}
 	
 	public void createEvent() {
-		// en metode for å opprette event. 
-		//du velger hvilke parametre som trengs så lager vi io for det
+		// en metode for ï¿½ opprette event. 
+		//du velger hvilke parametre som trengs sï¿½ lager vi io for det
 	}
 
 	public int findRoom(Event event) {
