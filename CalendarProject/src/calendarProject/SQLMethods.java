@@ -75,7 +75,7 @@ public class SQLMethods {
 			e.printStackTrace();
 		}
 		for (int userID : users){
-			conn.executeUpdate("insert into calendarcb.group values(" + groupID	+ ", " + userID + ", " + groupName + ")");
+			conn.executeUpdate("insert into calendarcb.Groups values(" + groupID	+ ", " + userID + ", " + groupName + ")");
 		}
 		
 		String sql = "insert into calendardb.calendars values(null, null, " + groupID + ", 1)";
@@ -163,7 +163,7 @@ public class SQLMethods {
 	public ArrayList<Integer> findUsersInGroup(int groupID) {
 		ArrayList<Integer> ID_list = new ArrayList<Integer>();
 		DBConnection conn = new DBConnection();
-		String query = "Select userID from calendardb.group where groupID = "
+		String query = "Select userID from calendardb.Groups where groupID = "
 				+ groupID;
 		ResultSet rs = conn.executeQuery(query);
 		try {
