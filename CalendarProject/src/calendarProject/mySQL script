@@ -2,23 +2,23 @@ CREATE DATABASE calendardb;
 
 USE calendardb;
 
-CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, password VARCHAR(100), name VARCHAR(100), tlf INT, calendarID INT , email VARCHAR(255)); 
+CREATE TABLE User (userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, password VARCHAR(100), name VARCHAR(100), tlf INT, calendarID INT , email VARCHAR(255));
 
-CREATE TABLE calendar (calendarID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT, groupID INT, isGroup BOOLEAN);
+CREATE TABLE Gruppe (groupID INT NOT NULL PRIMARY KEY, beskrivelse VARCHAR(255)); 
 
-CREATE TABLE group (groupID INT NOT NULL PRIMARY KEY);
+CREATE TABLE Calendars (calendarID INT NOT NULL PRIMARY KEY AUTO_INCREMENT, userID INT REFERENCES user (userID), groupID INT REFERENCES gruppe(groupID), isGroup BOOLEAN);
 
-CREATE TABLE CalendarEvent (EventID INT NOT NULL PRIMARY KEY, dato, start_tidspunkt, slutt_tidspunkt, beskrivelse, email);
+CREATE TABLE CalendarEvent (EventID INT NOT NULL PRIMARY KEY, dato DATE NOT NULL, start_tidspunkt TIME NOT NULL, slutt_tidspunkt TIME NOT NULL, beskrivelse VARCHAR(255), email VARCHAR(255));
 
-CREATE TABLE Room (roomNr INT NOT NULL PRIMARY KEY, antall_plasser);
+CREATE TABLE Rooms (roomNr INT NOT NULL PRIMARY KEY, antall_plasser INT NOT NULL);
 
-Insert into calendardb.user values(702, ‘ørjan123’, ‘Ørjan’, 92374859, 802, ‘orjan123@hotmail.com’);
+Insert into calendardb.user values(702, 'ørjan123', 'Ørjan', 92374859, 802, 'orjan123@hotmail.com');
 
-Insert into calendardb.user values(703, ‘jarl123’, ‘Jarl’, 93286856, 803, ‘jarl123@hotmail.com’);
+Insert into calendardb.user values(703, 'jarl123', 'Jarl', 93286856, 803, 'arl123@hotmail.com');
 
-Insert into calendardb.user values(704, ‘tobias123’, ‘Tobias’, 98763873, 804, ‘tobias123@hotmail.com’);
+Insert into calendardb.user values(704, 'tobias123', 'Tobias', 98763873, 804, 'tobias123@hotmail.com');
 
-Insert into calendardb.user values(705, ‘sondre123’, ‘Sondre’, 35678293, 805, ‘sondre123@hotmail.com’);
+Insert into calendardb.user values(705, 'sondre123', 'Sondre', 35678293, 805, 'sondre123@hotmail.com');
 
 Insert into calendardb.calendars values(802, 702, null, 0);
 
@@ -38,56 +38,32 @@ Insert into calendardb.calendars values(809, 709, null, 0);
 
 Insert into calendardb.calendars values(810, 710, null, 0);
 
-Insert into calendarbd.calendars values(811, 711, null, 0);
+Insert into calendardb.calendars values(811, 711, null, 0);
 
 Insert into calendardb.calendars values(812, null, 901, 1);
 
-Insert into calendardb.calendars values(812, null, 902, 1);
+Insert into calendardb.calendars values(813, null, 902, 1);
 
-Insert into calendardb.gruppe values(901, 702, ‘Blåtur komiteen’);
+Insert into calendardb.gruppe values(901, 'Blåtur komiteen');
 
-Insert into calendardb.gruppe values(901, 703, ‘Blåtur komiteen’);
+Insert into calendardb.gruppe values(902, 'Prosjekt for Firma X');
 
-Insert into calendardb.gruppe values(901, 704, ‘Blåtur komiteen’);
+Insert into calendardb.rooms values(401, 10);
 
-Insert into calendardb.gruppe values(901, 705, ‘Blåtur komiteen’);
+Insert into calendardb.rooms values(101, 20);
 
-Insert into calendardb.gruppe values(902, 706, ‘Prosjekt for Firma X’);
+Insert into calendardb.rooms values(102, 30);
 
-Insert into calendardb.gruppe values(902, 707, ‘Prosjekt for Firma X’);
+Insert into calendardb.rooms values(103, 40);
 
-Insert into calendardb.gruppe values(902, 708, ‘Prosjekt for Firma X’);
+Insert into calendardb.rooms values(201, 50);
 
-Insert into calendardb.rooms values(null, 10);
+Insert into calendardb.rooms values(202, 60);
 
-Insert into calendardb.rooms values(null, 20);
+Insert into calendardb.rooms values(203, 70);
 
-Insert into calendardb.rooms values(null, 30);
+Insert into calendardb.rooms values(301, 10);
 
-Insert into calendardb.rooms values(null, 40);
+Insert into calendardb.rooms values(302, 10);
 
-Insert into calendardb.rooms values(null, 50);
-
-Insert into calendardb.rooms values(null, 60);
-
-Insert into calendardb.rooms values(null, 70),
-
-Insert into calendardb.rooms values(null, 10);
-
-Insert into calendardb.rooms values(null, 10);
-
-Insert into calendardb.rooms values(null, 20);
-
-Insert into calendardb.rooms values(null, 20);
-
-Insert into calendardb.rooms values(null, 20);
-
-Insert into calendardb.rooms values(null, 5);
-
-Insert into calendardb.rooms values(null, 5);
-
-Insert into calendardb.rooms values(null, 5);
-
-Insert into calendardb.rooms values(null, 5);
-
-Insert into calendardb.rooms values(null, 5);
+Insert into calendardb.rooms values(303, 20);
