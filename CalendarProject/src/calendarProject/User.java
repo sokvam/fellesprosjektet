@@ -14,6 +14,15 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
+	
+	public User(int userID, String password, String name, String email, int tlf, int calendarID){
+		this.userID = userID;
+		this.password = password;
+		this.name = name;
+		this.email = email;
+		this.phoneNumber = tlf;
+		this.calendarID = calendarID;
+	}
 
 	public void addGroupCalendar(int calendarID) {
 		// Telleren count er til for at funksjonene i User-klassen og
