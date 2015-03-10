@@ -25,7 +25,7 @@ public class CalendarIO {
 		System.out.println("Skriv inn passord: ");
 		String password = scanner.next();
 		mainMenu();
-		if (sql.checkPassword(String email, String password) {	
+		if (sql.checkPassword(email, password)) {	
 			mainMenu();
 		} else {
 			System.out.println("Brukernavn og passord stemte ikke, prøv på nytt");
@@ -96,12 +96,14 @@ public class CalendarIO {
 			greg.set(year, month, 1);
 			monthMenu(greg);
 		case 4:
-			//newEvent();
+			System.out.println("Skriv inn datoen du ønsker eventet på formen: YYYY-MM-DD");
+			inputdate = scanner.next();
+			createEvent(inputdate);
 		}
 	}
 
 	public void dayMenu(String date) {
-		//sql.showEvents(date);
+		showEventListString(date);
 		System.out.println("Hent eventer fra SQL og vis på fin måte...");
 		System.out.println("1. Velg event");
 		System.out.println("2. Opprett event");
@@ -118,10 +120,26 @@ public class CalendarIO {
 			mainMenu();
 		}
 	}
+	
+	public void showEventListString(String date) {
+		ArrayList<Integer> eventIDs = sql.getEventsForDate(date);
+		ArrayList<Event> events = new ArrayList<Event>();
+		for (int id:eventIDs) {
+			events.add(sql.getEventInfo(id));
+		}
+		
+		
+	}
 
 	public void showEvent(int eventID, String date) {
-		sql.getEventInfo(eventID);
-		System.out.println("Skriver noe fint om eventet...");
+		Event event = sql.getEventInfo(eventID);
+		System.out.println(event.getName());
+		System.out.println(event.getStartDate());
+		System.out.println(event.getEndDate());
+		System.out.println(event.getRoom());
+		System.out.println(event.getInfo());
+		System.out.println(event.getInvitedString());
+		System.out.println("Total invites " + event.getInvNumb());
 		System.out.println("1. Endre event");
 		System.out.println("2. Slette event");
 		System.out.println("3. Tilbake");

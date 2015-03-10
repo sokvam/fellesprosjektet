@@ -73,7 +73,7 @@ public class Event {
 
 	public void setRoomID() {
 		SQLMethods sqlm = new SQLMethods();
-		this.roomID = sqlm.setRoomID(this);
+		//this.roomID = sqlm.setRoomID(this);
 		int roomID = 0;
 		this.roomID = roomID;
 	}
@@ -88,5 +88,15 @@ public class Event {
 	
 	public int getInvNumb(){
 		return invited.size();
+	}
+	
+	public String getInvitedString() {
+		String participants = "";
+		for (User user : invited) {
+			participants = participants + user.getName() + " ,";
+		}
+		participants = participants.substring(0, participants.length() -1);
+		participants = participants + ".";
+		return participants;
 	}
 }
