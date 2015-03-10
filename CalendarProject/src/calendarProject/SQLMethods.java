@@ -2,15 +2,47 @@ package calendarProject;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SQLMethods {
 	
+	public boolean isEventID(int eventID) {
+		boolean result = false;
+		DBConnection conn = new DBConnection();
+		String query = "SELECT eventID FROM calendardb.events WHERE eventID = " + eventID;
+		ResultSet rs = conn.executeQuery(query);
+		conn.close();
+		try {
+			result = rs.next();
+				
+		} catch (SQLException e) {
+			System.out.println("DB Problems");
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
-	public ArrayList<Integer> getEventsForDate(String date, User user) {
+	public void updateEvent(int eventID, int updateField, String update) {
+		switch (updateField) {
+		case 1: //name
+			break;
+		case 2: //Dato
+			break;
+		case 3: //Starttid
+			break;
+		case 4: //slutttid
+			break;
+		case 5: //description
+			break;
+		default:
+			System.out.println("Ingen endring utført.");
+			break;
+		}
+		
+	}
+	public ArrayList<Integer> getEventsForDate(String date, int userID) {
 		ArrayList<Integer> events = new ArrayList<Integer>();
 		DBConnection conn = new DBConnection();
-		String query = "SELECT * events WHERE date = '" + date + "' AND userID = " + user.getUserID();
+		String query = "SELECT * FROM calendardb.events WHERE date = '" + date + "' AND userID = " + userID;
 		ResultSet rs = conn.executeQuery(query);
 		try {
 			while (rs.next()) {
@@ -28,7 +60,7 @@ public class SQLMethods {
 	public Event getEventInfo(int eventID) {
 		Event event = new Event("Foo", "Faa", "Bar");
 		DBConnection conn = new DBConnection();
-		String query = "SELECT * FROM events WHERE eventID = " + eventID;
+		String query = "SELECT * FROM calendardb.events WHERE eventID = " + eventID;
 		ResultSet rs = conn.executeQuery(query);
 		try {
 			while (rs.next()) {
@@ -96,6 +128,12 @@ public class SQLMethods {
 		
 		conn.close();
 		return roomID;
+	}
+	
+	public ArrayList<Integer> findRoomList() {
+		//Denne må bygges ferdig.
+		ArrayList<Integer> liste = new ArrayList<Integer>();
+		return liste;
 	}
 
 	public void newGroup(String groupName, ArrayList<Integer> users){
