@@ -25,10 +25,7 @@ public class CalendarIO {
 		System.out.println("Skriv inn passord: ");
 		String password = scanner.next();
 		mainMenu();
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
 		if (sql.checkPassword(email, password)) {	
 			mainMenu();
 		} else {
@@ -109,7 +106,6 @@ public class CalendarIO {
 
 	public void dayMenu(String date) {
 		showEventListString(date);
-		System.out.println("Hent eventer fra SQL og vis på fin måte...");
 		System.out.println("1. Velg event");
 		System.out.println("2. Opprett event");
 		System.out.print("Enter input: ");
@@ -127,13 +123,15 @@ public class CalendarIO {
 	}
 	
 	public void showEventListString(String date) {
-		ArrayList<Integer> eventIDs = sql.getEventsForDate(date);
+		ArrayList<Integer> eventIDs = sql.getEventsForDate(date, userID);
 		ArrayList<Event> events = new ArrayList<Event>();
 		for (int id:eventIDs) {
 			events.add(sql.getEventInfo(id));
 		}
-		
-		
+		for (Event event:events) {
+			System.out.println(event.getName() + "\t" + event.getStartDate() + " -> " +
+		event.getEndDate() + "\t" + event.getID() + "\n");
+		}
 	}
 
 	public void showEvent(int eventID, String date) {
