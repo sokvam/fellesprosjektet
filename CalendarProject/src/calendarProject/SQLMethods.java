@@ -250,4 +250,25 @@ public class SQLMethods {
 		conn.close();
 		return userID;	
 	}
+
+	public User getUser(int userID){
+		DBConnection conn = new DBConnection();
+		String query = "Select * from calendardb.users where userID = " + userID;
+		ResultSet rs = conn.executeQuery(query);
+		String password = "";
+		String name = "";
+		String email = "" ;
+		int tlf = -1; 
+		int calendarID = -1;
+		while(rs.next()){
+			password = rs.getString("password");
+			name = rs.getString("name");
+			email = rs.getString("email");
+			tlf = rs.getInt("tlf");
+			calendarID = rs.getInt("calendarID");
+		}
+		User user = new User(userID, password, name, email, tlf, calendarID);
+		conn.close();
+		return user;
+	}
 }

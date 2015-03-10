@@ -19,15 +19,14 @@ public class Event {
 		this.setEndDate(endDate);
 	}
 
-	public void inviteUser(int userID) {
-		// finn riktig bruker ved � s�ke opp i databasen
-		// og legg til personen i lista
-		// deretter m� personen blir notified.
-	}
+
 
 	public void inviteUsers(ArrayList<Integer> userIDs) {
+		invited = new ArrayList<User>();
+		SQLMethods sqlm = new SQLMethods();
 		for (int userID : userIDs) {
-			inviteUser(userID);
+			User user = sqlm.getUser(userID);
+			invited.add(user);
 		}
 	}
 
