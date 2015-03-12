@@ -14,25 +14,18 @@ public class CalendarIO {
 	Scanner scanner = new Scanner(System.in);
 	String email, password;
 	int userID;
-
+	SQLMethods sql = new SQLMethods();
+	
 	public void loggin() {
-<<<<<<< HEAD
+
 		System.out.println( "Skriv inn email: ");
 		String email = scanner.next();
-=======
-		System.out.println("Skriv inn email: ");
-		String userName = scanner.next();
->>>>>>> origin/master
+
 		System.out.println("Skriv inn passord: ");
 		String password = scanner.next();
 		mainMenu();
 
-<<<<<<< HEAD
-		if (sql.checkPassword(email, password)) {	
-			userID = sql.getUserID(email);
-=======
 		if (sql.checkPassword(email, password)) {
->>>>>>> origin/master
 			mainMenu();
 		} else {
 			System.out
@@ -40,11 +33,7 @@ public class CalendarIO {
 		}
 
 	}
-<<<<<<< HEAD
-		
-=======
 
->>>>>>> origin/master
 	public void start() {
 		System.out.println("1. Opprett ny bruker");
 		System.out.println("2. Logg inn");
@@ -162,12 +151,8 @@ public class CalendarIO {
 		int choice = scanner.nextInt();
 		switch (choice) {
 		case 1:
-<<<<<<< HEAD
 			System.out.println("Endre event...");
-			mainMenu(); // inntil videre
-=======
 			editEvent(eventID);
->>>>>>> origin/master
 		case 2:
 			sql.deleteEvent(eventID);
 			mainMenu();
@@ -184,34 +169,41 @@ public class CalendarIO {
 		System.out.println("3. Endre slutttid");
 		System.out.println("4. Endre deltakere");
 		System.out.println("5. Endre Info");
-		System.out.println("6. Endre rom");
 		int input = scanner.nextInt();
 		switch(input) {
 		case 1:
 			System.out.print("Skriv inn nytt navn: ");
 			String newname = scanner.next();
-			sql.updateEvent(eventID, "name", newname);
+			sql.updateEvent(eventID, 1, newname);
 			editEvent(eventID);
 		case 2:
 			System.out.print("Skriv inn nytt starttidspunkt: ");
 			String newstarttime = scanner.next();
-			sql.updateEvent(eventID, "starttime", newstarttime);
+			sql.updateEvent(eventID, 2, newstarttime);
 			editEvent(eventID);
 		case 3:
 			System.out.print("Skriv inn nytt sluttidspunkt: ");
 			String newendtime = scanner.next();
-			sql.updateEvent(eventID, "endtime", newendtime);
+			sql.updateEvent(eventID, 3, newendtime);
 			editEvent(eventID);
 		case 4:
-			System.out.println("Skriv inn nytt");
+			System.out.println("1. Legg til deltakere:");
+			System.out.println("2. Fjern deltakere");
+			input = scanner.nextInt();
+			switch(input) {
+			case 1:
+				System.out.println("Skriv inn ");
+			case 2:
+				Event event = sql.getEventInfo(eventID);
+				System.out.println(event.getInvitedString());
+				sql.
+			}
 		case 5:
 			System.out.println(sql.getEventInfo(eventID).getInfo());
 			System.out.print("Skriv inn ny info: ");
 			String newinfo = scanner.next();
-			sql.updateEvent(eventID, "info", newinfo);
+			sql.updateEvent(eventID, 5, newinfo);
 			editEvent(eventID);
-		case 6:
-			System.out.println();
 		}
 	}
 
@@ -261,18 +253,11 @@ public class CalendarIO {
 	public void createEvent(String date) {
 		System.out.println("Skriv inn navn på eventen:");
 		String name = scanner.next();
-		System.out
-				.println("Skriv inn tidspunkt for eventen på formen yyyy-mm-dd hh:mm:ss:");
+		System.out.println("Skriv inn tidspunkt for eventen på formen yyyy-mm-dd hh:mm:ss:");
 		String starttime = scanner.next();
-<<<<<<< HEAD
 		System.out.println("Skriv inn sluttid: ");
 		String endtime = scanner.next();
 		System.out.println("Skriv inn informasjon om eventen, maks 150tegn: "); 
-=======
-		System.out.println("Skriv inn varighet på eventen i antall timer: ");
-		int duration = scanner.nextInt();
-		System.out.println("Skriv inn informasjon om eventen, maks 150tegn: ");
->>>>>>> origin/master
 		String info = scanner.next();
 		System.out.println("Skriv inn minimum romstørelse: ");
 		int size = scanner.nextInt();
@@ -280,16 +265,10 @@ public class CalendarIO {
 		String answer = scanner.next().toLowerCase();
 		ArrayList<Integer> invites = new ArrayList<Integer>();
 		if (answer == "ja") {
-<<<<<<< HEAD
+
 			System.out.println("Skriv inn email til brukere skriv ferdig når du ikke vil invitere fler: ");
 			int inviteID = sql.getUserID(scanner.next());
 			invites.add(inviteID);
-=======
-			System.out
-					.println("Skriv inn email til brukere skriv ferdig når du ikke vil invitere fler: ");
-			ArrayList<String> invites = new ArrayList<String>();
-			invites.add(scanner.next());
->>>>>>> origin/master
 			while (scanner.next() != "ferdig") {
 				inviteID = sql.getUserID(scanner.next());
 				invites.add(inviteID);
