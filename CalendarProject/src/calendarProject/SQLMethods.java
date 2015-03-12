@@ -107,11 +107,11 @@ public class SQLMethods {
 		int roomID = findRoom(size, start_datetime, end_datetime);
 		DBConnection conn = new DBConnection();
 		
-		String sql1 = "Insert into calendardb.events values('null, '" + start_datetime + "', '" + end_datetime + "', '" + description + "', "+ roomID + ", " + owner_userID + ", '" + event_name + "')";
+		String sql1 = "Insert into calendardb.events values(null, " + start_datetime + ", " + end_datetime + ", '" + description + "', "+ roomID + ", " + owner_userID + ", '" + event_name + "')";
 		conn.executeUpdate(sql1);
 		
 		int eventID = -1;
-		String query = "Select eventID from calendardb.events where start_datetime = " + start_datetime + " AND event_name = " + event_name + " AND userID = " + owner_userID + " And roomID = " + roomID;
+		String query = "Select eventID from calendardb.events where start_datetime = " + start_datetime + " AND event_name = '" + event_name + "' AND userID = " + owner_userID + " And roomID = " + roomID;
 		ResultSet rs = conn.executeQuery(query);
 		try {
 			while(rs.next()){
@@ -123,15 +123,26 @@ public class SQLMethods {
 		}
 				
 		for (int id : invited_userIDs){
-			String sql2 = "Insert into calendardb.calendarEvent values(" + id + ", " + eventID + ")";
-			conn.executeUpdate(sql2);
+			String query2 = "Select calendarID from calendardb.users where userID = " + id;
+			ResultSet rs2 = conn.executeQuery(query2);
+			try {
+				while (rs2.next()){
+					int calendarID = rs2.getInt("calendarID");
+					String sql2 = "Insert into calendardb.calendarEvent values(" + calendarID + ", " + eventID + ")";
+					conn.executeUpdate(sql2);
+				}
+			} catch (SQLException e) {
+				System.out.println("sql error");
+				e.printStackTrace();
+			}
 		}
 		conn.close();
 	}
 
 	public int findRoom(int size, String start_datetime, String end_datetime) {
 		DBConnection conn = new DBConnection();
-		String query = "SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT roomID FROM Events WHERE end_datetime > " + start_datetime + "AND start_datetime < " + end_datetime + "AND size < " + size + " GROUP BY roomID) ORDER BY size Asc";
+		String query = "SELECT roomID FROM calendardb.Rooms WHERE roomID NOT IN (SELECT roomID FROM calendardb.Events WHERE end_datetime > " +
+				start_datetime + " AND start_datetime < " + end_datetime + ") AND size >= " + size + " GROUP BY roomID ORDER BY size Asc limit 1";
 		ResultSet rs = conn.executeQuery(query);
 		int roomID = -1;
 		try {

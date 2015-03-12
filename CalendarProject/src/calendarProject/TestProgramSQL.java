@@ -1,5 +1,7 @@
 package calendarProject;
 
+import java.util.ArrayList;
+
 public class TestProgramSQL {
 	
 	SQLMethods sqlm;
@@ -9,8 +11,13 @@ public class TestProgramSQL {
 	}
 	
 	public void run(){
-		Event e = sqlm.getEventInfo(92);
-		System.out.println(e.getDescription());
+		ArrayList<Integer> inv = new ArrayList<Integer>();
+		inv.add(702);
+		inv.add(703);
+		inv.add(704);
+		sqlm.createEvent(inv, "'2014-09-14 00:00:01'", "'2014-09-15 07:00:01'", "yolo", 7, 82, "begravelse");
+		//System.out.println(getDescription());
+		//System.out.println(sqlm.findRoom(5, "'2014-09-09 00:00:01'", "'2014-09-09 07:00:01'"));
 	}
 	
 	public static void main(String[] args) {
@@ -22,6 +29,9 @@ public class TestProgramSQL {
 	* isEventID
 	* getEventsForDate
 	* getEventInfo
+	* findRoom
+	* createEvent
+	*
 	*
 	*
 	*/
