@@ -1,16 +1,48 @@
-fpackage calendarProject;
+package calendarProject;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SQLMethods {
 	
+	public boolean isEventID(int eventID) {
+		boolean result = false;
+		DBConnection conn = new DBConnection();
+		String query = "SELECT eventID FROM calendardb.events WHERE eventID = " + eventID;
+		ResultSet rs = conn.executeQuery(query);
+		conn.close();
+		try {
+			result = rs.next();
+				
+		} catch (SQLException e) {
+			System.out.println("DB Problems");
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
-	public ArrayList<Integer> getEventsForDate(String date, User user) {
+	public void updateEvent(int eventID, int updateField, String update) {
+		switch (updateField) {
+		case 1: //name
+			break;
+		case 2: //Dato
+			break;
+		case 3: //Starttid
+			break;
+		case 4: //slutttid
+			break;
+		case 5: //description
+			break;
+		default:
+			System.out.println("Ingen endring utført.");
+			break;
+		}
+		
+	}
+	public ArrayList<Integer> getEventsForDate(String date, int userID) {
 		ArrayList<Integer> events = new ArrayList<Integer>();
 		DBConnection conn = new DBConnection();
-		String query = "SELECT * events WHERE date = '" + date + "' AND userID = " + user.getUserID();
+		String query = "SELECT * FROM calendardb.events WHERE date = '" + date + "' AND userID = " + userID;
 		ResultSet rs = conn.executeQuery(query);
 		try {
 			while (rs.next()) {
@@ -28,7 +60,7 @@ public class SQLMethods {
 	public Event getEventInfo(int eventID) {
 		Event event = new Event("Foo", "Faa", "Bar");
 		DBConnection conn = new DBConnection();
-		String query = "SELECT * FROM events WHERE eventID = " + eventID;
+		String query = "SELECT * FROM calendardb.events WHERE eventID = " + eventID;
 		ResultSet rs = conn.executeQuery(query);
 		try {
 			while (rs.next()) {
@@ -54,8 +86,10 @@ public class SQLMethods {
 		conn.close();
 	}
 	
-	public void createEvent(ArrayList<Integer> invited_userIDs, String start_datetime, String end_datetime, String description, int roomID, int owner_userID, String event_name) {
+	public void createEvent(ArrayList<Integer> invited_userIDs, String start_datetime, String end_datetime, String description, int size, int owner_userID, String event_name) {
+		int roomID = findRoom(size, start_datetime, end_datetime);
 		DBConnection conn = new DBConnection();
+		
 		String sql1 = "Insert into calendardb.events values('null, '" + start_datetime + "', '" + end_datetime + "', '" + description + "', "+ roomID + ", " + owner_userID + ", '" + event_name + "')";
 		conn.executeUpdate(sql1);
 		
@@ -78,10 +112,9 @@ public class SQLMethods {
 		conn.close();
 	}
 
-	public int findRoom(Event event) {
-		int minSeats = event.getInvNumb();
+	public int findRoom(int size, String start_datetime, String end_datetime) {
 		DBConnection conn = new DBConnection();
-		String query = "SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT roomID FROM Events WHERE endDate > " + event.getStartDate() + "AND startDate < " + event.getEndDate() + "AND size < " + minSeats + " GROUP BY roomID) ORDER BY size Asc";
+		String query = "SELECT top 1 ID FROM Rooms WHERE ID NOT IN (SELECT roomID FROM Events WHERE end_datetime > " + start_datetime + "AND start_datetime < " + end_datetime + "AND size < " + size + " GROUP BY roomID) ORDER BY size Asc";
 		ResultSet rs = conn.executeQuery(query);
 		int roomID = -1;
 		try {
@@ -95,6 +128,12 @@ public class SQLMethods {
 		
 		conn.close();
 		return roomID;
+	}
+	
+	public ArrayList<Integer> findRoomList() {
+		//Denne må bygges ferdig.
+		ArrayList<Integer> liste = new ArrayList<Integer>();
+		return liste;
 	}
 
 	public void newGroup(String groupName, ArrayList<Integer> users){
@@ -121,6 +160,7 @@ public class SQLMethods {
 	}
 	
 	public void newUser(String email, String password, String name, int tlf){
+
 		DBConnection conn = new DBConnection();
 		String sql = "insert into calendardb.users values(null, '" + password + "', '" + name + "', '" + email + "', " + tlf + ", null)";
 		conn.executeUpdate(sql);
@@ -152,6 +192,7 @@ public class SQLMethods {
 		conn.executeUpdate(sql3);
 		conn.close();
 	}
+	
 	public boolean checkPassword(String email, String password) {
 		String dBPassword = "";
 		
@@ -170,6 +211,7 @@ public class SQLMethods {
 		return dBPassword.equals(password);
 		
 	}
+	
 	public User getUser(String email, String password) {
 		User user = new User(email, password);
 		
@@ -249,5 +291,31 @@ public class SQLMethods {
 		}
 		conn.close();
 		return userID;	
+	}
+
+	public User getUser(int userID){
+		DBConnection conn = new DBConnection();
+		String query = "Select * from calendardb.users where userID = " + userID;
+		ResultSet rs = conn.executeQuery(query);
+		String password = "";
+		String name = "";
+		String email = "" ;
+		int tlf = -1; 
+		int calendarID = -1;
+		try {
+			while(rs.next()){
+				password = rs.getString("password");
+				name = rs.getString("name");
+				email = rs.getString("email");
+				tlf = rs.getInt("tlf");
+				calendarID = rs.getInt("calendarID");
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+		}
+		User user = new User(userID, password, name, email, tlf, calendarID);
+		conn.close();
+		return user;
 	}
 }
