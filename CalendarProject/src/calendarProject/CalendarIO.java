@@ -49,6 +49,7 @@ public class CalendarIO {
 	}
 
 	public void createUser() {
+		scanner.nextLine();
 		System.out.print("Skriv inn din epost: ");
 		email = scanner.nextLine();
 		System.out.print("Skriv inn ønsket passord: ");
