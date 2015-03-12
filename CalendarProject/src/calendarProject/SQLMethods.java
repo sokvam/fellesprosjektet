@@ -10,7 +10,7 @@ public class SQLMethods {
 		DBConnection conn = new DBConnection();
 		String query = "SELECT eventID FROM calendardb.events WHERE eventID = " + eventID;
 		ResultSet rs = conn.executeQuery(query);
-		conn.close();
+		
 		try {
 			result = rs.next();
 				
@@ -18,6 +18,7 @@ public class SQLMethods {
 			System.out.println("DB Problems");
 			e.printStackTrace();
 		}
+		conn.close();
 		return result;
 	}
 	
@@ -39,10 +40,12 @@ public class SQLMethods {
 		}
 		
 	}
+	
 	public ArrayList<Integer> getEventsForDate(String date, int userID) {
 		ArrayList<Integer> events = new ArrayList<Integer>();
 		DBConnection conn = new DBConnection();
-		String query = "SELECT * FROM calendardb.events WHERE date = '" + date + "' AND userID = " + userID;
+		String query = "SELECT eventID FROM calendardb.events WHERE (DATE(" + date + ") = DATE(start_DateTime) OR "
+				+ "(DATE(" + date + ") > DATE(start_DateTime) AND DATE(" + date + ") <= DATE(end_DateTime))) AND userID = " + userID;
 		ResultSet rs = conn.executeQuery(query);
 		try {
 			while (rs.next()) {
@@ -58,16 +61,17 @@ public class SQLMethods {
 	}
 	
 	public Event getEventInfo(int eventID) {
-		Event event = new Event("Foo", "Faa", "Bar");
+		Event event = new Event("Foo", "Faa", "Bar", "Bas");
 		DBConnection conn = new DBConnection();
 		String query = "SELECT * FROM calendardb.events WHERE eventID = " + eventID;
 		ResultSet rs = conn.executeQuery(query);
 		try {
 			while (rs.next()) {
-				String name = rs.getString("eventName");
+				String name = rs.getString("event_Name");
 				String start_datetime = rs.getString("start_datetime");
 				String end_datetime = rs.getString("end_datetime");
-				event = new Event(name, start_datetime, end_datetime);
+				String description = rs.getString("description");
+				event = new Event(name, start_datetime, end_datetime, description);
 			}
 		} catch (SQLException e) {
 			System.out.println("db problems");

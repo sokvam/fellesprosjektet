@@ -7,16 +7,17 @@ public class Event {
 
 	private int ID;
 
-	private String name, info, startDateTime, endDateTime;
+	private String name, description, startDateTime, endDateTime;
 
 	private int roomID;
 
 	private ArrayList<User> invited;
 
-	public Event(String name, String startDate, String endDate) {
-		this.setName(name);
-		this.setStartDate(startDate);
-		this.setEndDate(endDate);
+	public Event(String name, String startDateTime, String endDateTime, String description) {
+		this.name = name;
+		this.startDateTime = startDateTime;
+		this.endDateTime = endDateTime;
+		this.description = description;
 	}
 
 
@@ -46,20 +47,20 @@ public class Event {
 		this.name = name;
 	}
 
-	public String getInfo() {
-		return info;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setInfo(String info) {
-		this.info = info;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getStartDate() {
+	public String getStartDateTime() {
 		return startDateTime;
 	}
 
-	public void setStartDate(String date) {
-		this.startDateTime = date;
+	public void setStartDateTime(String startDateTime) {
+		this.startDateTime = startDateTime;
 	}
 
 	public int getRoom() {
@@ -73,12 +74,12 @@ public class Event {
 		this.roomID = roomID;
 	}
 
-	public String getEndDate() {
+	public String getEndDateTime() {
 		return endDateTime;
 	}
 
-	public void setEndDate(String endDate) {
-		this.endDateTime = endDate;
+	public void setEndDateTime(String endDateTime) {
+		this.endDateTime = endDateTime;
 	}
 	
 	public int getInvNumb(){
