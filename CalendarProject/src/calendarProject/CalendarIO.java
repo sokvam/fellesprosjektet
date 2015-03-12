@@ -25,6 +25,7 @@ public class CalendarIO {
 		String password = scanner.next();
 
 		if (sql.checkPassword(email, password)) {
+			userID = sql.getUserID(email);
 			mainMenu();
 		} else {
 			System.out.println("Brukernavn og passord stemte ikke, prøv på nytt");
@@ -250,17 +251,18 @@ public class CalendarIO {
 	}
 
 	public void createEvent(String date) {
-		System.out.println("Skriv inn navn på eventen:");
-		String name = scanner.next();
-		System.out.println("Skriv inn tidspunkt for eventen på formen yyyy-mm-dd hh:mm:ss:");
-		String starttime = scanner.next();
-		System.out.println("Skriv inn sluttid: ");
-		String endtime = scanner.next();
-		System.out.println("Skriv inn informasjon om eventen, maks 150tegn: "); 
-		String info = scanner.next();
-		System.out.println("Skriv inn minimum romstørelse: ");
+		scanner.nextLine();
+		System.out.print("Skriv inn navn på eventen: ");
+		String name = scanner.nextLine();
+		System.out.print("Skriv inn tidspunkt for eventen på formen yyyy-mm-dd hh:mm:ss: ");
+		String starttime = "'" + scanner.nextLine() + "'";
+		System.out.print("Skriv inn sluttid: ");
+		String endtime = "'" + scanner.nextLine() + "'";
+		System.out.print("Skriv inn informasjon om eventen, maks 150tegn: "); 
+		String info = scanner.nextLine();
+		System.out.print("Skriv inn minimum romstørelse: ");
 		int size = scanner.nextInt();
-		System.out.println("Ønsker du å innvitere brukere? Ja/Nei");
+		System.out.print("Ønsker du å innvitere brukere? Ja/Nei: ");
 		String answer = scanner.next().toLowerCase();
 		ArrayList<Integer> invites = new ArrayList<Integer>();
 		if (answer == "ja") {

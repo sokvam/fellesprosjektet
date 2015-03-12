@@ -153,6 +153,7 @@ public class SQLMethods {
 		DBConnection conn = new DBConnection();
 		String query = "SELECT roomID FROM calendardb.Rooms WHERE roomID NOT IN (SELECT roomID FROM calendardb.Events WHERE end_datetime > " +
 				start_datetime + " AND start_datetime < " + end_datetime + ") AND size >= " + size + " GROUP BY roomID ORDER BY size Asc limit 1";
+		System.out.println(query);
 		ResultSet rs = conn.executeQuery(query);
 		int roomID = -1;
 		try {
