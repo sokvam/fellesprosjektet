@@ -18,24 +18,24 @@ public class CalendarIO {
 	
 	public void logIn() {
 
-		System.out.println( "Skriv inn email: ");
+		System.out.print( "Skriv inn email: ");
 		String email = scanner.next();
 
-		System.out.println("Skriv inn passord: ");
+		System.out.print("Skriv inn passord: ");
 		String password = scanner.next();
 
 		if (sql.checkPassword(email, password)) {
 			mainMenu();
 		} else {
 			System.out.println("Brukernavn og passord stemte ikke, prøv på nytt");
+			logIn();
 		}
 	}
-		//noe for å sjekke om passord og username stemmer.
-		//hvis det stemmer kjør mainmenu(); hvis ikke print feil passord eller brukernavn og kjør loggin();
 
 	public void start() {
 		System.out.println("1. Opprett ny bruker");
 		System.out.println("2. Logg inn");
+		System.out.print("Enter input: ");
 		int choice = scanner.nextInt();
 		if (choice == 1) {
 			createUser();
@@ -57,11 +57,9 @@ public class CalendarIO {
 		System.out.print("Skriv inn ditt telefonnummer: ");
 		int tlf = scanner.nextInt();
 		sql.newUser(email, password, name, tlf);
-		System.out.println("Lager SQL-bruker...");
 		System.out.println("Takk, " + name
 				+ "! Du har nå opprettet en ny kalenderbruker.");
 		logIn();
-
 	}
 
 	public void mainMenu() {
@@ -70,7 +68,6 @@ public class CalendarIO {
 		System.out.println("1. Vis dagens eventer");
 		System.out.println("2. Vis en bestemt dato");
 		System.out.println("3. Vis en bestemt måned");
-		System.out.println("4. Opprett event");
 		System.out.print("Enter input: ");
 		int choice = scanner.nextInt();
 		switch (choice) {
@@ -82,7 +79,7 @@ public class CalendarIO {
 			String datestring = convertDateToSQL(date);
 			dayMenu(datestring);
 		case 2:
-			System.out.println("Skriv inn dato på formen 'YYYY-MM-DD'");
+			System.out.print("Skriv inn dato på formen 'YYYY-MM-DD': ");
 			String inputdate = scanner.next();
 			dayMenu(inputdate);
 		case 3:
@@ -93,14 +90,11 @@ public class CalendarIO {
 			int year = scanner.nextInt();
 			greg.set(year, month, 1);
 			monthMenu(greg);
-		case 4:
-			//newEvent();
 		}
 	}
 
 	public void dayMenu(String date) {
-		//sql.showEvents(date);
-		System.out.println("Hent eventer fra SQL og vis på fin måte...");
+		sql.getEventsForDate(date, userID);
 		System.out.println("1. Velg event");
 		System.out.println("2. Opprett event");
 		System.out.print("Enter input: ");
@@ -118,17 +112,22 @@ public class CalendarIO {
 	}
 
 	public void showEvent(int eventID, String date) {
-		//sql.getEventInfo(eventID);
-		System.out.println("Skriver noe fint om eventet...");
+		Event event = sql.getEventInfo(eventID);
+		System.out.println("Event: " + event.getName());
+		System.out.println("Starttid: " + event.getStartDateTime());
+		System.out.println("Sluttid: " + event.getEndDateTime());
+		System.out.println("Info: " + event.getDescription());
+		System.out.println("");
 		System.out.println("1. Endre event");
 		System.out.println("2. Slette event");
 		System.out.println("3. Tilbake");
+		System.out.print("Enter input: ");
 		int choice = scanner.nextInt();
 		switch (choice) {
 		case 1:
 			editEvent(eventID);
 		case 2:
-			//sql.deleteEvent(eventID);
+			sql.deleteEvent(eventID);
 			mainMenu();
 		case 3:
 			dayMenu(date);
@@ -189,6 +188,10 @@ public class CalendarIO {
 				}
 				sql.updateEvent(eventID, 42, participants);
 				editEvent(eventID);
+			
+			case 123:
+				mainMenu();
+				
 			}
 		case 5:
 			System.out.println(sql.getEventInfo(eventID).getDescription());
@@ -306,7 +309,8 @@ public class CalendarIO {
 				}
 				cal.set(currentYear,currentMonth, cal.get(Calendar.DATE) + 1); //øk dato med én
 			}
-		}
+		} System.out.println("");
+	}
 		
 		//________________________
 		//gammel kode: Input kan være hvilken som helst dag i måneden.
@@ -356,5 +360,4 @@ public class CalendarIO {
 				run = false;
 			}
 		} System.out.println(""); */
-	}
 }
