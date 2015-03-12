@@ -10,8 +10,6 @@ public class CalendarIO {
 	// IO. Dette er for å teste muligheten for å lagre div. menyer på ett
 	// sted.
 
-	// Tobias koder, stay out! 9. mars 13:45
-
 	//SQLMethods sql = new SQLMethods();
 	Scanner scanner = new Scanner(System.in);
 	String email, password;
