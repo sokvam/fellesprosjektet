@@ -23,7 +23,6 @@ public class CalendarIO {
 
 		System.out.println("Skriv inn passord: ");
 		String password = scanner.next();
-		mainMenu();
 
 		if (sql.checkPassword(email, password)) {
 			mainMenu();
@@ -57,7 +56,7 @@ public class CalendarIO {
 		String name = scanner.nextLine();
 		System.out.print("Skriv inn ditt telefonnummer: ");
 		int tlf = scanner.nextInt();
-		//sql.newUser(email, password, name, tlf);
+		sql.newUser(email, password, name, tlf);
 		System.out.println("Lager SQL-bruker...");
 		System.out.println("Takk, " + name
 				+ "! Du har nå opprettet en ny kalenderbruker.");
