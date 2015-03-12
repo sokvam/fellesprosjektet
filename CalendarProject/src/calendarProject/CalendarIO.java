@@ -28,8 +28,7 @@ public class CalendarIO {
 		if (sql.checkPassword(email, password)) {
 			mainMenu();
 		} else {
-			System.out
-					.println("Brukernavn og passord stemte ikke, prøv på nytt");
+			System.out.println("Brukernavn og passord stemte ikke, prøv på nytt");
 		}
 
 	}
@@ -190,13 +189,30 @@ public class CalendarIO {
 			System.out.println("1. Legg til deltakere:");
 			System.out.println("2. Fjern deltakere");
 			input = scanner.nextInt();
+
+			String inputemail = "";
+			String participants = "";
 			switch(input) {
 			case 1:
-				System.out.println("Skriv inn ");
+				System.out.println("Skriv inn email til deltakeren, skriv ferdig når du er ferdig: ");
+				inputemail = scanner.next();
+				while(inputemail != "ferdig") {
+					participants = participants + inputemail + ":";
+					inputemail = scanner.next();
+				}
+				sql.updateEvent(eventID, 41, participants);
+				editEvent(eventID);
 			case 2:
 				Event event = sql.getEventInfo(eventID);
 				System.out.println(event.getInvitedString());
-				sql.
+				System.out.println("Skriv inn mailen på de du ønsker å slette, skriv ferdig når du er ferdig: ");
+				inputemail = scanner.next();
+				while(inputemail != "ferdig") {
+					participants = participants + inputemail + ":";
+					inputemail = scanner.next();
+				}
+				sql.updateEvent(eventID, 42, participants);
+				editEvent(eventID);
 			}
 		case 5:
 			System.out.println(sql.getEventInfo(eventID).getInfo());
@@ -265,13 +281,12 @@ public class CalendarIO {
 		String answer = scanner.next().toLowerCase();
 		ArrayList<Integer> invites = new ArrayList<Integer>();
 		if (answer == "ja") {
-
 			System.out.println("Skriv inn email til brukere skriv ferdig når du ikke vil invitere fler: ");
-			int inviteID = sql.getUserID(scanner.next());
-			invites.add(inviteID);
-			while (scanner.next() != "ferdig") {
-				inviteID = sql.getUserID(scanner.next());
+			String inputemail = scanner.next();
+			while (inputemail != "ferdig") {
+				int inviteID = sql.getUserID(inputemail);
 				invites.add(inviteID);
+				inputemail = scanner.next();
 			}
 
 		}
