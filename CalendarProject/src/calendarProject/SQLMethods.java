@@ -6,6 +6,9 @@ import java.util.Set;
 
 public class SQLMethods {
 	
+	//VI trenger egne gruppefunksjoner.
+	
+	
 	public boolean isEventID(int eventID) {
 		boolean result = false;
 		DBConnection conn = new DBConnection();
@@ -21,6 +24,13 @@ public class SQLMethods {
 		}
 		conn.close();
 		return result;
+	}
+	
+	public void deleteParticipant(int calendarID, int eventID) {
+		DBConnection conn = new DBConnection();
+		String query = "DELETE * FROM calendardb.calendarevents WHERE calendarID = " + calendarID + "AND eventID = " + eventID;
+		conn.executeQuery(query);
+		conn.close();
 	}
 	
 	public void updateEvent(int eventID, int updateField, String update) {
@@ -96,10 +106,10 @@ public class SQLMethods {
 	
 	public void deleteEvent(int eventID) {
 		DBConnection conn = new DBConnection();
-		String sql1 = "DELETE FROM calendardb.events WHERE eventID = " + eventID;
-		String sql2 = "DELETE FROM calendardb.calendarEvent WHERE eventID = " + eventID;
-		conn.executeUpdate(sql1);
-		conn.executeUpdate(sql2);
+		String query1 = "DELETE FROM calendardb.events WHERE eventID = " + eventID;
+		String query2 = "DELETE FROM calendardb.calendarEvent WHERE eventID = " + eventID;
+		conn.executeUpdate(query1);
+		conn.executeUpdate(query2);
 		conn.close();
 	}
 	
