@@ -2,6 +2,7 @@ package calendarProject;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class SQLMethods {
 	
@@ -23,22 +24,34 @@ public class SQLMethods {
 	}
 	
 	public void updateEvent(int eventID, int updateField, String update) {
-		switch (updateField) {
-		case 1: //name
-			break;
-		case 2: //Dato
-			break;
-		case 3: //Starttid
-			break;
-		case 4: //slutttid
-			break;
-		case 5: //description
-			break;
-		default:
-			System.out.println("Ingen endring utført.");
-			break;
+		DBConnection conn = new DBConnection();
+		String query;
+		try {
+			switch (updateField) {
+			case 1: //name
+				query = "UPDATE calendardb.events SET name = '" + update + "' WHERE eventID = " + eventID;
+				conn.executeQuery(query);
+				break;
+			case 2: //startDateTimeOperations
+				query = "UPDATE calendardb.events SET startDateTime = '" + update + "' WHERE eventID = " + eventID;
+				conn.executeQuery(query);
+				break;
+			case 3: //endDateTimeOperations
+				query = "UPDATE calendardb.events SET endDateTime = '" + update + "' WHERE eventID = " + eventID;
+				conn.executeQuery(query);
+				break;
+			case 4: //description
+				query = "UPDATE calendardb.events SET description = '" + update + "' WHERE eventID = " + eventID;
+				conn.executeQuery(query);
+				break;
+			default:
+				System.out.println("Ingen endring utført.");
+			}
+		} catch (SQLException e) {
+			System.out.println("DB problem");
+			e.printStackTrace();
 		}
-		
+		conn.close();		
 	}
 	
 	public ArrayList<Integer> getEventsForDate(String date, int userID) {
