@@ -320,7 +320,7 @@ public class CalendarIO {
 				monthHasStarted = true;
 				System.out.print("\t" + cal.get(Calendar.DATE));
 				
-				if(sql.hasEvent(convertDateToSQL(cal))){
+				if(sql.getEventsForDate(convertDateToSQL(cal), userID).size() > 0){
 					System.out.print("*");
 				}
 				
