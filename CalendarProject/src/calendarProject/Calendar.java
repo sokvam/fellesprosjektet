@@ -16,7 +16,7 @@ public abstract class Calendar {
 		}
 	}
 
-	public void addEvent(String name, Date startDate, Date endDate) {
+	public void addEvent(String name, String startDate, String endDate) {
 		Event event = new Event(name, startDate, endDate);
 		events.add(event);
 	}
