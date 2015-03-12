@@ -10,14 +10,18 @@ public class CalendarIO {
 	// IO. Dette er for å teste muligheten for å lagre div. menyer på ett
 	// sted.
 
+<<<<<<< HEAD
 	// Tobias koder, stay out! 9. mars 13:45
 
 	private String tempDate;
 
+=======
+>>>>>>> origin/master
 	//SQLMethods sql = new SQLMethods();
 	Scanner scanner = new Scanner(System.in);
 	String email, password;
 	int userID;
+<<<<<<< HEAD
 
 
 	public void loggin() {
@@ -27,6 +31,23 @@ public class CalendarIO {
 		String password = scanner.next();
 		if (){
 //			DBConnection.executeQuery
+=======
+	SQLMethods sql = new SQLMethods();
+	
+	public void loggin() {
+
+		System.out.println( "Skriv inn email: ");
+		String email = scanner.next();
+
+		System.out.println("Skriv inn passord: ");
+		String password = scanner.next();
+		mainMenu();
+
+		if (sql.checkPassword(email, password)) {
+			mainMenu();
+		} else {
+			System.out.println("Brukernavn og passord stemte ikke, prøv på nytt");
+>>>>>>> origin/master
 		}
 	}
 		//noe for å sjekke om passord og username stemmer.
@@ -137,7 +158,11 @@ public class CalendarIO {
 		switch (choice) {
 		case 1:
 			System.out.println("Endre event...");
+<<<<<<< HEAD
 			mainMenu(); //inntil videre
+=======
+			editEvent(eventID);
+>>>>>>> origin/master
 		case 2:
 			//sql.deleteEvent(eventID);
 			mainMenu();
@@ -147,6 +172,70 @@ public class CalendarIO {
 			mainMenu();
 		}
 	}
+<<<<<<< HEAD
+=======
+	
+	public void editEvent(int eventID) {
+		System.out.println("1. Endre navn");
+		System.out.println("2. Endre starttid");
+		System.out.println("3. Endre slutttid");
+		System.out.println("4. Endre deltakere");
+		System.out.println("5. Endre Info");
+		int input = scanner.nextInt();
+		switch(input) {
+		case 1:
+			System.out.print("Skriv inn nytt navn: ");
+			String newname = scanner.next();
+			sql.updateEvent(eventID, 1, newname);
+			editEvent(eventID);
+		case 2:
+			System.out.print("Skriv inn nytt starttidspunkt: ");
+			String newstarttime = scanner.next();
+			sql.updateEvent(eventID, 2, newstarttime);
+			editEvent(eventID);
+		case 3:
+			System.out.print("Skriv inn nytt sluttidspunkt: ");
+			String newendtime = scanner.next();
+			sql.updateEvent(eventID, 3, newendtime);
+			editEvent(eventID);
+		case 4:
+			System.out.println("1. Legg til deltakere:");
+			System.out.println("2. Fjern deltakere");
+			input = scanner.nextInt();
+
+			String inputemail = "";
+			String participants = "";
+			switch(input) {
+			case 1:
+				System.out.println("Skriv inn email til deltakeren, skriv ferdig når du er ferdig: ");
+				inputemail = scanner.next();
+				while(inputemail != "ferdig") {
+					participants = participants + inputemail + ":";
+					inputemail = scanner.next();
+				}
+				sql.updateEvent(eventID, 41, participants);
+				editEvent(eventID);
+			case 2:
+				Event event = sql.getEventInfo(eventID);
+				System.out.println(event.getInvitedString());
+				System.out.println("Skriv inn mailen på de du ønsker å slette, skriv ferdig når du er ferdig: ");
+				inputemail = scanner.next();
+				while(inputemail != "ferdig") {
+					participants = participants + inputemail + ":";
+					inputemail = scanner.next();
+				}
+				sql.updateEvent(eventID, 42, participants);
+				editEvent(eventID);
+			}
+		case 5:
+			System.out.println(sql.getEventInfo(eventID).getInfo());
+			System.out.print("Skriv inn ny info: ");
+			String newinfo = scanner.next();
+			sql.updateEvent(eventID, 5, newinfo);
+			editEvent(eventID);
+		}
+	}
+>>>>>>> origin/master
 
 	public void monthMenu(GregorianCalendar greg) {
 		printMonth(greg);
@@ -192,11 +281,76 @@ public class CalendarIO {
 	}
 
 	public void createEvent(String date) {
+<<<<<<< HEAD
 		// dette må vi fikse og synke med SQL
+=======
+		System.out.println("Skriv inn navn på eventen:");
+		String name = scanner.next();
+		System.out.println("Skriv inn tidspunkt for eventen på formen yyyy-mm-dd hh:mm:ss:");
+		String starttime = scanner.next();
+		System.out.println("Skriv inn sluttid: ");
+		String endtime = scanner.next();
+		System.out.println("Skriv inn informasjon om eventen, maks 150tegn: "); 
+		String info = scanner.next();
+		System.out.println("Skriv inn minimum romstørelse: ");
+		int size = scanner.nextInt();
+		System.out.println("Ønsker du å innvitere brukere? Ja/Nei");
+		String answer = scanner.next().toLowerCase();
+		ArrayList<Integer> invites = new ArrayList<Integer>();
+		if (answer == "ja") {
+			System.out.println("Skriv inn email til brukere skriv ferdig når du ikke vil invitere fler: ");
+			String inputemail = scanner.next();
+			while (inputemail != "ferdig") {
+				int inviteID = sql.getUserID(inputemail);
+				invites.add(inviteID);
+				inputemail = scanner.next();
+			}
+
+		}
+		sql.createEvent(invites, starttime, endtime, info, size, userID, name);
+		System.out.println("Eventet er nå opprettet");
+		dayMenu(date);
+>>>>>>> origin/master
 	}
 
 	public void printMonth(GregorianCalendar cal) {
 
+<<<<<<< HEAD
+=======
+		String monthString = new SimpleDateFormat("MMMMMMMMM").format(cal.getTime()); // måneden som en string
+		
+		System.out.println();
+		System.out.println("\t\t\t" + monthString + " " + currentYear);
+		System.out.println();
+		System.out.println("\tman\ttir\tons\ttor\tfre\tlør\tsøn");
+				
+		boolean monthHasStarted = false;
+
+		while (cal.get(Calendar.MONTH) == currentMonth){ //så lenge det ikke har blitt neste måned
+			if(i < ((cal.get(GregorianCalendar.DAY_OF_WEEK) + 5) % 7) && !monthHasStarted){
+				System.out.print("\t");
+				i++;
+			} else {
+				monthHasStarted = true;
+				System.out.print("\t" + cal.get(Calendar.DATE));
+				
+				if(sql.getEventsForDate(convertDateToSQL(cal), userID).size() > 0){
+					System.out.print("*");
+				}
+				
+				if (cal.get(Calendar.DAY_OF_WEEK) == 1) { // Hvis søndag: Linjeskift
+					System.out.println("");
+				}
+				cal.set(currentYear,currentMonth, cal.get(Calendar.DATE) + 1); //øk dato med én
+			}
+		}
+		
+		//________________________
+		//gammel kode: Input kan være hvilken som helst dag i måneden.
+		
+		/*
+		
+>>>>>>> origin/master
 		int year = cal.get(Calendar.YEAR);
 
 		int daysInMonth = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH); // antall
