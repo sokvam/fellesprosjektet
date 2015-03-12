@@ -235,7 +235,7 @@ public class SQLMethods {
 		String dBPassword = "";
 		
 		DBConnection conn = new DBConnection();
-		String query = "Select password from calandardb.users where email = '" + email + "'";
+		String query = "Select password from calendardb.users where email = '" + email + "'";
 		ResultSet rs = conn.executeQuery(query);
 		try {
 			while (rs.next()) {
