@@ -10,31 +10,13 @@ public class CalendarIO {
 	// IO. Dette er for å teste muligheten for å lagre div. menyer på ett
 	// sted.
 
-<<<<<<< HEAD
-	// Tobias koder, stay out! 9. mars 13:45
-
-	private String tempDate;
-
-=======
->>>>>>> origin/master
-	//SQLMethods sql = new SQLMethods();
 	Scanner scanner = new Scanner(System.in);
 	String email, password;
 	int userID;
-<<<<<<< HEAD
 
-
-	public void loggin() {
-		System.out.println( "Skriv inn brukernavn: ");
-		String userName = scanner.next();
-		System.out.println("Skriv inn passord: ");
-		String password = scanner.next();
-		if (){
-//			DBConnection.executeQuery
-=======
 	SQLMethods sql = new SQLMethods();
 	
-	public void loggin() {
+	public void logIn() {
 
 		System.out.println( "Skriv inn email: ");
 		String email = scanner.next();
@@ -47,7 +29,6 @@ public class CalendarIO {
 			mainMenu();
 		} else {
 			System.out.println("Brukernavn og passord stemte ikke, prøv på nytt");
->>>>>>> origin/master
 		}
 	}
 		//noe for å sjekke om passord og username stemmer.
@@ -82,17 +63,6 @@ public class CalendarIO {
 				+ "! Du har nå opprettet en ny kalenderbruker.");
 		logIn();
 
-	}
-
-	public void logIn() {
-		System.out.print("Skriv inn brukernavn: ");
-		email = scanner.nextLine();
-		System.out.print("Skriv inn passord: ");
-		password = scanner.nextLine();
-		//User user = sql.getUser(email, password);
-		System.out.println("Henter SQL-bruker...");
-		// må fikse innlogging. Hvis riktig, kjør mainMenu
-		mainMenu();
 	}
 
 	public void mainMenu() {
@@ -157,12 +127,7 @@ public class CalendarIO {
 		int choice = scanner.nextInt();
 		switch (choice) {
 		case 1:
-			System.out.println("Endre event...");
-<<<<<<< HEAD
-			mainMenu(); //inntil videre
-=======
 			editEvent(eventID);
->>>>>>> origin/master
 		case 2:
 			//sql.deleteEvent(eventID);
 			mainMenu();
@@ -172,15 +137,14 @@ public class CalendarIO {
 			mainMenu();
 		}
 	}
-<<<<<<< HEAD
-=======
 	
-	public void editEvent(int eventID) {
+	public void editEvent(int eventID){
 		System.out.println("1. Endre navn");
 		System.out.println("2. Endre starttid");
 		System.out.println("3. Endre slutttid");
 		System.out.println("4. Endre deltakere");
 		System.out.println("5. Endre Info");
+		System.out.println("123 for å gå til hovedmenyen.");
 		int input = scanner.nextInt();
 		switch(input) {
 		case 1:
@@ -228,14 +192,17 @@ public class CalendarIO {
 				editEvent(eventID);
 			}
 		case 5:
-			System.out.println(sql.getEventInfo(eventID).getInfo());
+			System.out.println(sql.getEventInfo(eventID).getDescription());
 			System.out.print("Skriv inn ny info: ");
 			String newinfo = scanner.next();
 			sql.updateEvent(eventID, 5, newinfo);
 			editEvent(eventID);
+		
+		case 123:
+			mainMenu();
+			
 		}
 	}
->>>>>>> origin/master
 
 	public void monthMenu(GregorianCalendar greg) {
 		printMonth(greg);
@@ -281,9 +248,6 @@ public class CalendarIO {
 	}
 
 	public void createEvent(String date) {
-<<<<<<< HEAD
-		// dette må vi fikse og synke med SQL
-=======
 		System.out.println("Skriv inn navn på eventen:");
 		String name = scanner.next();
 		System.out.println("Skriv inn tidspunkt for eventen på formen yyyy-mm-dd hh:mm:ss:");
@@ -305,19 +269,19 @@ public class CalendarIO {
 				invites.add(inviteID);
 				inputemail = scanner.next();
 			}
-
 		}
 		sql.createEvent(invites, starttime, endtime, info, size, userID, name);
 		System.out.println("Eventet er nå opprettet");
 		dayMenu(date);
->>>>>>> origin/master
 	}
+		
 
 	public void printMonth(GregorianCalendar cal) {
-
-<<<<<<< HEAD
-=======
+		
+		int currentYear = cal.get(Calendar.YEAR);
+		int currentMonth = cal.get(Calendar.MONTH);
 		String monthString = new SimpleDateFormat("MMMMMMMMM").format(cal.getTime()); // måneden som en string
+		int i = 0;
 		
 		System.out.println();
 		System.out.println("\t\t\t" + monthString + " " + currentYear);
@@ -347,10 +311,8 @@ public class CalendarIO {
 		
 		//________________________
 		//gammel kode: Input kan være hvilken som helst dag i måneden.
-		
 		/*
-		
->>>>>>> origin/master
+
 		int year = cal.get(Calendar.YEAR);
 
 		int daysInMonth = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH); // antall
@@ -394,6 +356,6 @@ public class CalendarIO {
 			} else {
 				run = false;
 			}
-		} System.out.println("");
+		} System.out.println(""); */
 	}
 }

@@ -14,7 +14,7 @@ public class CalendarProgram {
 	}
 	
 	private void run() {
-		io.loggin();
+		io.logIn();
 	}
 	
 	
