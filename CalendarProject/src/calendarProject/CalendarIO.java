@@ -78,6 +78,7 @@ public class CalendarIO {
 		case 1:
 			GregorianCalendar date = new GregorianCalendar();
 			String datestring = convertDateToSQL(date);
+			System.out.println(datestring);
 			dayMenu(datestring);
 		case 2:
 			System.out.print("Skriv inn dato på formen 'YYYY-MM-DD': ");
@@ -95,7 +96,9 @@ public class CalendarIO {
 	}
 
 	public void dayMenu(String date) {
-		sql.getEventsForDate(date, userID);
+		for(int i : sql.getEventsForDate(date, userID)){
+			System.out.println("ID: " + i + " | Event: " + sql.getEventInfo(i).getName());
+		}
 		System.out.println("1. Velg event");
 		System.out.println("2. Opprett event");
 		System.out.print("Enter input: ");
@@ -240,11 +243,33 @@ public class CalendarIO {
 		int year = date.get(Calendar.YEAR);
 		int month = date.get(Calendar.MONTH) + 1;
 		int day = date.get(Calendar.DATE);
-		int hour = date.get(Calendar.HOUR);
+		int hour = date.get(Calendar.HOUR_OF_DAY);
 		int min = date.get(Calendar.MINUTE);
 		int sec = date.get(Calendar.SECOND);
-
-		SQLString = "'" + year + "-" + month + "-" + day + " " + hour + ":"
+		
+		String stringDay;
+		String stringMonth;
+		String stringHour;
+		
+		if(day < 10){
+			stringDay = "0" + day;
+		} else {
+			stringDay = "" + day;
+		}
+		
+		if(month < 10){
+			stringMonth = "0" + month;
+		} else {
+			stringMonth = "" + month;
+		}
+		
+		if(hour < 10){
+			stringHour = "0" + hour;
+		} else {
+			stringHour = "" + hour;
+		}
+		
+		SQLString = "'" + year + "-" + stringMonth + "-" + stringDay + " " + hour + ":"
 				+ min + ":" + sec + "'";
 
 		return SQLString;

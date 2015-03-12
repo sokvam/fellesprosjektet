@@ -2,7 +2,6 @@ package calendarProject;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class SQLMethods {
 	
@@ -57,7 +56,7 @@ public class SQLMethods {
 			default:
 				System.out.println("Ingen endring utført.");
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.out.println("DB problem");
 			e.printStackTrace();
 		}
@@ -190,7 +189,7 @@ public class SQLMethods {
 			e.printStackTrace();
 		}
 		for (int userID : users){
-			conn.executeUpdate("insert into calendarcb.Groups values(" + groupID	+ ", " + userID + ", " + groupName + ")");
+			conn.executeUpdate("insert into calendardb.Groups values(" + groupID	+ ", " + userID + ", " + groupName + ")");
 		}
 		
 		String sql = "insert into calendardb.calendars values(null, null, " + groupID + ", 1)";
@@ -317,7 +316,7 @@ public class SQLMethods {
 	public int getUserID(String email){
 		int userID = -1;
 		DBConnection conn = new DBConnection();
-		String query = "Select userID from calandardb.users where email = '" + email + "'";
+		String query = "Select userID from calendardb.users where email = '" + email + "'";
 		ResultSet rs = conn.executeQuery(query);
 		try {
 			while (rs.next()) {
