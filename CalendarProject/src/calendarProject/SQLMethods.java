@@ -177,7 +177,7 @@ public class SQLMethods {
 	public void newGroup(String groupName, ArrayList<Integer> users){
 		
 		DBConnection conn = new DBConnection();
-		String query = "Select top 1 groupID from calendardb.groups order by groupID desc";
+		String query = "Select groupID from calendardb.groups order by groupID desc limit 1";
 		ResultSet rs = conn.executeQuery(query);
 		int groupID = 1;
 		try {
@@ -189,7 +189,7 @@ public class SQLMethods {
 			e.printStackTrace();
 		}
 		for (int userID : users){
-			conn.executeUpdate("insert into calendardb.Groups values(" + groupID	+ ", " + userID + ", " + groupName + ")");
+			conn.executeUpdate("insert into calendardb.Groups values(" + groupID	+ ", " + userID + ", '" + groupName + "')");
 		}
 		
 		String sql = "insert into calendardb.calendars values(null, null, " + groupID + ", 1)";
@@ -210,11 +210,11 @@ public class SQLMethods {
 				userID = rs.getInt("userID");
 			}
 		} catch (SQLException e) {
-			System.out.println("db problems");
+			System.out.println("db problems1");
 			e.printStackTrace();
 		}
 		String sql2 = "insert into calendardb.calendars values(null, " + userID + ", null, 0)";
-		String query2 = "select calendarID from calendard.calendars where userID = " + userID;
+		String query2 = "select calendarID from calendardb.calendars where userID = " + userID;
 		conn.executeUpdate(sql2);
 		ResultSet rs2 = conn.executeQuery(query2);
 		int calendarID = 0; 
@@ -223,10 +223,10 @@ public class SQLMethods {
 				calendarID = rs.getInt("calendarID");
 			}
 		} catch (SQLException e) {
-			System.out.println("db problems");
+			System.out.println("db problems2");
 			e.printStackTrace();
 		}
-		String sql3 = "update dbcalendars.users set calendarID = " + calendarID + " where userID = " + userID;
+		String sql3 = "update calendardb.users set calendarID = " + calendarID + " where userID = " + userID;
 		conn.executeUpdate(sql3);
 		conn.close();
 	}
