@@ -20,9 +20,9 @@ public class TestProgramSQL {
 		testProg.run();
 	}
 	/*Fungerende: 
-	* isEventID
-	* getEventsForDate
-	* getEventInfo
+	* isEventID(int eventID)
+	* getEventsForDate(int calendarID, int eventID)
+	* getEventInfo(int eventID)
 	* createEvent
 	* findRoom
 	* newGroup 

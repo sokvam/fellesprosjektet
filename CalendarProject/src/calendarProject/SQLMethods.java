@@ -113,7 +113,7 @@ public class SQLMethods {
 	public void deleteEvent(int eventID) {
 		DBConnection conn = new DBConnection();
 		String query1 = "DELETE FROM calendardb.events WHERE eventID = " + eventID;
-		String query2 = "DELETE FROM calendardb.calendarEvent WHERE eventID = " + eventID;
+		String query2 = "DELETE FROM calendardb.calendarevents WHERE eventID = " + eventID;
 		conn.executeUpdate(query1);
 		conn.executeUpdate(query2);
 		conn.close();
@@ -144,7 +144,7 @@ public class SQLMethods {
 			try {
 				while (rs2.next()){
 					int calendarID = rs2.getInt("calendarID");
-					String sql2 = "Insert into calendardb.calendarEvent values(" + calendarID + ", " + eventID + ")";
+					String sql2 = "Insert into calendardb.calendarevents values(" + calendarID + ", " + eventID + ")";
 					conn.executeUpdate(sql2);
 				}
 			} catch (SQLException e) {
@@ -307,7 +307,7 @@ public class SQLMethods {
 	public ArrayList<Integer> getEventsFromCalendar(int calendarID) {
 		ArrayList<Integer> eventID_list = new ArrayList<Integer>();
 		DBConnection conn = new DBConnection();
-		String query = "Select eventID from calendardb.calendarevent where calendarID = " + calendarID;
+		String query = "Select eventID from calendardb.calendarevents where calendarID = " + calendarID;
 		ResultSet rs = conn.executeQuery(query);
 		try {
 			while(rs.next()){
