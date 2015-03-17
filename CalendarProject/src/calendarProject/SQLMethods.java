@@ -1,7 +1,9 @@
 package calendarProject;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
+
+import javax.management.Notification;
 
 public class SQLMethods {
 
@@ -455,4 +457,22 @@ public class SQLMethods {
 	}
 
 	// getNotifications(user id)
+	public ArrayList<Integer> getNotifications(int userID) {
+		DBConnection conn = new DBConnection();
+		String query = "SELECT * FROM calendardb.notifications WHERE userID = " + userID;
+		ResultSet rs = conn.executeQuery(query);
+		Set<Integer> notifictaionIDs = new HashSet<Integer>();
+		try {
+			while (rs.next()) {
+				notifictaionIDs.add(rs.getInt("notificationID"));
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("DB problems");
+			e.printStackTrace();
+		}
+		ArrayList<Integer> result = new ArrayList<Integer>(notifictaionIDs);
+		return result;
+	}
+	
 }

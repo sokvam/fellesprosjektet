@@ -1,6 +1,7 @@
 package calendarProject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Event {
@@ -11,7 +12,7 @@ public class Event {
 
 	private int roomID;
 
-	private Set<Integer> invitedID;
+	private ArrayList<Integer> invitedID;
 	
 	private ArrayList<User> invited;
 
@@ -20,6 +21,7 @@ public class Event {
 		this.startDateTime = startDateTime;
 		this.endDateTime = endDateTime;
 		this.description = description;
+		invitedID = new ArrayList<Integer>();
 	}
 	
 	public void initiateUsers(ArrayList<Integer> userIDs) {
