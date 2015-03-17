@@ -370,16 +370,16 @@ public class CalendarIO {
 		String starttime = "'" + scanner.nextLine() + "'";
 		System.out.print("Skriv inn sluttid: ");
 		String endtime = "'" + scanner.nextLine() + "'";
-		System.out.print("Skriv inn informasjon om eventen, maks 150tegn: ");
+		System.out.print("Skriv inn informasjon om eventen, maks 150 tegn: ");
 		String info = scanner.nextLine();
 		System.out.print("Skriv inn minimum romstørelse: ");
 		int size = scanner.nextInt();
-		System.out.print("Ønsker du å innvitere brukere? Ja/Nei: ");
+		System.out.print("Ønsker du å innvitere brukere? Ja/nei: ");
 		String answer = scanner.next().toLowerCase();
 		ArrayList<Integer> invites = new ArrayList<Integer>();
 		if (answer == "ja") {
 			System.out
-					.println("Skriv inn email til brukere skriv ferdig når du ikke vil invitere fler: ");
+					.println("Skriv inn email til brukere skriv ferdig når du ikke vil invitere flere: ");
 			String inputemail = scanner.next();
 			while (inputemail != "ferdig") {
 				int inviteID = sql.getUserID(inputemail);
