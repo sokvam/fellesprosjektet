@@ -100,7 +100,7 @@ public class SQLMethods {
 				ArrayList<Integer> userIDs = new ArrayList<Integer>();
 				int userID = rs2.getInt("userID");
 				userIDs.add(userID);
-				event.inviteUsers(userIDs);
+				event.initiateUsers(userIDs);
 			}
 		} catch (SQLException e) {
 			System.out.println("db problems");

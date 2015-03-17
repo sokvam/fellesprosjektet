@@ -22,13 +22,13 @@ public class Event {
 		this.description = description;
 	}
 	
-	public void inviteUsers(ArrayList<Integer> userIDs) {
+	public void initiateUsers(ArrayList<Integer> userIDs) {
 		for (int userID : userIDs) {
 			invitedID.add(userID);
 		}
 	}
 	
-	public void inviteUser(int userID) {
+	public void initiateUser(int userID) {
 		invitedID.add(userID);
 	}
 
