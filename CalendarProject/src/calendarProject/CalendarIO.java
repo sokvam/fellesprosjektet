@@ -73,7 +73,7 @@ public class CalendarIO {
 	}
 
 	public void mainMenu() {
-		//userID = sql.getID(email);
+		// userID = sql.getID(email);
 		System.out.println("Dette er hovedmenyen:");
 		System.out.println("1. Vis dagens eventer");
 		System.out.println("2. Vis en bestemt dato");
@@ -91,7 +91,7 @@ public class CalendarIO {
 			dayMenu(datestring);
 		case 2:
 			String inputDate;
-			while(true){
+			while (true) {
 				System.out.print("Skriv inn dato på formen 'YYYY-MM-DD': ");
 				inputDate = scanner.next();
 				if (isValidDate(inputDate)) {
@@ -100,16 +100,22 @@ public class CalendarIO {
 					System.out.println("Ugyldig dato.");
 				}
 			}
-			dayMenu(inputDate);				
+			dayMenu(inputDate);
 		case 3:
 			GregorianCalendar greg = new GregorianCalendar();
 			System.out.print("Måned: ");
-			int month = scanner.nextInt() - 1;
-			System.out.print("År: ");
-			int year = scanner.nextInt();
-			greg.set(year, month, 1);
-			monthMenu(greg);
-		default :
+			String monthString = scanner.nextLine();
+			try {
+				int month = scanner.nextInt() - 1;
+				System.out.print("År: ");
+				int year = scanner.nextInt();
+				greg.set(year, month, 1);
+				monthMenu(greg);
+			} catch(Exception e){
+				System.out.println("Skjønte ikke input.");
+				mainMenu();
+			}
+		default:
 			System.out.println("Skriv et gyldig valg.");
 			mainMenu();
 		}
@@ -123,7 +129,13 @@ public class CalendarIO {
 		System.out.println("1. Velg event");
 		System.out.println("2. Opprett event");
 		System.out.print("Enter input: ");
-		int choice = scanner.nextInt();
+		int choice = 123;
+		try{
+			choice = scanner.nextInt();
+		} catch (Exception e) {
+			System.out.println("Skjønte ikke input.");
+			dayMenu(date);
+		}
 		switch (choice) {
 		case 1:
 			System.out.print("Skriv inn IDen på eventet du vil se: ");
@@ -150,7 +162,12 @@ public class CalendarIO {
 		System.out.println("2. Slette event");
 		System.out.println("3. Tilbake");
 		System.out.print("Enter input: ");
-		int choice = scanner.nextInt();
+		int choice = 123;
+		try{
+			choice = scanner.nextInt();
+		} catch (Exception e){
+			showEvent(eventID, date);
+		}
 		switch (choice) {
 		case 1:
 			editEvent(eventID);
@@ -174,7 +191,13 @@ public class CalendarIO {
 		System.out.println("4. Endre deltakere");
 		System.out.println("5. Endre Info");
 		System.out.println("123 for å gå til hovedmenyen.");
-		int input = scanner.nextInt();
+		int input = 123;
+		try{
+			input = scanner.nextInt();
+		} catch (Exception e){
+			System.out.println("Skjønte ikke input.");
+			mainMenu();
+		}
 		switch (input) {
 		case 1:
 			System.out.print("Skriv inn nytt navn: ");
@@ -307,7 +330,7 @@ public class CalendarIO {
 		}
 
 		SQLString = "'" + year + "-" + stringMonth + "-" + stringDay + " "
-				+ hour + ":" + min + ":" + sec + "'";
+				+ stringHour + ":" + min + ":" + sec + "'";
 
 		return SQLString;
 	}
