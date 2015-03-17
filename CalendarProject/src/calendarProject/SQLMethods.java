@@ -86,7 +86,9 @@ public class SQLMethods {
 		Event event = new Event("Foo", "Faa", "Bar", "Bas");
 		DBConnection conn = new DBConnection();
 		String query = "SELECT * FROM calendardb.events WHERE eventID = " + eventID;
+		String query2 = "SELECT userID FROM calendardb.calendars WHERE calendarID IN (SELECT calendarID FROM calendardb.calendarevents WHERE eventID = " + eventID;
 		ResultSet rs = conn.executeQuery(query);
+		ResultSet rs2 = conn.executeQuery(query2);
 		try {
 			while (rs.next()) {
 				String name = rs.getString("event_Name");
@@ -94,6 +96,11 @@ public class SQLMethods {
 				String end_datetime = rs.getString("end_datetime");
 				String description = rs.getString("description");
 				event = new Event(name, start_datetime, end_datetime, description);
+			} while (rs2.next()) {
+				ArrayList<Integer> userIDs = new ArrayList<Integer>();
+				int userID = rs2.getInt("userID");
+				userIDs.add(userID);
+				event.inviteUsers(userIDs);
 			}
 		} catch (SQLException e) {
 			System.out.println("db problems");
@@ -167,6 +174,7 @@ public class SQLMethods {
 		conn.close();
 		return roomID;
 	}
+	
 	
 	public ArrayList<Integer> findRoomList() {
 		//Denne må bygges ferdig.
@@ -356,4 +364,10 @@ public class SQLMethods {
 		conn.close();
 		return user;
 	}
+	
+	//Varsler metoder
+	
+	//createNotification
+	
+	//getNotifications(user id)
 }

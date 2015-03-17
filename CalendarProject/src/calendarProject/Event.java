@@ -1,6 +1,7 @@
 package calendarProject;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class Event {
 
@@ -10,6 +11,8 @@ public class Event {
 
 	private int roomID;
 
+	private Set<Integer> invitedID;
+	
 	private ArrayList<User> invited;
 
 	public Event(String name, String startDateTime, String endDateTime, String description) {
@@ -18,9 +21,18 @@ public class Event {
 		this.endDateTime = endDateTime;
 		this.description = description;
 	}
+	
+	public void inviteUsers(ArrayList<Integer> userIDs) {
+		for (int userID : userIDs) {
+			invitedID.add(userID);
+		}
+	}
+	
+	public void inviteUser(int userID) {
+		invitedID.add(userID);
+	}
 
-
-
+/*
 	public void inviteUsers(ArrayList<Integer> userIDs) {
 		invited = new ArrayList<User>();
 		SQLMethods sqlm = new SQLMethods();
@@ -29,14 +41,11 @@ public class Event {
 			invited.add(user);
 		}
 	}
-
+*/
 	public int getID() {
 		return ID;
 	}
 
-	public void setID(int iD) {
-		ID = iD;
-	}
 
 	public String getName() {
 		return name;
@@ -64,11 +73,6 @@ public class Event {
 
 	public int getRoom() {
 		return roomID;
-	}
-
-	public void setRoomID() {
-		int roomID = 0;
-		this.roomID = roomID;
 	}
 
 	public String getEndDateTime() {
