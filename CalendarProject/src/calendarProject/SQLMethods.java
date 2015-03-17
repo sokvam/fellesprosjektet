@@ -220,7 +220,7 @@ public class SQLMethods {
 		int calendarID = 0; 
 		try {
 			while(rs2.next()){
-				calendarID = rs.getInt("calendarID");
+				calendarID = rs2.getInt("calendarID");
 			}
 		} catch (SQLException e) {
 			System.out.println("db problems2");
@@ -299,7 +299,7 @@ public class SQLMethods {
 	public ArrayList<Integer> getEventsFromCalendar(int calendarID) {
 		ArrayList<Integer> eventID_list = new ArrayList<Integer>();
 		DBConnection conn = new DBConnection();
-		String query = "Select eventID from calendars.calendarevent where calendarID = " + calendarID;
+		String query = "Select eventID from calendardb.calendarevent where calendarID = " + calendarID;
 		ResultSet rs = conn.executeQuery(query);
 		try {
 			while(rs.next()){

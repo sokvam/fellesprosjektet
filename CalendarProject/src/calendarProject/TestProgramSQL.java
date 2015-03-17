@@ -11,13 +11,7 @@ public class TestProgramSQL {
 	}
 	
 	public void run(){
-		ArrayList<Integer> users = new ArrayList<>();
-		users.add(7);
-		users.add(9);
-		users.add(3);
-		
-		sqlm.newUser("test@delete.no", "passord", "navn navn", 12341223);
-		//problemer med calendarID
+
 	}
 	
 	public static void main(String[] args) {
@@ -32,9 +26,13 @@ public class TestProgramSQL {
 	* createEvent
 	* findRoom
 	* newGroup 
-	* 
-	*
-	*
+	* newUser
+	* checkPassword
+	* getUser(String email, String password)
+	* findUsersInGroup
+	* getEventsFromCalendar
+	* getUserID
+	* getUser(int userID)
 	*/
 
 }
