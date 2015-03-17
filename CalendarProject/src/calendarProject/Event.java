@@ -1,7 +1,6 @@
 package calendarProject;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Event {
 
@@ -68,8 +67,6 @@ public class Event {
 	}
 
 	public void setRoomID() {
-		SQLMethods sqlm = new SQLMethods();
-		//this.roomID = sqlm.setRoomID(this);
 		int roomID = 0;
 		this.roomID = roomID;
 	}

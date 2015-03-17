@@ -2,10 +2,18 @@ package calendarProject;
 
 public class PersonalCalendar extends Calendar {
 	
-	private int userID;
+	private int calendarID;
 	
-	public PersonalCalendar(int userID){
-		this.userID = userID;
+	public PersonalCalendar(int calendarID){
+		this.calendarID = calendarID;
+	}
+
+	public int getCalendarID() {
+		return calendarID;
+	}
+
+	public void setCalendarID(int calendarID) {
+		this.calendarID = calendarID;
 	}
 
 
@@ -18,7 +26,4 @@ public class PersonalCalendar extends Calendar {
 		}
 	}
 	*/
-	public User getOwner() {
-		return this.owner;
-	}
 }
