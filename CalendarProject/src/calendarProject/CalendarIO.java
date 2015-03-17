@@ -37,7 +37,14 @@ public class CalendarIO {
 		System.out.println("1. Opprett ny bruker");
 		System.out.println("2. Logg inn");
 		System.out.print("Enter input: ");
-		int choice = scanner.nextInt();
+		scanner.nextLine();
+		int choice = -1;
+		try{
+			choice = scanner.nextInt();
+		} catch(Exception e){
+			System.out.println("Skjønte ikke input.");
+			start();
+		}
 		if (choice == 1) {
 			createUser();
 		} else if (choice == 2) {
@@ -93,6 +100,9 @@ public class CalendarIO {
 			int year = scanner.nextInt();
 			greg.set(year, month, 1);
 			monthMenu(greg);
+		default :
+			System.out.println("Skriv et gyldig valg.");
+			mainMenu();
 		}
 	}
 
@@ -113,6 +123,9 @@ public class CalendarIO {
 			createEvent(date);
 		case 123:
 			mainMenu();
+		default :
+			System.out.println("Skriv et gyldig valg.");	
+			dayMenu(date);
 		}
 	}
 
@@ -138,6 +151,9 @@ public class CalendarIO {
 			dayMenu(date);
 		case 123:
 			mainMenu();
+		default :
+			System.out.println("Skriv et gyldig valg.");
+			showEvent(eventID, date);
 		}
 	}
 	
@@ -168,8 +184,12 @@ public class CalendarIO {
 		case 4:
 			System.out.println("1. Legg til deltakere:");
 			System.out.println("2. Fjern deltakere");
-			input = scanner.nextInt();
-
+			try{
+				input = scanner.nextInt();
+			} catch(Exception e){
+				System.out.println("Skjønte ikke input.");
+				mainMenu();
+			}
 			String inputemail = "";
 			String participants = "";
 			switch(input) {
@@ -196,6 +216,8 @@ public class CalendarIO {
 			
 			case 123:
 				mainMenu();
+			default:
+				System.out.println("Skriv et gyldig valg.");
 				
 			}
 		case 5:
@@ -207,7 +229,9 @@ public class CalendarIO {
 		
 		case 123:
 			mainMenu();
-			
+		default :
+			System.out.println("Skriv et gyldig valg.");
+			editEvent(eventID);
 		}
 	}
 
