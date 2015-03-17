@@ -94,7 +94,7 @@ public class CalendarIO {
 			while(true){
 				System.out.print("Skriv inn dato på formen 'YYYY-MM-DD': ");
 				inputDate = scanner.next();
-				if (isValidDate(inputdate)) {
+				if (isValidDate(inputDate)) {
 					break;
 				} else {
 					System.out.println("Ugyldig dato.");
@@ -312,6 +312,32 @@ public class CalendarIO {
 		return SQLString;
 	}
 
+	private boolean isValidDate(String date) {
+		try {
+		String fnutt = date.substring(0, 0);
+		String tempyear = date.substring(1, 4);
+		int year = Integer.parseInt(tempyear);
+		
+		String tempmonth = date.substring(6, 7);
+		int month = Integer.parseInt(tempmonth);
+		
+		String tempday = date.substring(9, 10);
+		int day = Integer.parseInt(tempday);
+		
+		String fnutt2 = date.substring(11, 11);
+		
+		if (fnutt == "'" && fnutt2 == "'" && year >= 1900 && year <= 3000 && day >= 1 && day <= 31) {
+			return true;			
+		} else {
+			return false;
+		}
+		} catch(Exception e) {
+			System.out.println("En av verdiene er feil");
+			return false;
+		}
+		
+	}
+	
 	public void createEvent(String date) {
 		scanner.nextLine();
 		System.out.print("Skriv inn navn på eventen: ");
