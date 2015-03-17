@@ -36,27 +36,32 @@ public class SQLMethods {
 	public void updateEvent(int eventID, int updateField, String update) {
 		DBConnection conn = new DBConnection();
 		String query;
+		String description = "";
 		try {
 			switch (updateField) {
 			case 1: // name
 				query = "UPDATE calendardb.events SET name = '" + update
 						+ "' WHERE eventID = " + eventID;
 				conn.executeQuery(query);
+				description = "name";
 				break;
 			case 2: // startDateTimeOperations
 				query = "UPDATE calendardb.events SET startDateTime = '"
 						+ update + "' WHERE eventID = " + eventID;
 				conn.executeQuery(query);
+				description = "startDateTime";
 				break;
 			case 3: // endDateTimeOperations
 				query = "UPDATE calendardb.events SET endDateTime = '" + update
 						+ "' WHERE eventID = " + eventID;
 				conn.executeQuery(query);
+				description = "endDateTime";
 				break;
 			case 4: // description
 				query = "UPDATE calendardb.events SET description = '" + update
 						+ "' WHERE eventID = " + eventID;
 				conn.executeQuery(query);
+				description = "eventdescription"; 
 				break;
 			default:
 				System.out.println("Ingen endring utført.");
@@ -66,6 +71,10 @@ public class SQLMethods {
 			e.printStackTrace();
 		}
 		conn.close();
+		ArrayList<Integer> users = getUsersInEvent(eventID);
+		for(int userID : users){
+			createNotification(eventID, userID, description);
+		}
 		
 	}
 
@@ -406,8 +415,23 @@ public class SQLMethods {
 		return user;
 	}
 
-	public ArrayList<Integer> getUsersInGroup(){
-		
+	public ArrayList<Integer> getUsersInEvent(int eventID){
+		ArrayList<Integer> userIDs = new ArrayList<Integer>();
+		DBConnection conn = new DBConnection();
+		String query = "SELECT userID FROM calendardb.calendars WHERE calendarID IN (SELECT calendarID FROM calendardb.calendarevents WHERE eventID = "
+				+ eventID;
+		ResultSet rs = conn.executeQuery(query);
+		try {
+			while(rs.next()){
+				int userID = rs.getInt("userID");
+				userIDs.add(userID);
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+		}
+		conn.close();
+		return userIDs;
 	}
 	// Varsler metoder
 
