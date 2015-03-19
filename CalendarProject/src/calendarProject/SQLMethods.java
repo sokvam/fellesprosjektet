@@ -478,7 +478,7 @@ public class SQLMethods {
 	
 	public String getNotificationInfo(int notificationID){
 		DBConnection conn = new DBConnection();
-		String query = "select description from calendardv.notifications where notificationID = " + notificationID;
+		String query = "select description from calendardb.notifications where notificationID = " + notificationID;
 		ResultSet rs = conn.executeQuery(query);
 		String description = "";
 		try {
