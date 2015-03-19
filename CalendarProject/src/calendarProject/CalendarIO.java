@@ -6,12 +6,13 @@ import java.util.Calendar;
 
 public class CalendarIO {
 
-	// Denne klassen er i praksis nå brukt som en printer og ikke en komplett
-	// IO. Dette er for å teste muligheten for å lagre div. menyer på ett
+	// Denne klassen er i praksis nï¿½ brukt som en printer og ikke en komplett
+	// IO. Dette er for ï¿½ teste muligheten for ï¿½ lagre div. menyer pï¿½ ett
 	// sted.
 
 	Scanner scanner = new Scanner(System.in);
-	String email, password;
+	//HVA SKJER MED AT VI HAR LAGRET NAVN OG PASSORD HER!?
+	private String email, password;
 	int userID;
 
 	SQLMethods sql = new SQLMethods();
@@ -29,7 +30,7 @@ public class CalendarIO {
 			mainMenu();
 		} else {
 			System.out
-					.println("Brukernavn og passord stemte ikke, prøv på nytt");
+					.println("Brukernavn og passord stemte ikke, prï¿½v pï¿½ nytt");
 			logIn();
 		}
 	}
@@ -42,7 +43,7 @@ public class CalendarIO {
 		try {
 			choice = scanner.nextInt();
 		} catch (Exception e) {
-			System.out.println("Skjønte ikke input.");
+			System.out.println("Skjï¿½nte ikke input.");
 			scanner.nextLine();
 			start();
 		}
@@ -51,7 +52,7 @@ public class CalendarIO {
 		} else if (choice == 2) {
 			logIn();
 		} else {
-			System.out.println("Skjønte ikke input.");
+			System.out.println("Skjï¿½nte ikke input.");
 			start();
 		}
 	}
@@ -60,15 +61,21 @@ public class CalendarIO {
 		scanner.nextLine();
 		System.out.print("Skriv inn din epost: ");
 		email = scanner.nextLine();
-		System.out.print("Skriv inn ønsket passord: ");
+		while(true) {
+		System.out.print("Skriv inn ï¿½nsket passord: ");
 		password = scanner.nextLine();
+		System.out.println("Skriv inn Ã¸nsket passord pÃ¥ nytt: ");
+		String passwordCheck = scanner.nextLine();
+		if (password.equals(passwordCheck)) break;
+		else System.out.println("Passordene stemte ikke overens. PrÃ¸v pÃ¥ nytt.");
+		}
 		System.out.print("Skriv inn ditt fulle navn: ");
 		String name = scanner.nextLine();
 		System.out.print("Skriv inn ditt telefonnummer: ");
 		int tlf = scanner.nextInt();
 		sql.newUser(email, password, name, tlf);
-		System.out.println("Takk, " + name
-				+ "! Du har nå opprettet en ny kalenderbruker.");
+		System.out.print("Takk, " + name
+				+ "! Du har nï¿½ opprettet en ny kalenderbruker.");
 		logIn();
 	}
 
@@ -77,7 +84,8 @@ public class CalendarIO {
 		System.out.println("Dette er hovedmenyen:");
 		System.out.println("1. Vis dagens eventer");
 		System.out.println("2. Vis en bestemt dato");
-		System.out.println("3. Vis en bestemt måned");
+		System.out.println("3. Vis en bestemt mï¿½ned");
+		System.out.println("4. Vis dine notifikasjoner.");
 		System.out.print("Enter input: ");
 		int choice = scanner.nextInt();
 		switch (choice) {
@@ -92,7 +100,7 @@ public class CalendarIO {
 		case 2:
 			String inputDate;
 			while (true) {
-				System.out.print("Skriv inn dato på formen 'YYYY-MM-DD': ");
+				System.out.print("Skriv inn dato pï¿½ formen 'YYYY-MM-DD': ");
 				inputDate = scanner.next();
 				if (isValidDate(inputDate)) {
 					break;
@@ -103,17 +111,23 @@ public class CalendarIO {
 			dayMenu(inputDate);
 		case 3:
 			GregorianCalendar greg = new GregorianCalendar();
-			System.out.print("Måned: ");
+			System.out.print("Mï¿½ned: ");
 			String monthString = scanner.nextLine();
 			try {
 				int month = scanner.nextInt() - 1;
-				System.out.print("År: ");
+				System.out.print("ï¿½r: ");
 				int year = scanner.nextInt();
 				greg.set(year, month, 1);
 				monthMenu(greg);
 			} catch(Exception e){
-				System.out.println("Skjønte ikke input.");
+				System.out.println("Skjï¿½nte ikke input.");
 				mainMenu();
+			}
+		case 4:
+			int userID = sql.getUserID(email);
+			ArrayList<Integer> notificationIDs = sql.getNotifications(userID);
+			for (int notID : notificationIDs) {
+				System.out.println(sql.getNotificationInfo(notID));
 			}
 		default:
 			System.out.println("Skriv et gyldig valg.");
@@ -133,12 +147,12 @@ public class CalendarIO {
 		try{
 			choice = scanner.nextInt();
 		} catch (Exception e) {
-			System.out.println("Skjønte ikke input.");
+			System.out.println("Skjï¿½nte ikke input.");
 			dayMenu(date);
 		}
 		switch (choice) {
 		case 1:
-			System.out.print("Skriv inn IDen på eventet du vil se: ");
+			System.out.print("Skriv inn IDen pï¿½ eventet du vil se: ");
 			int eventID = scanner.nextInt();
 			showEvent(eventID, date);
 		case 2:
@@ -190,12 +204,12 @@ public class CalendarIO {
 		System.out.println("3. Endre slutttid");
 		System.out.println("4. Endre deltakere");
 		System.out.println("5. Endre Info");
-		System.out.println("123 for å gå til hovedmenyen.");
+		System.out.println("123 for ï¿½ gï¿½ til hovedmenyen.");
 		int input = 123;
 		try{
 			input = scanner.nextInt();
 		} catch (Exception e){
-			System.out.println("Skjønte ikke input.");
+			System.out.println("Skjï¿½nte ikke input.");
 			mainMenu();
 		}
 		switch (input) {
@@ -220,7 +234,7 @@ public class CalendarIO {
 			try {
 				input = scanner.nextInt();
 			} catch (Exception e) {
-				System.out.println("Skjønte ikke input.");
+				System.out.println("Skjï¿½nte ikke input.");
 				mainMenu();
 			}
 			String inputemail = "";
@@ -228,7 +242,7 @@ public class CalendarIO {
 			switch (input) {
 			case 1:
 				System.out
-						.println("Skriv inn email til deltakeren, skriv ferdig når du er ferdig: ");
+						.println("Skriv inn email til deltakeren, skriv ferdig nï¿½r du er ferdig: ");
 				inputemail = scanner.next();
 				while (inputemail != "ferdig") {
 					participants = participants + inputemail + ":";
@@ -240,7 +254,7 @@ public class CalendarIO {
 				Event event = sql.getEventInfo(eventID);
 				System.out.println(event.getInvitedString());
 				System.out
-						.println("Skriv inn mailen på de du ønsker å slette, skriv ferdig når du er ferdig: ");
+						.println("Skriv inn mailen pï¿½ de du ï¿½nsker ï¿½ slette, skriv ferdig nï¿½r du er ferdig: ");
 				inputemail = scanner.next();
 				while (inputemail != "ferdig") {
 					participants = participants + inputemail + ":";
@@ -273,8 +287,8 @@ public class CalendarIO {
 	public void monthMenu(GregorianCalendar greg) {
 		printMonth(greg);
 		System.out.println("1. Velg dato");
-		System.out.println("2. Neste måned");
-		System.out.println("3. Forrige måned");
+		System.out.println("2. Neste mï¿½ned");
+		System.out.println("3. Forrige mï¿½ned");
 		System.out.print("Enter input: ");
 		int choice = scanner.nextInt();
 		switch (choice) {
@@ -363,23 +377,23 @@ public class CalendarIO {
 	
 	public void createEvent(String date) {
 		scanner.nextLine();
-		System.out.print("Skriv inn navn på eventen: ");
+		System.out.print("Skriv inn navn pï¿½ eventen: ");
 		String name = scanner.nextLine();
 		System.out
-				.print("Skriv inn tidspunkt for eventen på formen yyyy-mm-dd hh:mm:ss: ");
+				.print("Skriv inn tidspunkt for eventen pï¿½ formen yyyy-mm-dd hh:mm:ss: ");
 		String starttime = "'" + scanner.nextLine() + "'";
 		System.out.print("Skriv inn sluttid: ");
 		String endtime = "'" + scanner.nextLine() + "'";
 		System.out.print("Skriv inn informasjon om eventen, maks 150 tegn: ");
 		String info = scanner.nextLine();
-		System.out.print("Skriv inn minimum romstørelse: ");
+		System.out.print("Skriv inn minimum romstï¿½relse: ");
 		int size = scanner.nextInt();
-		System.out.print("Ønsker du å innvitere brukere? Ja/nei: ");
+		System.out.print("ï¿½nsker du ï¿½ innvitere brukere? Ja/nei: ");
 		String answer = scanner.next().toLowerCase();
 		ArrayList<Integer> invites = new ArrayList<Integer>();
 		if (answer == "ja") {
 			System.out
-					.println("Skriv inn email til brukere skriv ferdig når du ikke vil invitere flere: ");
+					.println("Skriv inn email til brukere skriv ferdig nï¿½r du ikke vil invitere flere: ");
 			String inputemail = scanner.next();
 			while (inputemail != "ferdig") {
 				int inviteID = sql.getUserID(inputemail);
@@ -388,7 +402,7 @@ public class CalendarIO {
 			}
 		}
 		sql.createEvent(invites, starttime, endtime, info, size, userID, name);
-		System.out.println("Eventet er nå opprettet");
+		System.out.println("Eventet er nï¿½ opprettet");
 		dayMenu(date);
 	}
 
@@ -397,19 +411,19 @@ public class CalendarIO {
 		int currentYear = cal.get(Calendar.YEAR);
 		int currentMonth = cal.get(Calendar.MONTH);
 		String monthString = new SimpleDateFormat("MMMMMMMMM").format(cal
-				.getTime()); // måneden som en string
+				.getTime()); // mï¿½neden som en string
 		int i = 0;
 
 		System.out.println();
 		System.out.println("\t\t\t" + monthString + " " + currentYear);
 		System.out.println();
-		System.out.println("\tman\ttir\tons\ttor\tfre\tlør\tsøn");
+		System.out.println("\tman\ttir\tons\ttor\tfre\tlï¿½r\tsï¿½n");
 
 		boolean monthHasStarted = false;
 
-		while (cal.get(Calendar.MONTH) == currentMonth) { // så lenge det ikke
+		while (cal.get(Calendar.MONTH) == currentMonth) { // sï¿½ lenge det ikke
 															// har blitt neste
-															// måned
+															// mï¿½ned
 			if (i < ((cal.get(GregorianCalendar.DAY_OF_WEEK) + 5) % 7)
 					&& !monthHasStarted) {
 				System.out.print("\t");
@@ -422,14 +436,14 @@ public class CalendarIO {
 					System.out.print("*");
 				}
 
-				if (cal.get(Calendar.DAY_OF_WEEK) == 1) { // Hvis søndag:
+				if (cal.get(Calendar.DAY_OF_WEEK) == 1) { // Hvis sï¿½ndag:
 															// Linjeskift
 					System.out.println("");
 				}
-				cal.set(currentYear, currentMonth, cal.get(Calendar.DATE) + 1); // øk
+				cal.set(currentYear, currentMonth, cal.get(Calendar.DATE) + 1); // ï¿½k
 																				// dato
 																				// med
-																				// én
+																				// ï¿½n
 			}
 		}
 		System.out.println("");
@@ -440,29 +454,29 @@ public class CalendarIO {
 	}
 
 	// ________________________
-	// gammel kode: Input kan være hvilken som helst dag i måneden.
+	// gammel kode: Input kan vï¿½re hvilken som helst dag i mï¿½neden.
 	/*
 	 * 
 	 * int year = cal.get(Calendar.YEAR);
 	 * 
 	 * int daysInMonth = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
-	 * // antall // dager // i // måneden String monthString = new
-	 * SimpleDateFormat("MMMMMMMMM").format(cal .getTime()); // måneden som en
+	 * // antall // dager // i // mï¿½neden String monthString = new
+	 * SimpleDateFormat("MMMMMMMMM").format(cal .getTime()); // mï¿½neden som en
 	 * string int dayNumberInMonth = cal.get(GregorianCalendar.DAY_OF_MONTH); //
 	 * 1-indeksert int dayNumberInWeek = (cal.get(GregorianCalendar.DAY_OF_WEEK)
 	 * + 6) % 7; // 0-indeksert, // starter // mandag int firstDayOfMonth = ((7
-	 * - (dayNumberInMonth % 7)) + dayNumberInWeek) % 7;// første // ukedagen //
-	 * i // måneden, // nullindeksert (0 er mandag, 1 er tirsdag, ..., 6 er
-	 * søndag System.out.println(); System.out.println("\t\t\t" + monthString +
+	 * - (dayNumberInMonth % 7)) + dayNumberInWeek) % 7;// fï¿½rste // ukedagen //
+	 * i // mï¿½neden, // nullindeksert (0 er mandag, 1 er tirsdag, ..., 6 er
+	 * sï¿½ndag System.out.println(); System.out.println("\t\t\t" + monthString +
 	 * " " + year); System.out.println();
-	 * System.out.println("\tman\ttir\tons\ttor\tfre\tlør\tsøn"); int dayCount =
+	 * System.out.println("\tman\ttir\tons\ttor\tfre\tlï¿½r\tsï¿½n"); int dayCount =
 	 * 1; int i = 0; int currentWeekday = firstDayOfMonth; boolean run = true;
-	 * while (run) { if (i < firstDayOfMonth) { // Hvis ikke måneden har begynt
+	 * while (run) { if (i < firstDayOfMonth) { // Hvis ikke mï¿½neden har begynt
 	 * enda, // print tomme felter System.out.print("\t"); i++; } else if
 	 * (dayCount <= daysInMonth) { System.out.print("\t" + dayCount); if
 	 * (dayCount % 32 == 0) { // FYLL INN: Hvis dagen har en avtale
 	 * System.out.print("*"); } dayCount++; if (currentWeekday == 6) { // Hvis
-	 * søndag: Linjeskift System.out.println(""); } currentWeekday =
+	 * sï¿½ndag: Linjeskift System.out.println(""); } currentWeekday =
 	 * (currentWeekday + 1) % 7; // Oppdater ukedag } else { run = false; } }
 	 * System.out.println("");
 	 */

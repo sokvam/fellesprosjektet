@@ -1,16 +1,16 @@
 package calendarProject;
 
-import java.util.*;
+//import java.util.*;
 
 public class CalendarProgram {
 
 	//Database instansering
-	Scanner scanner;
+	//Scanner scanner;
 	CalendarIO io;
 	
 	private void init() {
 		io = new CalendarIO();
-		scanner = new Scanner(System.in);
+		//scanner = new Scanner(System.in);
 	}
 	
 	private void run() {
