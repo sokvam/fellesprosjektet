@@ -391,11 +391,10 @@ public class CalendarIO {
 		System.out.print("�nsker du � innvitere brukere? Ja/nei: ");
 		String answer = scanner.next().toLowerCase();
 		ArrayList<Integer> invites = new ArrayList<Integer>();
-		if (answer == "ja") {
-			System.out
-					.println("Skriv inn email til brukere skriv ferdig n�r du ikke vil invitere flere: ");
+		if (answer.equalsIgnoreCase("ja") || answer.equalsIgnoreCase("yes") || answer.equals("1")) {
+			System.out.println("Skriv inn email til brukere skriv \"ferdig\" n�r du ikke vil invitere flere: ");
 			String inputemail = scanner.next();
-			while (inputemail != "ferdig") {
+			while (!inputemail.equalsIgnoreCase("ferdig")) {
 				int inviteID = sql.getUserID(inputemail);
 				invites.add(inviteID);
 				inputemail = scanner.next();
