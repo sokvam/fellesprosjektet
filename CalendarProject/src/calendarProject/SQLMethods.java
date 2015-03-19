@@ -542,7 +542,7 @@ public class SQLMethods {
 			System.out.println("sql error");
 			e.printStackTrace();
 		}
-		String sql2 = "delete from calendardb.calendarevents where eventID = " + eventID + " and userID = " + userID;
+		String sql2 = "delete from calendardb.calendarevents where eventID = " + eventID + " and calendarID in (select calendarID from calendars where userID = " + userID;
 		conn.executeUpdate(sql2);
 		conn.close();
 	}
