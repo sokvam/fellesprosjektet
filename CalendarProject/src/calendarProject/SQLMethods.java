@@ -3,7 +3,6 @@ package calendarProject;
 import java.sql.*;
 import java.util.*;
 
-import javax.management.Notification;
 
 public class SQLMethods {
 
