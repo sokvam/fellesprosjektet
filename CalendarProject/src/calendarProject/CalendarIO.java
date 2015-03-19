@@ -244,7 +244,7 @@ public class CalendarIO {
 				System.out
 						.println("Skriv inn email til deltakeren, skriv ferdig n�r du er ferdig: ");
 				inputemail = scanner.next();
-				while (inputemail != "ferdig") {
+				while (inputemail.equalsIgnoreCase("ferdig")) {
 					participants = participants + inputemail + ":";
 					inputemail = scanner.next();
 				}
@@ -256,7 +256,7 @@ public class CalendarIO {
 				System.out
 						.println("Skriv inn mailen p� de du �nsker � slette, skriv ferdig n�r du er ferdig: ");
 				inputemail = scanner.next();
-				while (inputemail != "ferdig") {
+				while (inputemail.equalsIgnoreCase("ferdig")) {
 					participants = participants + inputemail + ":";
 					inputemail = scanner.next();
 				}
