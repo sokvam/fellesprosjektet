@@ -363,7 +363,7 @@ public class CalendarIO {
 		
 		String fnutt2 = date.substring(11, 11);
 		
-		if (fnutt == "'" && fnutt2 == "'" && year >= 1900 && year <= 3000 && day >= 1 && day <= 31) {
+		if (fnutt.equals("'") && fnutt2.equals("'") && year >= 1900 && year <= 3000 && day >= 1 && day <= 31) {
 			return true;			
 		} else {
 			return false;
