@@ -434,6 +434,10 @@ public class CalendarIO {
 		}
 		System.out.println("");
 	}
+	
+	public void notification(){
+		
+	}
 
 	// ________________________
 	// gammel kode: Input kan være hvilken som helst dag i måneden.

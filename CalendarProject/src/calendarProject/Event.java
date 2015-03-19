@@ -71,6 +71,10 @@ public class Event {
 		this.startDateTime = startDateTime;
 	}
 
+	public void setRoomID(int roomID) {
+		this.roomID = roomID;
+	}
+	
 	public int getRoom() {
 		return roomID;
 	}

@@ -175,6 +175,8 @@ public class SQLMethods {
 			String query2 = "Select calendarID from calendardb.users where userID = "
 					+ id;
 			ResultSet rs2 = conn.executeQuery(query2);
+			createNotification(eventID, id, "'new event'");
+			
 			try {
 				while (rs2.next()) {
 					int calendarID = rs2.getInt("calendarID");
@@ -474,4 +476,75 @@ public class SQLMethods {
 		return result;
 	}
 	
-}
+	public String getNotificationInfo(int notificationID){
+		DBConnection conn = new DBConnection();
+		String query = "select description from calendardv.notifications where notificationID = " + notificationID;
+		ResultSet rs = conn.executeQuery(query);
+		String description = "";
+		try {
+			while (rs.next()){
+				description = rs.getString("description");
+			}
+		} catch (SQLException e) {
+			System.out.println("sqlprob");
+			e.printStackTrace();
+		}
+		
+		String query2 = "select * from calendardb.events where eventID in (select eventID from calendardb.notifications where notificationID = " + notificationID + ")";
+		ResultSet rs2 = conn.executeQuery(query2);
+		Event event = new Event("","","","");
+		try {
+			while (rs2.next()){
+				String name = rs2.getString("event_name");
+				String startDateTime = rs2.getString("start_datetime");
+				String endDateTime = rs2.getString("end_datetime");
+				String eventDescription = rs2.getString("description");
+				int roomID = rs2.getInt("roomID");
+				event.setName(name);
+				event.setStartDateTime(startDateTime);
+				event.setEndDateTime(endDateTime);
+				event.setDescription(eventDescription);
+				event.setRoomID(roomID);
+			}
+		} catch (SQLException e) {
+			System.out.println("sqlerror");
+			e.printStackTrace();
+		}
+		conn.close();
+		switch(description){
+		case "new event": 
+			return "You have been Invited to " + event.getName() + ".\n The event is in room: " + event.getRoom() + ".\n The event starts at: " + event.getStartDateTime() + 
+				" and lasts untill: " + event.getEndDateTime() + ".\n Extra info: " + event.getDescription();
+		case "new time":
+			return "the event " + event.getName() + " has changed time.\n It now starts at: " + event.getStartDateTime()  + " and lasts untill: " + event.getEndDateTime() + ".";
+		case "new room":
+			return "the event " + event.getName() + " has changed room. It is now in room " + event.getRoom();
+		default:
+			return "Sorry, no changes have been made. My mistake!";
+		}
+		
+	}
+	
+	public void declineNotification(int notificationID){
+		DBConnection conn = new DBConnection();
+		String query = "select * from calendardb.notifications where notificationID = " + notificationID;
+		String sql = "delete from calendardb.notifications where notificationID = " + notificationID;
+		ResultSet rs = conn.executeQuery(query);
+		conn.executeUpdate(sql);
+		int eventID = -1;
+		int userID = -1;
+		try {
+			while(rs.next()){
+				eventID = rs.getInt("eventID");
+				userID = rs.getInt("userID");
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+		}
+		String sql2 = "delete from calendardb.calendarevents where eventID = " + eventID + " and userID = " + userID;
+		conn.executeUpdate(sql2);
+		conn.close();
+	}
+} 
+
