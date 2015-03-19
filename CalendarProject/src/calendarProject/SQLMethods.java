@@ -44,19 +44,19 @@ public class SQLMethods {
 				query = "UPDATE calendardb.events SET name = '" + update
 						+ "' WHERE eventID = " + eventID;
 				conn.executeQuery(query);
-				description = "name";
+				description = "new name";
 				break;
 			case 2: // startDateTimeOperations
 				query = "UPDATE calendardb.events SET startDateTime = '"
 						+ update + "' WHERE eventID = " + eventID;
 				conn.executeQuery(query);
-				description = "startDateTime";
+				description = "new time";
 				break;
 			case 3: // endDateTimeOperations
 				query = "UPDATE calendardb.events SET endDateTime = '" + update
 						+ "' WHERE eventID = " + eventID;
 				conn.executeQuery(query);
-				description = "endDateTime";
+				description = "new time";
 				break;
 			case 4: // description
 				query = "UPDATE calendardb.events SET description = '" + update
