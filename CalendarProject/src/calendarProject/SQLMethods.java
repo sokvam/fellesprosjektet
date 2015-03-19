@@ -41,31 +41,33 @@ public class SQLMethods {
 		try {
 			switch (updateField) {
 			case 1: // name
-				query = "UPDATE calendardb.events SET name = '" + update
+				query = "UPDATE calendardb.events SET event_name = '" + update
 						+ "' WHERE eventID = " + eventID;
-				conn.executeQuery(query);
+				conn.executeUpdate(query);
 				description = "new name";
 				break;
 			case 2: // startDateTimeOperations
 				query = "UPDATE calendardb.events SET startDateTime = '"
 						+ update + "' WHERE eventID = " + eventID;
-				conn.executeQuery(query);
+				conn.executeUpdate(query);
 				description = "new time";
 				break;
 			case 3: // endDateTimeOperations
 				query = "UPDATE calendardb.events SET endDateTime = '" + update
 						+ "' WHERE eventID = " + eventID;
-				conn.executeQuery(query);
+				conn.executeUpdate(query);
 				description = "new time";
 				break;
-			case 4: // description
+			case 4: 
+				System.out.println("Skulle du tenkt på tidligere!");
+			case 5: // description
 				query = "UPDATE calendardb.events SET description = '" + update
 						+ "' WHERE eventID = " + eventID;
-				conn.executeQuery(query);
+				conn.executeUpdate(query);
 				description = "new description"; 
 				break;
 			default:
-				System.out.println("Ingen endring utfÃ¸rt.");
+				System.out.println("Ingen endring utført.");
 			}
 		} catch (Exception e) {
 			System.out.println("DB problem");
@@ -82,10 +84,12 @@ public class SQLMethods {
 	public ArrayList<Integer> getEventsForDate(String date, int userID) {
 		ArrayList<Integer> events = new ArrayList<Integer>();
 		DBConnection conn = new DBConnection();
-		String query = "SELECT eventID FROM calendardb.events WHERE (DATE("
+		String query = "SELECT events.eventID FROM calendardb.events "
+				+ "INNER JOIN calendardb.calendarevents ON calendarevents.eventID = events.eventID "
+				+ "WHERE (DATE("
 				+ date + ") = DATE(start_DateTime) OR " + "(DATE(" + date
 				+ ") > DATE(start_DateTime) AND DATE(" + date
-				+ ") <= DATE(end_DateTime))) AND userID = " + userID;
+				+ ") <= DATE(end_DateTime))) AND calendarid in (SELECT calendarID FROM calendardb.users WHERE userID = " + userID + ")";
 		ResultSet rs = conn.executeQuery(query);
 		try {
 			while (rs.next()) {
@@ -106,9 +110,9 @@ public class SQLMethods {
 		String query = "SELECT * FROM calendardb.events WHERE eventID = "
 				+ eventID;
 		String query2 = "SELECT userID FROM calendardb.calendars WHERE calendarID IN (SELECT calendarID FROM calendardb.calendarevents WHERE eventID = "
-				+ eventID;
+				+ eventID + ")";
 		ResultSet rs = conn.executeQuery(query);
-		ResultSet rs2 = conn.executeQuery(query2);
+		ArrayList<Integer> userIDs = new ArrayList<Integer>();
 		try {
 			while (rs.next()) {
 				String name = rs.getString("event_Name");
@@ -118,17 +122,24 @@ public class SQLMethods {
 				event = new Event(name, start_datetime, end_datetime,
 						description);
 			}
-			while (rs2.next()) {
-				ArrayList<Integer> userIDs = new ArrayList<Integer>();
-				int userID = rs2.getInt("userID");
-				userIDs.add(userID);
-				event.initiateUsers(userIDs);
-			}
 		} catch (SQLException e) {
 			System.out.println("db problems");
 			e.printStackTrace();
 		}
 		conn.close();
+		DBConnection conn2 = new DBConnection();
+		ResultSet rs2 = conn2.executeQuery(query2);
+		try {
+			while (rs2.next()) {
+				int userID = rs2.getInt("userID");
+				userIDs.add(userID);
+			}
+		} catch (SQLException e) {
+			System.out.println("sqlprob");
+			e.printStackTrace();
+		}
+		event.initiateUsers(userIDs);
+		conn2.close();
 		return event;
 	}
 
@@ -423,7 +434,7 @@ public class SQLMethods {
 		ArrayList<Integer> userIDs = new ArrayList<Integer>();
 		DBConnection conn = new DBConnection();
 		String query = "SELECT userID FROM calendardb.calendars WHERE calendarID IN (SELECT calendarID FROM calendardb.calendarevents WHERE eventID = "
-				+ eventID;
+				+ eventID + ")";
 		ResultSet rs = conn.executeQuery(query);
 		try {
 			while(rs.next()){

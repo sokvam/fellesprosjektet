@@ -110,9 +110,11 @@ public class CalendarIO {
 			String monthString = scanner.nextLine();
 			try {
 				int month = scanner.nextInt() - 1;
-				System.out.print("år: ");
+				System.out.print("År: ");
 				int year = scanner.nextInt();
 				greg.set(year, month, 1);
+				System.out.println("år: " + year + "måned: " + month + " ");
+				System.out.println(greg.getTime());
 				monthMenu(greg);
 			} catch(Exception e){
 				System.out.println("Skjønte ikke input.");
@@ -216,6 +218,7 @@ public class CalendarIO {
 			System.out.print("Skriv inn nytt navn: ");
 			String newname = scanner.next();
 			sql.updateEvent(eventID, 1, newname);
+			System.out.println("Navn endret til " + newname + ".");
 			editEvent(eventID);
 		case 2:
 			System.out.print("Skriv inn nytt starttidspunkt: ");
@@ -285,6 +288,7 @@ public class CalendarIO {
 
 	public void monthMenu(GregorianCalendar greg) {
 		printMonth(greg);
+		System.out.println("");
 		System.out.println("1. Velg dato");
 		System.out.println("2. Neste måned");
 		System.out.println("3. Forrige måned");
@@ -323,6 +327,8 @@ public class CalendarIO {
 		String stringDay;
 		String stringMonth;
 		String stringHour;
+		String stringMin;
+		String stringSec;
 
 		if (day < 10) {
 			stringDay = "0" + day;
@@ -341,9 +347,21 @@ public class CalendarIO {
 		} else {
 			stringHour = "" + hour;
 		}
+		
+		if(min < 10){
+			stringMin = "0" + min;
+		} else {
+			stringMin = "" + min;
+		}
+		
+		if (sec < 10){
+			stringSec = "0" + sec;
+		} else {
+			stringSec = "" + sec;
+		}
 
 		SQLString = "'" + year + "-" + stringMonth + "-" + stringDay + " "
-				+ stringHour + ":" + min + ":" + sec + "'";
+				+ stringHour + ":" + stringMin + ":" + stringSec + "'";
 
 		return SQLString;
 	}
@@ -444,6 +462,7 @@ public class CalendarIO {
 																				// ï¿½n
 			}
 		}
+		cal.set(currentYear, currentMonth, 1);
 		System.out.println("");
 	}
 	

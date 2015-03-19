@@ -36,7 +36,7 @@ public class DBConnection {
 			stmt.close();
 			conn.close();
 		} catch (SQLException e) {
-			System.out.println("SQL problemts");
+			System.out.println("SQL problems closing database");
 			e.printStackTrace();
 		}
 	}
@@ -47,7 +47,7 @@ public class DBConnection {
 			ResultSet rs = stmt.executeQuery(sql);
 			return rs;
 		} catch (SQLException e) {
-			System.out.println("SQL problems");
+			System.out.println("SQL problems searching through database");
 			e.printStackTrace();
 		}
 		return null;
@@ -58,7 +58,7 @@ public class DBConnection {
 			stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 		} catch (SQLException e) {
-			System.out.println("SQL problems");
+			System.out.println("SQL problems updating database");
 			e.printStackTrace();
 		}
 	}
