@@ -27,6 +27,8 @@ public class CalendarIO {
 
 		if (sql.checkPassword(email, password)) {
 			userID = sql.getUserID(email);
+			this.email = email;
+			this.password = password;
 			mainMenu();
 		} else {
 			System.out
@@ -117,10 +119,14 @@ public class CalendarIO {
 				mainMenu();
 			}
 		case 4:
-			int userID = sql.getUserID(email);
 			ArrayList<Integer> notificationIDs = sql.getNotifications(userID);
 			for (int notID : notificationIDs) {
 				System.out.println(sql.getNotificationInfo(notID));
+				System.out.println("Accept/decline");
+				String response = scanner.nextLine();
+				if (response.equalsIgnoreCase("decline")){
+					sql.declineNotification(notID);
+				}
 			}
 		default:
 			System.out.println("Skriv et gyldig valg.");

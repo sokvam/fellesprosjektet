@@ -62,7 +62,7 @@ public class SQLMethods {
 				query = "UPDATE calendardb.events SET description = '" + update
 						+ "' WHERE eventID = " + eventID;
 				conn.executeQuery(query);
-				description = "eventdescription"; 
+				description = "new description"; 
 				break;
 			default:
 				System.out.println("Ingen endring utført.");
@@ -515,13 +515,13 @@ public class SQLMethods {
 		switch(description){
 		case "new event": 
 			return "You have been Invited to " + event.getName() + ".\n The event is in room: " + event.getRoom() + ".\n The event starts at: " + event.getStartDateTime() + 
-				" and lasts untill: " + event.getEndDateTime() + ".\n Extra info: " + event.getDescription();
+				" and lasts untill: " + event.getEndDateTime() + ".\n Extra info: " + event.getDescription() + "\n";
 		case "new time":
-			return "the event " + event.getName() + " has changed time.\n It now starts at: " + event.getStartDateTime()  + " and lasts untill: " + event.getEndDateTime() + ".";
-		case "new room":
-			return "the event " + event.getName() + " has changed room. It is now in room " + event.getRoom();
+			return "the event " + event.getName() + " has changed time.\n It now starts at: " + event.getStartDateTime()  + " and lasts untill: " + event.getEndDateTime() + ".\n";
+		case "new description":
+			return "the event " + event.getName() + " has changed it's description: " + event.getDescription() + "\n";
 		default:
-			return "Sorry, no changes have been made. My mistake!";
+			return "Sorry, no changes have been made. My mistake!\n";
 		}
 		
 	}

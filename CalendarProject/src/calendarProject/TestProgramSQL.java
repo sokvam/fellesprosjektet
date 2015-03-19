@@ -11,10 +11,11 @@ public class TestProgramSQL {
 	}
 	
 	public void run(){
-		ArrayList<Integer> invited = new ArrayList<Integer>();
-		invited.add(702);
-		invited.add(703);
-		sqlm.createEvent(invited, "'2015-05-05 03:03:03'" , "'2015-05-05 04:00:00'", "this is a party" , 9, 700, "fezd");
+		ArrayList<Integer> noti = sqlm.getNotifications(702);
+		//for (int i : noti){
+			//System.out.println(i);
+		//}
+		System.out.println(sqlm.getUserID("orjan123@hotmail.com"));
 	}
 	
 	public static void main(String[] args) {
