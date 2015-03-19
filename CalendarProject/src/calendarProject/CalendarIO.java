@@ -84,7 +84,7 @@ public class CalendarIO {
 		System.out.println("Dette er hovedmenyen:");
 		System.out.println("1. Vis dagens eventer");
 		System.out.println("2. Vis en bestemt dato");
-		System.out.println("3. Vis en bestemt mï¿½ned");
+		System.out.println("3. Vis en bestemt måned");
 		System.out.println("4. Vis dine notifikasjoner.");
 		System.out.print("Enter input: ");
 		int choice = scanner.nextInt();
@@ -409,7 +409,7 @@ public class CalendarIO {
 		System.out.println();
 		System.out.println("\t\t\t" + monthString + " " + currentYear);
 		System.out.println();
-		System.out.println("\tman\ttir\tons\ttor\tfre\tlær\tsøn");
+		System.out.println("\tman\ttir\tons\ttor\tfre\tlør\tsøn");
 
 		boolean monthHasStarted = false;
 
