@@ -175,7 +175,6 @@ public class SQLMethods {
 			String query2 = "Select calendarID from calendardb.users where userID = "
 					+ id;
 			ResultSet rs2 = conn.executeQuery(query2);
-			createNotification(eventID, id, "'new event'");
 			
 			try {
 				while (rs2.next()) {
@@ -190,6 +189,9 @@ public class SQLMethods {
 			}
 		}
 		conn.close();
+		for (int id : invited_userIDs){
+		createNotification(eventID, id, "new event");
+		}
 	}
 
 	public int findRoom(int size, String start_datetime, String end_datetime) {
@@ -201,7 +203,6 @@ public class SQLMethods {
 				+ ") AND size >= "
 				+ size
 				+ " GROUP BY roomID ORDER BY size Asc limit 1";
-		System.out.println(query);
 		ResultSet rs = conn.executeQuery(query);
 		int roomID = -1;
 		try {

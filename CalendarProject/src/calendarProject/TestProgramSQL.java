@@ -11,7 +11,10 @@ public class TestProgramSQL {
 	}
 	
 	public void run(){
-
+		ArrayList<Integer> invited = new ArrayList<Integer>();
+		invited.add(702);
+		invited.add(703);
+		sqlm.createEvent(invited, "'2015-05-05 03:03:03'" , "'2015-05-05 04:00:00'", "this is a party" , 9, 700, "fezd");
 	}
 	
 	public static void main(String[] args) {
@@ -33,6 +36,7 @@ public class TestProgramSQL {
 	* getEventsFromCalendar
 	* getUserID
 	* getUser(int userID)
+	* creatNotification
 	*/
 
 }
